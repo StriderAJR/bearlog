@@ -34,8 +34,9 @@ body {
   font-family: "RobotoRegular";
 }
 .header {
-  background: url(../img/header-bg.png);
-  height: 700px;
+  background-image: url(../img/header-bg.png);
+  background-color: #000;
+  /*min-height: 700px;*/
 }
 .navbar.navbar-default {
   background: rgba(0, 0, 0, 0.7);
@@ -67,7 +68,13 @@ body {
   text-align: center;
   font-size: 40px;
   font-family: "RobotoBold";
-  margin-bottom: 40px;
+  margin-bottom: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .main-header {
+    font-size: 30px;
+  }  
 }
 .btn-sign-up {
   background: #90a900;
@@ -75,7 +82,7 @@ body {
   padding-top: 4px;
   padding-left: 40px;
   padding-right: 40px;
-  font-size: 20px;
+  font-size: 17px;
   font-family: "RobotoLight";
   outline: none !important;
   box-shadow: none !important;

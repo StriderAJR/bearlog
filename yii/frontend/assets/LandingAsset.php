@@ -14,11 +14,12 @@ class LandingAsset extends AssetBundle
 
     public $css = [
         'css/landing.css',
+        'css/countdown.css',
     ];
 
     public $js = [
         'js/landing.js',
-
+        'js/countdown.js',
     ];
 
     public $depends = [

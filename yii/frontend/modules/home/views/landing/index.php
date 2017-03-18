@@ -3,12 +3,12 @@
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+       <!--  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button>
+        </button> -->
         <a class="navbar-brand" href="#">
           <img src="img/logo.png" alt="">
         </a>
@@ -37,10 +37,18 @@
   </h1>
 
   <div class="sub-header fade-slow">
-    Possimus reprehenderit quos, itaque, nostrum distinctio, nemo hic quibusdam sint odit dolorum numquam, repellat voluptate.
+    <p>До открытия сервиса осталось:</p>
+    <br>
+    <div class="countdown">
+      <ul>
+        <li class="chart" data-percent="30"><span>500</span>Лет</li>
+        <li class="chart" data-percent="68"><span>100</span>Дней</li>
+        <li class="chart" data-percent="73"><span>7</span>Часов</li>
+      </ul>
+    </div>
   </div>
 
   <div class="text-center fade-slow">
-    <button class="btn btn-sign-up">Войти</button>
+    <a href="mailto:alexander.a.kirsanov@gmail.com" class="btn btn-sign-up">Отправить заявку</a>
   </div>
 </div>
