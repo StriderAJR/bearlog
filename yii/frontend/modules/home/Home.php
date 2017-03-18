@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\bot;
+namespace app\modules\Home;
 
-class Bot extends \yii\base\Module
+class Home extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\bot\controllers';
+    public $controllerNamespace = 'app\modules\home\controllers';
 
     public function init()
     {

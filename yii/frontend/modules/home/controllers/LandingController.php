@@ -4,7 +4,7 @@ namespace app\modules\home\controllers;
 use yii\web\Controller;
 use Yii;
 
-class HomeController extends Controller 
+class LandingController extends Controller 
 {
 	public function behaviors()
     {
@@ -28,6 +28,7 @@ class HomeController extends Controller
     public function init()
     {
         parent::init();
+        $this->layout = 'landing';
     }
     
     public function actionIndex()

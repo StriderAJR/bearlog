@@ -7,18 +7,24 @@ use yii\web\AssetBundle;
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class LandingAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+
     public $css = [
-        'css/site.css',
+        'css/landing.css',
     ];
+
     public $js = [
-        
+        'js/landing.js',
+
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+        // 'frontend\assets\BowerAsset',
     ];
 }
