@@ -158,3 +158,28 @@
     </div>
   </div>
 </div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <a href="#" class="footer-link">Преимущества</a>
+        <a href="#" class="footer-link">Портфолио</a>
+        <a href="#" class="footer-link">Как стать участником</a>
+        <a href="#" class="footer-link">Контакты</a>
+      </div>
+      <div class="col-sm-4">
+        <a href="#" class="footer-link">О сайте</a>
+        <a href="#" class="footer-link">Создатели</a>
+      </div>
+      <div class="col-sm-5 text-right ">
+        <a href="#" class="footer-logo">
+          <img src="img/logo.png" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="copiryght">
+  © Все права защищены!
+</div>
