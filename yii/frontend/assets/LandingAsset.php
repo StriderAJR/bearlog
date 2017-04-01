@@ -13,8 +13,9 @@ class LandingAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
+        'css/bootstrap.min.css',
         'css/landing.css',
-        'css/countdown.css',
+        'css/landing.less',
     ];
 
     public $js = [
@@ -24,7 +25,7 @@ class LandingAsset extends AssetBundle
 
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        // 'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         // 'frontend\assets\BowerAsset',
     ];
