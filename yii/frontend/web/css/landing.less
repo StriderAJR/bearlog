@@ -163,6 +163,18 @@ a.grey-link {
 
 .navbar-default {
   background-color: rgba(62, 63, 58, 0.9);
+  -webkit-transition:  background 0.3s ease;
+  -moz-transition:  background 0.3s ease;
+  -o-transition:  background 0.3s ease;
+  transition:  background 0.3s ease;
+
+  &.scrolled {
+    background-color: #3e3f3a;
+    -webkit-transition:  background 0.3s ease;
+    -moz-transition:  background 0.3s ease;
+    -o-transition:  background 0.3s ease;
+    transition:  background 0.3s ease;
+  }
 }
 
 
@@ -176,7 +188,8 @@ a.grey-link {
   padding-top: 180px;
   color: #fff;
   padding-left: 15px;
-    padding-right: 15px;
+  padding-right: 15px;
+  padding-bottom: 100px;
 
   .main-header {
     margin-top: 0px;
@@ -356,7 +369,7 @@ a.grey-link {
 @media screen and (max-width: 733px) {
   .header {
     padding-top: 90px; 
-
+    padding-bottom: 15px;
   }
 
   .header .main-track {
@@ -371,4 +384,8 @@ a.grey-link {
   .header .sub-header {
     font-size: 15px;
   }
+}
+
+.go-to-register {
+  cursor: pointer;
 }

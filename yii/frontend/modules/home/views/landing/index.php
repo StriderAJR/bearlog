@@ -30,7 +30,7 @@
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Логин">
-          <a href="#" class="grey-link font-small navbar-form-link"><span>Зарегистрироваться</span></a>
+          <a class="grey-link font-small navbar-form-link go-to-register"><span>Зарегистрироваться</span></a>
         </div>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Пароль">
