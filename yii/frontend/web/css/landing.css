@@ -126,6 +126,9 @@ a.grey-link:hover span {
 .navbar-collapse.collapse {
   height: 70px !important;
 }
+.navbar-default {
+  background-color: rgba(62, 63, 58, 0.9);
+}
 .header {
   background: url(/img/header-bg-1.png);
   background-repeat: no-repeat;
@@ -133,11 +136,23 @@ a.grey-link:hover span {
   background-position-y: top;
   background-size: cover;
   background-color: #000;
+  padding-top: 180px;
+  color: #fff;
 }
-.navbar-default {
-  background-color: rgba(62, 63, 58, 0.9);
-}
-.main-header {
+.header .main-header {
   margin-top: 0px;
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+.header .main-track {
+  max-width: 150px;
+  opacity: .6;
+  margin-bottom: 20px;
+}
+.header .sub-header {
+  font-size: 20px;
+}
+.header .header-main-info {
+  text-align: center;
 }
 /*# sourceMappingURL=landing.css.map */

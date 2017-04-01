@@ -62,10 +62,13 @@
 
 
 <div class="header">
-  <h1 class="main-header">
-    Добро пожаловать в нашу Берлогу,
-  </h1>
-  <div class="sub-header">
-    инструментальную платформу для переводчиков
+  <div class="header-main-info">
+    <img src="img/track.png" alt="" class="main-track">
+    <h1 class="main-header">
+      Добро пожаловать в нашу Берлогу!
+    </h1>
+    <div class="sub-header">
+      Bearlog - это новая инструментальная платформа <br>для переводчиков.
+    </div>
   </div>
 </div>
