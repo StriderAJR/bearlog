@@ -1,3 +1,5 @@
 $(document).ready(function() {
-	$('.header').css('min-height',window.innerHeight + 'px');
+	$('.fix-to-screen-height').css('min-height',window.innerHeight + 'px');
+	// $.each('.fix-to-screen-height', function(i, elem) {
+	// });
 });
