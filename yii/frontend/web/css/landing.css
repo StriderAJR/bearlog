@@ -61,7 +61,7 @@ body {
   margin-top: 16px;
 }
 .navbar-form .form-control {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 .navbar-form .form-control {
   margin-right: 5px;
@@ -112,7 +112,7 @@ a.grey-link:hover span {
   margin-top: -3px;
 }
 .navbar-bottom {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   margin-top: -10px;
 }
 .navbar-bottom .nav > li > a {
