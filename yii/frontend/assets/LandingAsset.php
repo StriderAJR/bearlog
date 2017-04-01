@@ -20,6 +20,7 @@ class LandingAsset extends AssetBundle
     ];
 
     public $js = [
+        'bower_components/scrollreveal/dist/scrollreveal.min.js',
         'js/landing.js',
         'js/countdown.js',
     ];

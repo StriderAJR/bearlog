@@ -73,8 +73,8 @@
   </div>
 </div>
 
-<div class="section section-placeholder-1 fix-to-screen-height">
-  <div class="container">
+<div class="section section-placeholder-1 fix-to-screen-height ">
+  <div class="container sr-section">
     <div class="row">
       <div class="col-xs-12">
         <h2>Секция 1</h2>
@@ -89,7 +89,7 @@
 </div>
 
 <div class="section section-placeholder-2 fix-to-screen-height">
-  <div class="container">
+  <div class="container sr-section">
     <div class="row">
       <div class="col-xs-12">
         <h2>Секция 2</h2>
@@ -104,7 +104,7 @@
 </div>
 
 <div class="section registration-section">
-  <div class="container">
+  <div class="container sr-section">
     <div class="row registration-row">
       
     
