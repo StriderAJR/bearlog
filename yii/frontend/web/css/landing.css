@@ -52,7 +52,8 @@ body {
 .form-control {
   font-weight: normal;
 }
-.form-control[type=text] {
+.form-control[type=text],
+.form-control[type=password] {
   height: 40px;
 }
 .btn {
@@ -173,4 +174,30 @@ a.grey-link:hover span {
   padding: 20px;
   background: #fff;
 }
+.btn-social-auth {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #3e3f3a;
+  background-color: #f9f7f7;
+  background-image: none;
+  border: 1px solid #dfd7ca;
+  text-transform: none;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+.btn-social-auth:hover,
+.btn-social-auth:active,
+.btn-social-auth:focus {
+  background-color: #eee8e8;
+  color: #3e3f3a;
+  border: 1px solid #dfd7ca;
+}
+/*
+.social-auth-wrapper {
+  margin-top: 53px;
+}*/
 /*# sourceMappingURL=landing.css.map */

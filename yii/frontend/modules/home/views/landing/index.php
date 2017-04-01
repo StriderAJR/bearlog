@@ -103,7 +103,7 @@
   </div>
 </div>
 
-<div class="section registration-section fix-to-screen-height">
+<div class="section registration-section">
   <div class="container">
     <div class="row registration-row">
       
@@ -147,7 +147,12 @@
     </div>
 
       <div class="col-sm-6">
-
+          <legend>Или войдите с помощью:</legend>
+          <div class="social-auth-wrapper">
+            <button class="btn btn-social-auth"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</button>
+            <button class="btn btn-social-auth"><i class="fa fa-vk" aria-hidden="true"></i> Вконтакте</button>
+            <button class="btn btn-social-auth"><i class="fa fa-google-plus" aria-hidden="true"></i> Google +</button>
+          </div>
       </div>
       </div>
     </div>
