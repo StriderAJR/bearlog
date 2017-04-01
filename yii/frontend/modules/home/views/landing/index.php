@@ -172,7 +172,7 @@
         <a href="#" class="footer-link">О сайте</a>
         <a href="#" class="footer-link">Создатели</a>
       </div>
-      <div class="col-sm-5 text-right ">
+      <div class="col-sm-5 text-right">
         <a href="#" class="footer-logo">
           <img src="img/logo.png" alt="">
         </a>

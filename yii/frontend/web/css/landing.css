@@ -140,6 +140,8 @@ a.grey-link:hover span {
   background-color: #000;
   padding-top: 180px;
   color: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .header .main-header {
   margin-top: 0px;
@@ -273,6 +275,29 @@ a.grey-link:hover span {
   }
   .navbar-brand img {
     margin-top: -7px;
+  }
+  .footer-logo {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .footer {
+    padding-bottom: 25px;
+  }
+}
+@media screen and (max-width: 733px) {
+  .header {
+    padding-top: 90px;
+  }
+  .header .main-track {
+    max-width: 100px;
+  }
+  .header .main-header {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .header .sub-header {
+    font-size: 15px;
   }
 }
 /*# sourceMappingURL=landing.css.map */
