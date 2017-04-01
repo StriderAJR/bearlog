@@ -76,7 +76,7 @@
 <div class="section section-placeholder-1 fix-to-screen-height">
   <div class="container">
     <div class="row">
-      <div class="col-sx-12">
+      <div class="col-xs-12">
         <h2>Секция 1</h2>
         <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
         <p><small>This line of text is meant to be treated as fine print.</small></p>
@@ -91,7 +91,7 @@
 <div class="section section-placeholder-2 fix-to-screen-height">
   <div class="container">
     <div class="row">
-      <div class="col-sx-12">
+      <div class="col-xs-12">
         <h2>Секция 2</h2>
         <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
         <p><small>This line of text is meant to be treated as fine print.</small></p>
