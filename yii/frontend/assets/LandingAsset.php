@@ -14,14 +14,14 @@ class LandingAsset extends AssetBundle
 
     public $css = [
         'css/bootstrap.min.css',
-        'css/landing.css',
-        'css/landing.less',
+        'css/landing.css?123',
+        // 'css/landing.less',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ];
 
     public $js = [
         'bower_components/scrollreveal/dist/scrollreveal.min.js',
-        'js/landing.js',
+        'js/landing.js?123',
         'js/countdown.js',
     ];
 
