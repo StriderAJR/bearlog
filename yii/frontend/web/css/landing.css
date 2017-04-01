@@ -46,6 +46,7 @@
 }
 body {
   font-size: 14px;
+  font-family: "RobotoRegular";
 }
 .form-control {
   font-weight: normal;
@@ -57,13 +58,16 @@ body {
   line-height: 1.5;
 }
 .navbar-form {
-  margin-top: 10px;
+  margin-top: 16px;
 }
 .navbar-form .form-control {
   margin-bottom: 5px;
 }
 .navbar-form .form-control {
   margin-right: 5px;
+}
+.navbar-form .form-group {
+  margin-bottom: 2px;
 }
 .to-top {
   vertical-align: top;
@@ -100,5 +104,26 @@ a.grey-link:hover span {
 }
 .navbar-form-link {
   display: block;
+}
+.navbar-brand {
+  padding-top: 10px;
+}
+.navbar-brand img {
+  margin-top: -3px;
+}
+.navbar-bottom {
+  margin-bottom: 5px;
+  margin-top: -10px;
+}
+.navbar-bottom .nav > li > a {
+  padding: 0px;
+  margin-right: 15px;
+  font-size: 12px;
+}
+.navbar-bottom .nav.navbar-nav {
+  float: none;
+}
+.navbar-collapse.collapse {
+  height: 70px !important;
 }
 /*# sourceMappingURL=landing.css.map */

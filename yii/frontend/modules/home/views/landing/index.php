@@ -1,20 +1,29 @@
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <a href="../" class="navbar-brand">Bearlog</a>
+      <a href="../" class="navbar-brand">
+        <img src="img/logo.png">
+      </a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
+
     <div class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav visible-xs">
         <li>
-          <a href="../help/">Help</a>
+          <a href="#">Преимущества</a>
         </li>
         <li>
-          <a href="http://news.bootswatch.com">Blog</a>
+          <a href="#">Портфолио</a>
+        </li>
+        <li>
+          <a href="#">Как стать участником ?</a>
+        </li>
+        <li>
+          <a href="#">Контакты</a>
         </li>
       </ul>
 
@@ -31,5 +40,22 @@
       </form>
 
     </div>
+    <div class="navbar-bottom hidden-xs">
+     <ul class="nav navbar-nav">
+        <li>
+          <a href="#">Преимущества</a>
+        </li>
+        <li>
+          <a href="#">Портфолио</a>
+        </li>
+        <li>
+          <a href="#">Как стать участником?</a>
+        </li>
+        <li>
+          <a href="#">Контакты</a>
+        </li>
+      </ul>
+    </div>
   </div>
+
 </div>
