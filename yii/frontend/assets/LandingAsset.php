@@ -14,8 +14,8 @@ class LandingAsset extends AssetBundle
 
     public $css = [
         'css/bootstrap.min.css',
-        'css/landing.css?126',
-        // 'css/landing.less',
+        // 'css/landing.css?126',
+        'css/landing.less',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ];
 

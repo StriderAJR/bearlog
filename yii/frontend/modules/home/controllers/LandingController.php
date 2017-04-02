@@ -45,22 +45,19 @@ class LandingController extends Controller
         $entryForm = new EntryForm();
 
         if (Yii::$app->request->post()) {
-            // if (isset(Yii::$app->request->post()['SignupForm[email]'])) {
-                if ($signUpForm->load(Yii::$app->request->post()) 
-                    && $signUpForm->validatePasswordRepeat('passwordRepeat', [])
-                    && $signUpForm->validateEmail('email', [])) {
-                    $signUpForm->signup();
+            if ($signUpForm->load(Yii::$app->request->post()) 
+                && $signUpForm->validatePasswordRepeat('passwordRepeat', [])
+                && $signUpForm->validateEmail('email', [])) {
+                $signUpForm->signup();
 
-                    return 'Пользователь был зарегистрирован!';
-                } else {
-                    $scrollToRegisterForm = true;
-                }
-            // } else {
-                if ($entryForm->load(Yii::$app->request->post())) {
-                    $entryForm->login();
+                return 'Пользователь был зарегистрирован!';
+            } else {
+                $scrollToRegisterForm = true;
+            }
+            if ($entryForm->load(Yii::$app->request->post())) {
+                $entryForm->login();
 
-                }
-            // }
+            }
         }
 
         return $this->render('index', [

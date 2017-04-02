@@ -59,11 +59,16 @@ body {
 .btn {
   line-height: 1.5;
 }
+.entry-form-error {
+  color: #d9534f;
+  font-size: 13px;
+  max-width: 2000px;
+}
 .navbar-form {
   margin-top: 16px;
 }
 .navbar-form .form-control {
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 .navbar-form .form-control {
   margin-right: 5px;
@@ -104,8 +109,12 @@ a.grey-link:hover span {
 .font-small {
   font-size: 13px;
 }
+.navbar-form .links-container {
+  padding-left: 3px;
+}
 .navbar-form-link {
-  display: block;
+  display: inline-block;
+  margin-right: 10px;
 }
 .navbar-brand {
   padding-top: 10px;
@@ -335,3 +344,4 @@ a.grey-link:hover span {
     font-size: 15px;
   }
 }
+/*# sourceMappingURL=landing.css.map */

@@ -34,7 +34,7 @@
       </ul>
 
       <?php if (!Yii::$app->user->isGuest): ?>
-        <div class="logged-user-info">
+        <div class="logged-user-info navbar-right">
           <?= Yii::$app->user->identity->email ?>
           <a href="/?logout=true" class="btn btn-success">Выйти</a>
         </div>
@@ -53,7 +53,6 @@
             ->label('')
             ->textInput(['placeholder' => 'E-mail', 'id' => 'enrtyEmailInput', 'class' => 'form-control'])
           ?>
-          <a class="grey-link font-small navbar-form-link go-to-register"><span>Зарегистрироваться</span></a>
           
           <?= $form->field($model['entryForm'],  'password', [
                 'errorOptions' => [
@@ -64,8 +63,11 @@
             ->label('')
             ->passwordInput(['placeholder' => 'Пароль', 'id' => 'entryPassInput', 'class' => 'form-control'])
           ?>
-          <a href="#" class="grey-link font-small navbar-form-link"><span>Забыли пароль</span></a>
           <button type="submit" class="btn btn-success to-top">Войти</button>
+          <div class="links-container">
+            <a href="#" class="grey-link font-small navbar-form-link"><span>Забыли пароль</span></a>
+            <a class="grey-link font-small navbar-form-link go-to-register"><span>Зарегистрироваться</span></a>
+          </div>
         <?php ActiveForm::end(); ?>
       <?php endif; ?>
 
