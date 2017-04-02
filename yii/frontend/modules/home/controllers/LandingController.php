@@ -52,11 +52,13 @@ class LandingController extends Controller
 
                 return 'Пользователь был зарегистрирован!';
             } else {
-                $scrollToRegisterForm = true;
+                if (isset(Yii::$app->request->post()["SignupForm"])) {
+                    $scrollToRegisterForm = true;
+                }
             }
+
             if ($entryForm->load(Yii::$app->request->post())) {
                 $entryForm->login();
-
             }
         }
 

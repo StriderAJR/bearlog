@@ -24,18 +24,16 @@ class EntryForm extends Model
 
 
         if (!$user) {
-            $this->addError('E-mail', 'Неправильный логин или пароль');
+            $this->addError('email', 'Неправильный логин или пароль');
 
             return false;
         }
 
-        if ($user->validatePassword($this->password)) {
-            $this->addError('E-mail', 'Неправильный логин или пароль');   
+        if (!$user->validatePassword($this->password)) {
+            $this->addError('email', 'Неправильный логин или пароль');   
 
             return false;
         }
-        // var_dump($user);
-        // exit();
 
         return Yii::$app->user->login($user, 3600*24*30);
     }

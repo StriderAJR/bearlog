@@ -63,6 +63,12 @@ body {
   color: #d9534f;
   font-size: 13px;
   max-width: 2000px;
+  position: absolute;
+  background: #d9534f;
+  color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
 }
 .logged-user-info {
   color: #fff;
@@ -79,6 +85,9 @@ body {
 }
 .navbar-form .form-control {
   margin-bottom: 2px;
+}
+.navbar-form .control-label {
+  display: none;
 }
 .navbar-form .form-control {
   margin-right: 5px;
@@ -304,12 +313,21 @@ a.grey-link:hover span {
     margin-bottom: 0px;
     margin-top: 0px;
   }
+  .entry-form-error {
+    position: relative;
+  }
   .navbar-default {
     background-color: #3e3f3a !important;
     border-color: #3e3f3a !important;
   }
+  .navbar-form .form-group {
+    margin-bottom: 15px;
+  }
   .navbar-collapse.collapse {
     height: initial !important;
+  }
+  .navbar-form .btn {
+    margin-bottom: 10px;
   }
   .navbar-form-link {
     margin-bottom: 15px;
