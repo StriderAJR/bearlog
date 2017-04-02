@@ -4,12 +4,10 @@ namespace frontend\modules\home\models;
 use yii\base\Model;
 use common\models\User;
 
-class SignupForm extends Model
+class LoginForm extends Model
 {
     public $email;
     public $password;
-    public $passwordRepeat;
-    public $role;
 
 
     public function rules()
@@ -19,33 +17,19 @@ class SignupForm extends Model
             ['email', 'required', 'message' => 'Это поле не может быть пустым.'],
             ['email', 'email', 'message' => 'Пожалуйста, введите настоящий E-mail адрес.'],
             ['email', 'string', 'max' => 255, 'message' => 'Введите настоящий E-mail адрес.'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким E-mail уже зарегистрирован.'],
-
             ['password', 'required', 'message' => 'Это поле не может быть пустым.'],
-            ['passwordRepeat', 'required',  'message' => 'Это поле не может быть пустым.'],
             ['password', 'string', 'min' => 6,  'message' => 'Длина пароля не менее 6 символов.'],
         ];
     }
 
-    public function signup()
+    public function loginup()
     {
         if (!$this->validate()) {
             return null;
         }
-        $user = new User();
         $user->email = $this->email;
-        $user->setPassword($this->password);
-
-        return $user->save() ? $user : null;
+        $user->validatePassword($this->password);
+        
     }
     
-    public function ValidatePasswordRepeat($attribute, $params)
-    {
-        if ($this->password != $this->passwordRepeat) {
-            $this->addError($attribute, 'Пароли не совпадают');
-            return false;
-        }
-
-        return true;
-    }
 }

@@ -17,4 +17,7 @@ class EntryForm extends Model
             ['email', 'email'],
         ];
     }
+echo $form->field($model, 'email')->input('email');
+echo $form->field($model, 'password')->passwordInput();
+
 }
