@@ -1,3 +1,9 @@
+<?php
+  use yii\helpers\Html;
+  use yii\bootstrap\ActiveForm;
+?>
+
+
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -109,25 +115,62 @@
       
     
     <div class="col-sm-6">
-      <form class="form-horizontal">
+    <?php $form = ActiveForm::begin(); ?>
+      
+      <?= $form->field($model['signUpForm'],  'email', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('')
+            ->textInput(['placeholder' => 'E-mail', 'id' => 'emailInput', 'class' => 'form-control'])
+        ?>  
+
+        <?= $form->field($model['signUpForm'],  'password', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('')
+            ->passwordInput(['placeholder' => 'Пароль', 'id' => 'passwordInput', 'class' => 'form-control'])
+        ?> 
+
+        <?= $form->field($model['signUpForm'],  'passwordRepeat', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('')
+            ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control'])
+        ?> 
+
+      <br>
+    <button class="btn" type="submit" style="width:180px;">Зарегистрироваться</button>
+  <?php ActiveForm::end(); ?>
+
+
+     <!--  <form class="form-horizontal" method="POST" action="/">
         <fieldset>
           <legend>Зарегистрируйтесь</legend>
           <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Логин</label>
+            <label for="inputEmail"class="col-lg-2 control-label">Логин</label>
             <div class="col-lg-10">
-              <input type="text" class="form-control" id="inputEmail" placeholder="Логин">
+              <input type="text" name="email"  class="form-control" id="inputEmail" placeholder="Логин">
             </div>
           </div>
           <div class="form-group">
             <label for="inputPassword" class="col-lg-2 control-label">Пароль</label>
             <div class="col-lg-10">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+              <input type="password" name="password"  class="form-control" id="inputPassword" placeholder="Пароль">
             </div>
           </div>
           <div class="form-group">
             <label for="inputPassword" class="col-lg-2 control-label">Повторите пароль</label>
             <div class="col-lg-10">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Повторите пароль">
+              <input type="password"  name="passwordRepeat" class="form-control" id="inputPassword" placeholder="Повторите пароль">
               <div class="checkbox">
                 <label>
                   <input type="checkbox"> Я согласен с <a href="#" class="primary-link">пользовательским соглашением</a>
@@ -139,11 +182,12 @@
           <br>
           <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
-              <button type="reset" class="btn btn-default">Зарегистрироваться</button>
+            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken(); ?>">
+              <button type="submit" class="btn btn-default">Зарегистрироваться</button>
             </div>
           </div>
         </fieldset>
-      </form>
+      </form> -->
     </div>
 
       <div class="col-sm-6">
