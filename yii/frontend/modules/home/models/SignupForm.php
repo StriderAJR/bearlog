@@ -16,14 +16,14 @@ class SignupForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => 'Это поле не может быть пустым.'],
+            ['email', 'email', 'message' => 'Пожалуйста, введите настоящий E-mail адрес.'],
+            ['email', 'string', 'max' => 255, 'message' => 'Введите настоящий E-mail адрес.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким E-mail уже зарегистрирован.'],
 
-            ['password', 'required'],
-            ['passwordRepeat', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'required', 'message' => 'Это поле не может быть пустым.'],
+            ['passwordRepeat', 'required',  'message' => 'Это поле не может быть пустым.'],
+            ['password', 'string', 'min' => 6,  'message' => 'Длина пароля не меннее 6 символов.'],
         ];
     }
 

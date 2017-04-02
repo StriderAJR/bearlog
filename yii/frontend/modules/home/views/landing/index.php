@@ -116,7 +116,11 @@
     
     <div class="col-sm-6">
     <legend>Зарегистрируйтесь:</legend>
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => [
+          'class' => 'registration-form',
+        ],
+    ]); ?>
       
       <?= $form->field($model['signUpForm'],  'email', [
             'errorOptions' => [
@@ -145,7 +149,7 @@
               ],
           ])
       ->label('Повторите пароль:')
-      ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control'])
+      ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control last-form-control'])
       ?> 
 
       <button class="btn btn-default" type="submit" style="width:180px;">Зарегистрироваться</button>

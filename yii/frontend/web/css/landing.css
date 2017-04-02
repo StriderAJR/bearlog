@@ -265,6 +265,19 @@ a.grey-link:hover span {
     margin-top: 25px;
   }
 }
+.go-to-register {
+  cursor: pointer;
+}
+.control-label {
+  font-weight: normal;
+  font-family: "RobotoBold";
+}
+.last-form-control {
+  margin-bottom: 20px;
+}
+.registration-form {
+  margin-bottom: 10px;
+}
 @media screen and (max-width: 769px) {
   .navbar-default .navbar-form {
     padding-top: 15px;
@@ -302,6 +315,9 @@ a.grey-link:hover span {
   .footer {
     padding-bottom: 25px;
   }
+  .registration-form {
+    margin-bottom: 20px;
+  }
 }
 @media screen and (max-width: 733px) {
   .header {
@@ -318,12 +334,5 @@ a.grey-link:hover span {
   .header .sub-header {
     font-size: 15px;
   }
-}
-.go-to-register {
-  cursor: pointer;
-}
-.control-label {
-  font-weight: normal;
-  font-family: "RobotoBold";
 }
 /*# sourceMappingURL=landing.css.map */
