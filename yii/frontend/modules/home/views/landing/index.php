@@ -109,41 +109,45 @@
       
     
     <div class="col-sm-6">
-      <form class="form-horizontal">
-        <fieldset>
-          <legend>Зарегистрируйтесь</legend>
-          <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Логин</label>
-            <div class="col-lg-10">
-              <input type="text" class="form-control" id="inputEmail" placeholder="Логин">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Пароль</label>
-            <div class="col-lg-10">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Повторите пароль</label>
-            <div class="col-lg-10">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Повторите пароль">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"> Я согласен с <a href="#" class="primary-link">пользовательским соглашением</a>
-                </label>
-              </div>
+    <legend>Зарегистрируйтесь:</legend>
+    <?php $form = ActiveForm::begin(); ?>
+      
+      <?= $form->field($model['signUpForm'],  'email', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('E-mail')
+            ->textInput(['placeholder' => 'E-mail', 'id' => 'emailInput', 'class' => 'form-control'])
+        ?>  
 
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-2">
-              <button type="reset" class="btn btn-default">Зарегистрироваться</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
+        <?= $form->field($model['signUpForm'],  'password', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('Придумайте пароль:')
+            ->passwordInput(['placeholder' => 'Пароль', 'id' => 'passwordInput', 'class' => 'form-control'])
+        ?> 
+
+        <?= $form->field($model['signUpForm'],  'passwordRepeat', [
+            'errorOptions' => [
+                'tag' => 'div',
+                'class' => 'auth-error',
+                ],
+            ])
+        ->label('Повторите пароль:')
+            ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control'])
+        ?> 
+
+      <br>
+    <button class="btn btn-default" type="submit" style="width:180px;">Зарегистрироваться</button>
+  <?php ActiveForm::end(); ?>
+
+
+
     </div>
 
       <div class="col-sm-6">
