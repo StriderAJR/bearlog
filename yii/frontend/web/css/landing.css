@@ -64,6 +64,16 @@ body {
   font-size: 13px;
   max-width: 2000px;
 }
+.logged-user-info {
+  color: #fff;
+  margin-top: 15px;
+}
+.logged-user-info .user-icon {
+  margin-right: 2px;
+}
+.logged-user-info .btn-logout {
+  margin-left: 5px;
+}
 .navbar-form {
   margin-top: 16px;
 }

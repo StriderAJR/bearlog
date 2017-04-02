@@ -35,8 +35,9 @@
 
       <?php if (!Yii::$app->user->isGuest): ?>
         <div class="logged-user-info navbar-right">
+          <i class="fa fa-user-circle user-icon" aria-hidden="true"></i>
           <?= Yii::$app->user->identity->email ?>
-          <a href="/?logout=true" class="btn btn-success">Выйти</a>
+          <a href="/?logout=true" class="btn btn-success btn-logout btn-md">Выйти</a>
         </div>
       <?php else: ?>
         <?php $form = ActiveForm::begin([
