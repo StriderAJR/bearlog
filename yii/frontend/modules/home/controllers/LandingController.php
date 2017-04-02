@@ -34,16 +34,18 @@ class LandingController extends Controller
         $this->layout = 'landing';
     }
     
-    public function actionIndex()
+    public function actionIndex($logout = false)
     {
-        // if (!Yii::$app->user->isGuest) {
-        //     Yii::$app->user->logout();
-        // }
+        if ($logout) {
+            if (!Yii::$app->user->isGuest) {
+                Yii::$app->user->logout();
+            }
+        }
         $signUpForm = new SignupForm();
         $entryForm = new EntryForm();
 
         if (Yii::$app->request->post()) {
-            if (isset(Yii::$app->request->post()['SignupForm[email]'])) {
+            // if (isset(Yii::$app->request->post()['SignupForm[email]'])) {
                 if ($signUpForm->load(Yii::$app->request->post()) 
                     && $signUpForm->validatePasswordRepeat('passwordRepeat', [])) {
                     $signUpForm->signup();
@@ -52,12 +54,12 @@ class LandingController extends Controller
                 } else {
                     $scrollToRegisterForm = true;
                 }
-            } else {
+            // } else {
                 if ($entryForm->load(Yii::$app->request->post())) {
                     $entryForm->login();
 
                 }
-            }
+            // }
         }
 
         return $this->render('index', [

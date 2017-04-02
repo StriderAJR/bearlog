@@ -1,5 +1,7 @@
 <?php
+namespace frontend\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -26,7 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getId()
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     public function validatePassword($password)
@@ -34,8 +36,19 @@ class User extends ActiveRecord implements IdentityInterface
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
-    public function findByEmail($email)
+    public static function findByEmail($email)
     {
-        return static::findOne(['email' => $emal]);
+        return static::findOne(['email' => $email]);
+    }
+
+    /* Для аутентификации на cookie */
+    public function getAuthKey()
+    {
+        // return $this->auth_key;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        // return $this->getAuthKey() === $authKey;
     }
 }

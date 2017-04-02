@@ -1,8 +1,9 @@
 <?php
 namespace frontend\modules\home\models;
 
+use Yii;
 use yii\base\Model;
-use common\models\User;
+use frontend\models\User;
 
 class EntryForm extends Model
 {
@@ -21,6 +22,7 @@ class EntryForm extends Model
     {
         $user = User::findByEmail($this->email);
 
+
         if (!$user) {
             $this->addError('E-mail', 'Неправильный логин или пароль');
 
@@ -32,6 +34,8 @@ class EntryForm extends Model
 
             return false;
         }
+        // var_dump($user);
+        // exit();
 
         return Yii::$app->user->login($user, 3600*24*30);
     }
