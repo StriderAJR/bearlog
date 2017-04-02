@@ -22,18 +22,17 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
-            ['passwordRepeat', 'required'],
             ['password', 'string', 'min' => 6],
+            ['passwordRepeat', 'required'], 
+            ['passwordRepeat','ValidatePasswordRepeat'],  
         ];
     }
-
-   
+    # code...
     public function signup()
     {
         if (!$this->validate()) {
             return null;
         }
-        
         $user = new User();
         $user->email = $this->email;
         $user->setPassword($this->password);
@@ -44,4 +43,12 @@ class SignupForm extends Model
         
         return $user->save() ? $user : null;
     }
+        public function ValidatePasswordRepeat ($attribute, $params)
+ {
+        if ($this ->$password != $this -> $passwordRepeat ) {
+            $this ->addError($attribute, 'Пароли не совпадают');
+            return false;
+        }
+        return true;
+  }
 }
