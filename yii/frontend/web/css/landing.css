@@ -322,3 +322,8 @@ a.grey-link:hover span {
 .go-to-register {
   cursor: pointer;
 }
+.control-label {
+  font-weight: normal;
+  font-family: "RobotoBold";
+}
+/*# sourceMappingURL=landing.css.map */

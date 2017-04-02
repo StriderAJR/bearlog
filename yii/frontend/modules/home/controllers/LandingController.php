@@ -4,6 +4,8 @@ namespace app\modules\home\controllers;
 use yii\web\Controller;
 use Yii;
 
+use frontend\modules\home\models\SignupForm;
+
 class LandingController extends Controller 
 {
 	public function behaviors()
@@ -33,7 +35,25 @@ class LandingController extends Controller
     
     public function actionIndex()
     {
-        // $model = SomeModel::loadData();
-        return $this->render('index', []);
+        // if (!Yii::$app->user->isGuest) {
+        //     Yii::$app->user->logout();
+        // }
+        // if (Yii::$app->request->post()) {
+        //     var_dump(Yii::$app->request->post());
+        //     exit();
+        // }
+        $signUpForm = new SignupForm();
+        $signUpForm->load(Yii::$app->request->post());
+
+        if ($signUpForm->load(Yii::$app->request->post())) {
+            $signUpForm->signup();
+            return 'Signed UP';
+        }
+
+        return $this->render('index', [
+                'model' => [
+                    'signUpForm' => $signUpForm, 
+                ],
+            ]);
     }
 }

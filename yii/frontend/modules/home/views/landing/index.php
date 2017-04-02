@@ -1,3 +1,9 @@
+<?php
+  use yii\helpers\Html;
+  use yii\bootstrap\ActiveForm;
+?>
+
+
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -119,33 +125,31 @@
                 ],
             ])
         ->label('E-mail')
-            ->textInput(['placeholder' => 'E-mail', 'id' => 'emailInput', 'class' => 'form-control'])
-        ?>  
+        ->textInput(['placeholder' => 'E-mail', 'id' => 'emailInput', 'class' => 'form-control'])
+      ?>  
 
-        <?= $form->field($model['signUpForm'],  'password', [
-            'errorOptions' => [
-                'tag' => 'div',
-                'class' => 'auth-error',
-                ],
-            ])
+      <?= $form->field($model['signUpForm'],  'password', [
+          'errorOptions' => [
+              'tag' => 'div',
+              'class' => 'auth-error',
+              ],
+          ])
         ->label('Придумайте пароль:')
-            ->passwordInput(['placeholder' => 'Пароль', 'id' => 'passwordInput', 'class' => 'form-control'])
-        ?> 
+        ->passwordInput(['placeholder' => 'Пароль', 'id' => 'passwordInput', 'class' => 'form-control'])
+      ?> 
 
-        <?= $form->field($model['signUpForm'],  'passwordRepeat', [
-            'errorOptions' => [
-                'tag' => 'div',
-                'class' => 'auth-error',
-                ],
-            ])
-        ->label('Повторите пароль:')
-            ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control'])
-        ?> 
+      <?= $form->field($model['signUpForm'],  'passwordRepeat', [
+          'errorOptions' => [
+              'tag' => 'div',
+              'class' => 'auth-error',
+              ],
+          ])
+      ->label('Повторите пароль:')
+      ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control'])
+      ?> 
 
-      <br>
-    <button class="btn btn-default" type="submit" style="width:180px;">Зарегистрироваться</button>
-  <?php ActiveForm::end(); ?>
-
+      <button class="btn btn-default" type="submit" style="width:180px;">Зарегистрироваться</button>
+    <?php ActiveForm::end(); ?>
 
 
     </div>
