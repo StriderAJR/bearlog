@@ -47,7 +47,8 @@ class LandingController extends Controller
         if (Yii::$app->request->post()) {
             // if (isset(Yii::$app->request->post()['SignupForm[email]'])) {
                 if ($signUpForm->load(Yii::$app->request->post()) 
-                    && $signUpForm->validatePasswordRepeat('passwordRepeat', [])) {
+                    && $signUpForm->validatePasswordRepeat('passwordRepeat', [])
+                    && $signUpForm->validateEmail('email', [])) {
                     $signUpForm->signup();
 
                     return 'Пользователь был зарегистрирован!';

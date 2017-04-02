@@ -2,7 +2,7 @@
 namespace frontend\modules\home\models;
 
 use yii\base\Model;
-use common\models\User;
+use frontend\models\User;
 
 class SignupForm extends Model
 {
@@ -21,9 +21,9 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255, 'message' => 'Введите настоящий E-mail адрес.'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким E-mail уже зарегистрирован.'],
 
+            ['password', 'string', 'min' => 6,  'message' => 'Длина пароля не менее 6 символов.'],
             ['password', 'required', 'message' => 'Это поле не может быть пустым.'],
             ['passwordRepeat', 'required',  'message' => 'Это поле не может быть пустым.'],
-            ['password', 'string', 'min' => 6,  'message' => 'Длина пароля не менее 6 символов.'],
         ];
     }
 
@@ -39,10 +39,21 @@ class SignupForm extends Model
         return $user->save() ? $user : null;
     }
     
-    public function ValidatePasswordRepeat($attribute, $params)
+    public function validatePasswordRepeat($attribute, $params)
     {
         if ($this->password != $this->passwordRepeat) {
             $this->addError($attribute, 'Пароли не совпадают');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function validateEmail($attribute, $params)
+    {
+        $user = User::findByEmail($this->email);
+        if ($user) {
+            $this->addError($attribute, 'Пользователь с таким E-mail уже зарегистрирован');
             return false;
         }
 
