@@ -147,9 +147,12 @@
               'tag' => 'div',
               'class' => 'auth-error',
               ],
+            'options' => [
+              'class' => 'last-form-control',
+            ],
           ])
       ->label('Повторите пароль:')
-      ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', 'class' => 'form-control last-form-control'])
+      ->passwordInput(['placeholder' => 'Повторите пароль', 'id' => 'passwordRepeatInput', ])
       ?> 
 
       <button class="btn btn-default" type="submit" style="width:180px;">Зарегистрироваться</button>
