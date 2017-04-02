@@ -28,8 +28,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->id;
     }
+
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    public function findByEmail($email)
+    {
+        return static::findOne(['email' => $emal]);
     }
 }

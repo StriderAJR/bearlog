@@ -5,6 +5,7 @@ use yii\web\Controller;
 use Yii;
 
 use frontend\modules\home\models\SignupForm;
+use frontend\modules\home\models\EntryForm;
 
 class LandingController extends Controller 
 {
@@ -39,21 +40,30 @@ class LandingController extends Controller
         //     Yii::$app->user->logout();
         // }
         $signUpForm = new SignupForm();
-        if (Yii::$app->request->post()) {
-            if ($signUpForm->load(Yii::$app->request->post()) 
-                && $signUpForm->validatePasswordRepeat('passwordRepeat', [])) {
-                $signUpForm->signup();
+        $entryForm = new EntryForm();
 
-                return 'Signed UP';
+        if (Yii::$app->request->post()) {
+            if (isset(Yii::$app->request->post()['SignupForm[email]'])) {
+                if ($signUpForm->load(Yii::$app->request->post()) 
+                    && $signUpForm->validatePasswordRepeat('passwordRepeat', [])) {
+                    $signUpForm->signup();
+
+                    return 'Пользователь был зарегистрирован!';
+                } else {
+                    $scrollToRegisterForm = true;
+                }
             } else {
-                $scrollToRegisterForm = true;
+                if ($entryForm->load(Yii::$app->request->post())) {
+                    $entryForm->login();
+
+                }
             }
         }
-
 
         return $this->render('index', [
                 'model' => [
                     'signUpForm' => $signUpForm, 
+                    'entryForm' => $entryForm,
                     'scrollToRegisterForm' => isset($scrollToRegisterForm),
                 ],
             ]);

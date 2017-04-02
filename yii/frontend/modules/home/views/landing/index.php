@@ -33,17 +33,39 @@
         </li>
       </ul>
 
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
+      <!-- <form class="navbar-form navbar-right" role="search"> -->
+      <?php $form = ActiveForm::begin([
+          'options' => [
+            'class' => 'navbar-form navbar-right',
+          ],
+      ]); ?>
+<!--         <div class="form-group">
           <input type="text" class="form-control" placeholder="Логин">
-          <a class="grey-link font-small navbar-form-link go-to-register"><span>Зарегистрироваться</span></a>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Пароль">
-          <a href="#" class="grey-link font-small navbar-form-link"><span>Забыли пароль</span></a>
-        </div>
+        </div> -->
+        <?= $form->field($model['entryForm'],  'email', [
+              'errorOptions' => [
+                  'tag' => 'div',
+                  'class' => 'entry-form-error',
+                  ],
+              ])
+          ->label('')
+          ->textInput(['placeholder' => 'E-mail', 'id' => 'enrtyEmailInput', 'class' => 'form-control'])
+        ?>
+        <a class="grey-link font-small navbar-form-link go-to-register"><span>Зарегистрироваться</span></a>
+        
+        <?= $form->field($model['entryForm'],  'password', [
+              'errorOptions' => [
+                  'tag' => 'div',
+                  'class' => 'entry-form-error',
+                  ],
+              ])
+          ->label('')
+          ->passwordInput(['placeholder' => 'Пароль', 'id' => 'entryPassInput', 'class' => 'form-control'])
+        ?>
+        <a href="#" class="grey-link font-small navbar-form-link"><span>Забыли пароль</span></a>
         <button type="submit" class="btn btn-success to-top">Войти</button>
-      </form>
+      <?php ActiveForm::end(); ?>
+      <!-- </form> -->
 
     </div>
     <div class="navbar-bottom hidden-xs">
