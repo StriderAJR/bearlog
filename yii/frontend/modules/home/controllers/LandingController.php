@@ -38,21 +38,23 @@ class LandingController extends Controller
         // if (!Yii::$app->user->isGuest) {
         //     Yii::$app->user->logout();
         // }
-        // if (Yii::$app->request->post()) {
-        //     var_dump(Yii::$app->request->post());
-        //     exit();
-        // }
         $signUpForm = new SignupForm();
-        $signUpForm->load(Yii::$app->request->post());
+        if (Yii::$app->request->post()) {
+            if ($signUpForm->load(Yii::$app->request->post()) 
+                && $signUpForm->validatePasswordRepeat('passwordRepeat', [])) {
+                $signUpForm->signup();
 
-        if ($signUpForm->load(Yii::$app->request->post())) {
-            $signUpForm->signup();
-            return 'Signed UP';
+                return 'Signed UP';
+            } else {
+                $scrollToRegisterForm = true;
+            }
         }
+
 
         return $this->render('index', [
                 'model' => [
                     'signUpForm' => $signUpForm, 
+                    'scrollToRegisterForm' => isset($scrollToRegisterForm),
                 ],
             ]);
     }

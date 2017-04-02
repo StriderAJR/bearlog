@@ -109,7 +109,7 @@
   </div>
 </div>
 
-<div class="section registration-section">
+<div class="section registration-section <?php if ($model['scrollToRegisterForm'] == true) echo 'scroll-to-me'; ?>">
   <div class="container sr-section">
     <div class="row registration-row">
       

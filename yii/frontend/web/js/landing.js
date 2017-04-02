@@ -12,6 +12,10 @@ $(function() {
 		$('.navbar-default').addClass('scrolled');
 	});
 
+	if ($('.scroll-to-me').length != 0) {
+		$('body').scrollTop($('.scroll-to-me').offset().top - 80);
+	}
+
 	$('.go-to-register').on('click', function() {
 		$('body').animate({scrollTop:$('.registration-section').offset().top - 80}, '2000', 'swing');
 	});
