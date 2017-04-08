@@ -80,8 +80,26 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 5px;
+  max-width: 150px;
+  text-align: center;
 }
 
+.has-error {
+  .entry-form-error { 
+    padding-bottom: 2px;
+    margin-top: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+    &:before {
+      content: " ";
+      display: block;
+      border: 7px solid transparent; 
+      border-bottom: 7px solid #d9534f;
+      position: absolute;
+      top: -14px;
+    }
+  }
+}
 
 .logged-user-info {
   color: #fff;

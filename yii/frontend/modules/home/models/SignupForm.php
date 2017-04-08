@@ -27,7 +27,7 @@ class SignupForm extends Model
         ];
     }
 
-    public function signup()
+    public function goSignUp()
     {
         if (!$this->validate()) {
             return null;
@@ -35,6 +35,11 @@ class SignupForm extends Model
         $user = new User();
         $user->email = $this->email;
         $user->setPassword($this->password);
+        $user->role_id = 1;
+        $user->status = 1;
+        $user->created_at = date('Y-m-d H:i:s');
+        $user->updated_at = date('Y-m-d H:i:s');
+
 
         return $user->save() ? $user : null;
     }
