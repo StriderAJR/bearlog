@@ -7,15 +7,15 @@ use yii\web\AssetBundle;
 /**
  * Main frontend application asset bundle.
  */
-class LandingAsset extends AssetBundle
+class MainAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
     public $css = [
         'css/bootstrap.min.css',
-        'css/landing.css?189',
-        // 'css/landing.less',
+        // 'css/styles.css?189',
+        'css/styles.less',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ];
 

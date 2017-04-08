@@ -16,6 +16,9 @@ return [
         'home' => [
             'class' => 'app\modules\home\Home',
         ],
+        'profile' => [
+            'class' => 'app\modules\profile\Profile',
+        ],
     ],
     'components' => [
         'request' => [
@@ -23,6 +26,7 @@ return [
         ],
         'user' => [
             'identityClass' => 'frontend\models\User',
+            'loginUrl' =>  ['/']
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend

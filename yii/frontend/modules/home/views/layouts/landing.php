@@ -1,9 +1,9 @@
 <?php
-	use frontend\assets\LandingAsset;
+	use frontend\assets\MainAsset;
 	use yii\helpers\Html;
 	use common\widgets\Alert;
 
-	LandingAsset::register($this);
+	MainAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
