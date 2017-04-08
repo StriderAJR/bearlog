@@ -58,9 +58,9 @@ class LandingController extends Controller
             }
 
             if ($entryForm->load(Yii::$app->request->post())) {
-                $entryForm->login();
-
-                return $this->redirect(['/profile/feed']);
+                if ($entryForm->login()) {
+                    return $this->redirect(['/profile/feed']);
+                }
             }
         }
 
