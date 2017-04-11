@@ -80,21 +80,22 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
+   public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login() && (Yii::$app->getSecurity()->validatePassword($password, $hash)) ) {
             return $this->goBack();
         } else {
-            return $this->render('login', [
+            return $this->render('Signupp', [
                 'model' => $model,
             ]);
         }
     }
+
 
     /**
      * Logs out the current user.
@@ -149,7 +150,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model -> ValidatePasswordRepeat('passwordRepeat',[])) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();

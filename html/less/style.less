@@ -1,0 +1,120 @@
+/* font-family: "RobotoRegular"; */
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("../fonts/RobotoRegular/RobotoRegular.eot");
+    src: url("../fonts/RobotoRegular/RobotoRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
+    url("../fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoLight"; */
+@font-face {
+    font-family: "RobotoLight";
+    src: url("../fonts/RobotoLight/RobotoLight.eot");
+    src: url("../fonts/RobotoLight/RobotoLight.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoLight/RobotoLight.woff") format("woff"),
+    url("../fonts/RobotoLight/RobotoLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoMedium"; */
+@font-face {
+    font-family: "RobotoMedium";
+    src: url("../fonts/RobotoMedium/RobotoMedium.eot");
+    src: url("../fonts/RobotoMedium/RobotoMedium.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoMedium/RobotoMedium.woff") format("woff"),
+    url("../fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoBold"; */
+@font-face {
+    font-family: "RobotoBold";
+    src: url("../fonts/RobotoBold/RobotoBold.eot");
+    src: url("../fonts/RobotoBold/RobotoBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoBold/RobotoBold.woff") format("woff"),
+    url("../fonts/RobotoBold/RobotoBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@import "vars.less";
+
+body {
+	font-family: "RobotoRegular";
+}
+
+.header {
+	background: url(../img/header-bg.png); 
+	height: 700px;
+}
+
+.navbar.navbar-default {
+    background: rgba(0,0,0,0.7);
+    border-color: rgba(0,0,0,0.7);
+    border-radius: 0px;
+    background-position-x: center;
+    background-position-y: center; 
+}
+
+.navbar-brand {
+	padding-top: 7px;
+	img {
+		max-height: 40px;
+	}
+}
+
+.big-track {
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	img {
+		max-width: 150px;
+	}
+}
+
+.text-center {
+	text-align: center;
+}
+
+.main-header {
+	font-weight: normal;
+	color: #fff;
+	text-align: center;
+	font-size: 40px;
+	font-family: "RobotoBold";
+	margin-bottom: 40px;
+}
+
+.btn-sign-up {
+	background: @primary-color;
+	color: #fff;
+    padding-top: 4px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 20px; 
+    font-family: "RobotoLight";
+    outline: none !important;
+    box-shadow: none !important; 
+
+    &:hover,
+    &:active,
+    &:focus {
+		color: #fff;
+    }
+	
+	&:hover {
+		background: lighten(@primary-color, 5%);
+	}
+}
+
+.sub-header {
+	max-width: 540px;
+	text-align: center;
+	color: #fff;
+	font-size: 15px;
+	margin-bottom: 30px;
+	font-family: "RobotoLight";
+	margin-right: auto;
+	margin-left: auto; 
+}
