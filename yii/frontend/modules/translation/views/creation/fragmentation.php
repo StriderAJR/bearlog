@@ -13,7 +13,25 @@
 					</ul>
 					<div class="tab-content create-translatioin-tabs">
 					  <div class="tab-pane fade active in" id="fragmentation">
-							
+							Данные о переводе:
+							<div><b>name</b> <?= $model['translation']->name?></div>
+					        <div><b>name_original</b> <?= $model['translation']->name_original?></div>
+					        <div><b>from_language_id</b> <?= $model['translation']->from_language_id?></div>
+					        <div><b>to_language_id</b> <?= $model['translation']->to_language_id?></div>
+					        <div><b>cover_link</b> <?= $model['translation']->cover_link?></div>
+					        <div><b>is_private</b> <?= $model['translation']->is_private?></div>
+					        <div><b>is_finished</b> <?= $model['translation']->is_finished?></div>
+					        <div><b>category_id</b> <?= $model['translation']->category_id?></div>
+					        <div><b>creator_id</b> <?= $model['translation']->creator_id?></div>
+							<br>
+							<br>
+
+					        <div><b>translation_id</b> <?=$model['book']->translation_id?></div>
+					        <div><b>author_name</b> <?=$model['book']->author_name?></div>
+					        <div><b>author_original_name</b> <?=$model['book']->author_original_name?></div>
+					        <div><b>year</b> <?=$model['book']->year?></div>
+
+					        <br>
 							<div class="choose-trans-fragmentation-wrapepr">
 						  	<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
@@ -41,11 +59,7 @@
 
 								<div class="form-group ">
 									<label class="control-label">Пожалуйста, кликните курсором в необходимом месте текста для создания разбиения:</label>
-									<textarea class="form-control fragmentation-textarea" rows="40" id="textArea">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorem facilis aliquam veritatis, quam sint beatae quaerat id totam dolor, ipsa dolorum, at iusto. Explicabo numquam, nostrum iste voluptatem maiores.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorem facilis aliquam veritatis, quam sint beatae quaerat id totam dolor, ipsa dolorum, at iusto. Explicabo numquam, nostrum iste voluptatem maiores.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorem facilis aliquam veritatis, quam sint beatae quaerat id totam dolor, ipsa dolorum, at iusto. Explicabo numquam, nostrum iste voluptatem maiores.
-									</textarea>
+									<textarea class="form-control fragmentation-textarea" rows="40" id="textArea"><?= $model['originalText'] ?></textarea>
                 </div>
 							</div>
 
