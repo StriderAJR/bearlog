@@ -20,15 +20,18 @@ class MainAsset extends AssetBundle
     ];
 
     public $js = [
+        /* перенести к остальным зависимостям */
         'bower_components/scrollreveal/dist/scrollreveal.min.js',
         'js/landing.js?123',
         'js/countdown.js',
+
+        'js/translate-creation/main.js',
     ];
 
     public $depends = [
         'yii\web\YiiAsset',
         // 'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        // 'frontend\assets\BowerAsset',
+        'frontend\assets\BowerAsset',
     ];
 }

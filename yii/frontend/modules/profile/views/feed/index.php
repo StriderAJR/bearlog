@@ -5,7 +5,7 @@
 				<div class="col-sm-6 col-sm-push-6">
 					<h2>Создать новый перевод</h2>
 					<br>
-					<a class="btn btn-success btn-md">Создать новый перевод</a>
+					<a class="btn btn-success btn-md" href="/translation/creation">Создать новый перевод</a>
 				</div>
 				<div class="col-sm-6 col-sm-pull-6">
 					<h2>Мои переводы</h2>

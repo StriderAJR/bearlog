@@ -32,11 +32,10 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
+        /* Присвоение ролей??? */
         $user = new User();
         $user->email = $this->email;
         $user->setPassword($this->password);
-        $user->role_id = 1;
-        $user->status = 1;
         $user->created_at = date('Y-m-d H:i:s');
         $user->updated_at = date('Y-m-d H:i:s');
 

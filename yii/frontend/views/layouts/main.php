@@ -48,7 +48,7 @@
 
             <div class="logged-user-info navbar-right">
               <i class="fa fa-user-circle user-icon" aria-hidden="true"></i>
-              <?= Yii::$app->user->identity->email ?>
+              <a href="/profile/feed" class="white-link"><?= Yii::$app->user->identity->email ?></a>
               <a href="/?logout=true" class="btn btn-success btn-logout btn-md">Выйти</a>
             </div>
 
