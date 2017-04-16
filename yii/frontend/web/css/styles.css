@@ -423,17 +423,21 @@ a.grey-link:hover span {
 .create-translatioin-tabs {
   padding-top: 20px;
 }
-.choose-trans-category-wrapepr {
-  padding-top: 10px;
-  margin-bottom: 30px;
-}
-.choose-trans-category-wrapepr .icr-label {
+.icr-label {
   cursor: pointer;
   margin-bottom: 10px;
   display: block;
 }
-.choose-trans-category-wrapepr .icr-text {
+.icr-text {
   font-weight: normal;
   margin-left: 5px;
+}
+.choose-trans-category-wrapepr {
+  padding-top: 10px;
+  margin-bottom: 30px;
+}
+.upload-translation-info {
+  padding-top: 10px;
+  margin-bottom: 30px;
 }
 /*# sourceMappingURL=styles.css.map */

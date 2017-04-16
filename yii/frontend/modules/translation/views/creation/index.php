@@ -18,7 +18,7 @@
 						  	<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
 								    <span class="icr-hidden">
-								    	<input class="icr-input" type="radio" name="category" value="0" />
+								    	<input class="icr-input" type="radio" checked name="category" value="0" />
 								    </span>
 								    <span class="icr-text">Книги</span>
 								</label>
@@ -48,7 +48,7 @@
 								</label>
 							</div>
 
-					    <a class="btn btn-success btn-md" href="#">Далее</a>
+					    <a class="btn btn-success btn-md" href="/translation/creation/upload">Далее</a>
 					  </div>
 					</div>
 				</div>

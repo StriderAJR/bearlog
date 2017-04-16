@@ -1,1 +1,1 @@
-$("input[type='radio']").ionCheckRadio();
+$("input[type='radio'], input[type='checkbox']").ionCheckRadio();
