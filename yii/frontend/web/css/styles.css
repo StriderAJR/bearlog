@@ -406,4 +406,18 @@ a.grey-link:hover span {
   padding-right: 20px;
   padding-top: 90px;
 }
+.white-link {
+  text-decoration: none !important;
+  border-bottom: 1px solid #cccccc;
+}
+.white-link,
+.white-link:focus,
+.white-link:visited,
+.white-link:active {
+  color: #fff;
+}
+.white-link:hover {
+  color: #fff;
+  border-bottom: 1px solid transparent;
+}
 /*# sourceMappingURL=styles.css.map */

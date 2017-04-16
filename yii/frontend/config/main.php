@@ -19,6 +19,9 @@ return [
         'profile' => [
             'class' => 'app\modules\profile\Profile',
         ],
+        'translation' => [
+            'class' => 'app\modules\translation\Translation',
+        ],
     ],
     'components' => [
         'request' => [

@@ -502,3 +502,21 @@ a.grey-link {
   padding-right: 20px;
   padding-top: 90px;
 }
+
+.white-link {
+  text-decoration: none !important;
+
+  &,
+  &:focus,
+  &:visited,
+  &:active {
+    color: #fff;
+  }
+
+  border-bottom: 1px solid darken(#fff, 20%);
+  
+  &:hover {
+    color: #fff;
+    border-bottom: 1px solid transparent;
+  }
+}
