@@ -13,42 +13,44 @@
 					</ul>
 					<div class="tab-content create-translatioin-tabs">
 					  <div class="tab-pane fade active in" id="category">
-							
-							<div class="choose-trans-category-wrapepr">
-						  	<label class="icr-label">
+							<form action="/translation/creation/upload" method="GET">
+								<div class="choose-trans-category-wrapepr">
+							  	<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
 								    <span class="icr-hidden">
-								    	<input class="icr-input" type="radio" checked name="category" value="0" />
+								    	<input class="icr-input" type="radio" checked name="category" value="book" />
 								    </span>
 								    <span class="icr-text">Книги</span>
-								</label>
+									</label>
 
-								<label class="icr-label">
+									<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
 								    <span class="icr-hidden">
-								    	<input class="icr-input" type="radio" name="category" value="0" />
+								    	<input class="icr-input" type="radio" disabled name="category" value="0" />
 								    </span>
 								    <span class="icr-text">Музыка</span>
-								</label>
+									</label>
 
-								<label class="icr-label">
+									<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
 								    <span class="icr-hidden">
-								    	<input class="icr-input" type="radio" name="category" value="0" />
+								    	<input class="icr-input" type="radio" disabled name="category" value="0" />
 								    </span>
 								    <span class="icr-text">Видео</span>
-								</label>
+									</label>
 
-								<label class="icr-label">
+									<label class="icr-label">
 								    <span class="icr-item type_radio"></span>
 								    <span class="icr-hidden">
-								    	<input class="icr-input" type="radio" name="category" value="0" />
+								    	<input class="icr-input" type="radio" disabled name="category" value="0" />
 								    </span>
 								    <span class="icr-text">Графические материалы</span>
-								</label>
-							</div>
+									</label>
+								</div>
 
-					    <a class="btn btn-success btn-md" href="/translation/creation/upload">Далее</a>
+						    <button class="btn btn-success btn-md" type="submit">Далее</button>
+							</form>
+
 					  </div>
 					</div>
 				</div>
