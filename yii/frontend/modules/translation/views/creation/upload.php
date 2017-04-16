@@ -63,10 +63,20 @@
 							        </select>
 										</div>
 
-										<label class="icr-label">
+                    <div class="form-group">
+											<label class="control-label">Выберите файл (поддерживаемые форматы: txt, rtf, doc):</label>
+											<input class="form-control" type="file">
+                    </div>
+
+                    <div class="form-group">
+											<label class="control-label">Или скопируйте текст в это поле:</label>
+											<textarea class="form-control" rows="3" id="textArea"></textarea>
+                    </div>
+
+                    <label class="icr-label">
                         <span class="icr-item type_checkbox"></span>
                         <span class="icr-hidden"><input class="icr-input" type="checkbox" name="hello"></span>
-                        <span class="icr-text">Приватный перевод</span>
+                        <span class="icr-text">Сделать перевод приватным</span>
                     </label>
 
 									</div>
