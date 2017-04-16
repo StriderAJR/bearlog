@@ -3,7 +3,7 @@
 		<div class="profile-wrapper">
 			<div class="row">
 				<div class="col-sm-12">
-					<h2>Создание перевода</h2>
+					<h2>Создание перевода в категории «Книги»</h2>
 					<br>
 
 					<ul class="nav nav-tabs">
@@ -34,7 +34,7 @@
 
 										<div class="form-group">
 											<label class="control-label">Автор (имя на оригинальном языке):</label>
-											<input class="form-control" type="text" placeholder="MattZandstra">
+											<input class="form-control" type="text" placeholder="Matt Zandstra">
 										</div>
 
 										<div class="form-group">
@@ -84,7 +84,7 @@
 							</div>
 							
 							<a class="btn btn-default btn-md" href="/translation/creation">Назад</a>&nbsp;
-					    <a class="btn btn-success btn-md" href="/translation/creation/upload">Далее</a>
+					    <a class="btn btn-success btn-md" href="/translation/creation/fragmentation">Далее</a>
 					  </div>
 					</div>
 				</div>

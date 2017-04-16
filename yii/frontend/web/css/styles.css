@@ -440,4 +440,11 @@ a.grey-link:hover span {
   padding-top: 10px;
   margin-bottom: 30px;
 }
+.choose-trans-fragmentation-wrapepr {
+  padding-top: 10px;
+  margin-bottom: 30px;
+}
+.fragmentation-textarea {
+  cursor: crosshair;
+}
 /*# sourceMappingURL=styles.css.map */
