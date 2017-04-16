@@ -420,4 +420,20 @@ a.grey-link:hover span {
   color: #fff;
   border-bottom: 1px solid transparent;
 }
+.create-translatioin-tabs {
+  padding-top: 20px;
+}
+.choose-trans-category-wrapepr {
+  padding-top: 10px;
+  margin-bottom: 30px;
+}
+.choose-trans-category-wrapepr .icr-label {
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: block;
+}
+.choose-trans-category-wrapepr .icr-text {
+  font-weight: normal;
+  margin-left: 5px;
+}
 /*# sourceMappingURL=styles.css.map */
