@@ -5,11 +5,14 @@ use yii\web\Controller;
 use Yii;
 
 use frontend\modules\translation\models\CreateBookForm;
+use frontend\modules\translation\models\FragmentationForm;
 use frontend\models\Language;
 use yii\helpers\ArrayHelper;
 
 use frontend\models\Translation;
 use frontend\models\TranslationBook;
+use frontend\models\TranslationPart;
+use frontend\models\PartFragment;
 
 class CreationController extends Controller 
 {
@@ -67,9 +70,8 @@ class CreationController extends Controller
                     if ($translationData)
                     {
                         return $this->redirect(["/translation/creation/fragmentation",
-                                                'translationID' => $translationData['translationID'],
-                                                'translationBookID' => $translationData['translationBookID'],
                                                 'uploadedFileName' => $translationData['uploadedFileName'],
+                                                'translationBookID' => $translationData['translationBookID'],
                                             ]);
                     }
                 }
@@ -81,21 +83,40 @@ class CreationController extends Controller
             ]);   
     }
 
-    public function actionFragmentation()
+    public function actionFragmentation($uploadedFileName, $translationBookID)
     {
-        $get = Yii::$app->request->get();
+        if (Yii::$app->request->isPost) {
+            // Only Books ????
+            $translationBookID = FragmentationForm::divideBook($uploadedFileName, Yii::$app->request->post()['fragmentationWay'], $translationBookID);
+
+            if ($translationBookID) {
+                return $this->redirect(["/translation/creation/data",
+                                            'translationBookID' => $translationBookID,
+                                        ]);
+            }
+        }
 
         return $this->render('fragmentation', [
                 'model' => [
-                    'translation' => Translation::findOne($get['translationID']),
-                    'book' => TranslationBook::findOne($get['translationBookID']),
-                    'originalText' => file_get_contents($get['uploadedFileName']),
+                    'uploadedFileName' => $uploadedFileName,
+                     'translationBookID' => $translationBookID,
                 ]
             ]);           
     }
 
-    public function actionCheck()
+    public function actionData()
     {
-        return $this->render('check', []);           
+        /* For Book */
+        if (isset(Yii::$app->request->get()['translationBookID'])) 
+        {
+            return $this->render('data-book', [
+                    'model' => TranslationBook::getFullBookData(Yii::$app->request->get()['translationBookID']),
+                ]);           
+        }
+        // else if ()
+        // {
+
+        // }
+        throw new Exception("Invalid input params", 1);
     }
 }
