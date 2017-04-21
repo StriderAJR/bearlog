@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
 
 class TranslationPart extends ActiveRecord 
 {

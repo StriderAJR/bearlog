@@ -45,7 +45,7 @@
 										<textarea class="form-control fragmentation-textarea" rows="40" id="textArea"> // $model['uploadedFileName'] </textarea>
 					                </div>
 					                 -->
-								    <a class="btn btn-default btn-md" href="/translation/creation/upload">Назад</a>&nbsp;
+								    <a class="btn btn-default btn-md" href="/translation/creation/upload?category=book">Назад</a>&nbsp;
 	                  <button class="btn btn-success btn-md" type="submit">Далее</button>
 							</form>
 						</div>
