@@ -4,6 +4,8 @@ namespace app\modules\profile\controllers;
 use yii\web\Controller;
 use Yii;
 
+use frontend\models\Translation;
+
 class FeedController extends Controller 
 {
 	public function behaviors()
@@ -26,7 +28,12 @@ class FeedController extends Controller
     }
     
     public function actionIndex()
-    {
-        return $this->render('index', []);
+    {   
+        $model = [];
+        $model['translations'] = Translation::getUserTranslations(Yii::$app->user->identity->user_id);
+
+        return $this->render('index', [
+                'model' => $model,
+            ]);
     }
 }

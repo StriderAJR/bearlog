@@ -52,6 +52,10 @@ body {
 body.inside-page {
   background: #f8f5f0;
 }
+b {
+  font-weight: normal;
+  font-family: "RobotoBold";
+}
 .form-control {
   font-weight: normal;
 }
@@ -446,5 +450,9 @@ a.grey-link:hover span {
 }
 .fragmentation-textarea {
   cursor: crosshair;
+}
+.translation-data-page .cover-img {
+  max-width: 200px;
+  margin-bottom: 20px;
 }
 /*# sourceMappingURL=styles.css.map */
