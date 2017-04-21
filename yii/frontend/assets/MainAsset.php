@@ -15,7 +15,7 @@ class MainAsset extends AssetBundle
     public $css = [
         'css/bootstrap.min.css',
         // 'css/styles.css?189',
-        'css/styles.less?2222',
+        'css/style.less',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ];
 
