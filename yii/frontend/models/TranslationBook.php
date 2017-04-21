@@ -3,11 +3,14 @@ namespace frontend\models;
 
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
 
 use frontend\models\Translation;
 use frontend\models\TranslationBook;
 use frontend\models\TranslationPart;
 use frontend\models\PartFragment;
+
+use frontend\models\Language;
 
 class TranslationBook extends Translation 
 {
@@ -35,10 +38,25 @@ class TranslationBook extends Translation
             $partsText[] = $partFragments;
         }   
 
+        $languages = Language::find()
+                            ->asArray()
+                            ->all();
+
+        foreach ($languages as $language) {
+        	if ($language['language_id'] == $translation->from_language_id) {
+        		$translation->from_language_id = $language['name'];
+        	}
+
+        	if ($language['language_id'] == $translation->to_language_id) {
+        		$translation->to_language_id = $language['name'];
+        	}
+        }
+
         return [
                     'partsText' => $partsText,
                     'translation' => $translation,
                     'translationBook' => $translationBook,
+                    'languages' => $languages,
                ];
 	}
 }
