@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Bearlog.Web.MvcApplication" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="Bearlog_Web.MvcApplication" Language="C#" %>
