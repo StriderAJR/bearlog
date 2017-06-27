@@ -19,5 +19,16 @@ namespace Bearlog.Web.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(AccountModel model)
+        {
+            return View();
+        }
     }
 }
