@@ -1,0 +1,47 @@
+﻿@model Bearlog.Web.Models.AccountModel
+
+    @using (Html.BeginForm("Register", "Account"))
+    {
+        <div class="form-field">
+            @Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
+       {
+           settings.Name = "UserName";
+           settings.Width = Unit.Percentage(30);
+           settings.Properties.Caption = "User Name";
+       }).GetHtml()
+            @Html.ValidationMessageFor(m => m.UserName)
+
+        </div>
+
+        @Html.DevExpress().TextBoxFor(m => m.Password, settings =>
+       {
+           settings.Name = "Password";
+           settings.Width = Unit.Percentage(30);
+           settings.Properties.Caption = "Password";
+           settings.Properties.Password = true;
+       }).GetHtml()
+        @Html.ValidationMessageFor(m => m.UserName)
+
+
+
+         <div class="form-field">
+             @Html.ValidationMessageFor(m => m.Password)
+         </div>
+
+         <div class="form-field">
+             @Html.DevExpress().CheckBox(settings =>
+        {
+            settings.Name = "RememberMe";
+            settings.Text = "Remember me?";
+        }).GetHtml()
+         </div>
+
+         @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btnRegister";
+        settings.Text = "Registration";
+        settings.UseSubmitBehavior = true;
+    }).GetHtml()
+}
+
+

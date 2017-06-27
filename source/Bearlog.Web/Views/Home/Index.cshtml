@@ -57,3 +57,10 @@
     }).GetHtml()
 }
 
+
+    @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "Button2";
+        settings.Text = "Registration";
+        settings.RouteValues = new {Controller = "Account", Action = "Register"};
+    }).GetHtml()
