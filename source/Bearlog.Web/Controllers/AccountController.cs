@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Bearlog.Web.Services;
+using Bearlog.Web.Models;
 
 namespace Bearlog.Web.Controllers
 {
-    public class HomeController : Controller
+    public class AccountController : Controller
     {
-        // GET: Home
+        // GET: Account
         public ActionResult Index()
         {
-            var users = new DbService().GetUsers();
-            ViewData["users"] = users;
             return View();
+        }
+
+        public ActionResult Login(AccountModel model)
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
 }

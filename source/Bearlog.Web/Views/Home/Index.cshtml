@@ -1,9 +1,59 @@
-﻿@model dynamic
+﻿@using Bearlog.Web.Models
+@using Bearlog.Web.Services
+@model Bearlog.Web.Models.AccountModel
+
+<h2>Вход в систему</h2>
 
 @{
-    ViewBag.Title = "Bearlog";
+    List<User> users = (List<User>) ViewData["users"];
 }
 
-<h2>@ViewBag.Title</h2>
+@if (users != null)
+{
+    <div>Registered users</div>
+     foreach (var user in users)
+     {
+         <div>@user.UserName - @user.Email</div>
+     }
+}
 
-Soon here will be dragons!
+@using(Html.BeginForm("Login", "Account")) {
+    @Html.DevExpress().Label(settings => {
+        settings.Name = "UserNameLabel";
+        settings.Text = "User Name";
+        settings.AssociatedControlName = "UserName";
+    }).GetHtml()
+
+    <div class="form-field">
+        @Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
+        {
+            settings.Name = "UserName";
+            settings.Width = Unit.Percentage(100);
+        }).GetHtml()
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+
+    @Html.DevExpress().Label(settings => {
+        settings.Name = "PasswordLabel";
+        settings.Text = "Password";
+        settings.AssociatedControlName = "Password";
+    }).GetHtml()
+    <div class="form-field">
+        @Html.EditorFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <div class="form-field">
+        @Html.DevExpress().CheckBox(settings => {
+            settings.Name = "RememberMe";
+            settings.Text = "Remember me?";
+        }).GetHtml()
+    </div>
+
+    @Html.DevExpress().Button(settings => {
+        settings.Name = "Button";
+        settings.Text = "Log On";
+        settings.UseSubmitBehavior = true;
+    }).GetHtml()
+}
+
