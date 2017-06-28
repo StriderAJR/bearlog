@@ -12,6 +12,15 @@ namespace Bearlog.Web.Services
   
     public class DbService
     {
+        const string UserTableName = "[u0351346_Bearlog].[u0351346_developer].[Users]";
+
+        private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
+        private readonly string _addUserCommand = string.Format(
+            @"
+                    insert {0} 
+                    (UserName, Password) 
+                    values (@param1, @param2)", UserTableName);
+
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
@@ -22,7 +31,7 @@ namespace Bearlog.Web.Services
                 {
                     _connection.Open();
                 }
-                var cmd = new SqlCommand("select * from [u0351346_Bearlog].[u0351346_developer].[User]", _connection);
+                var cmd = new SqlCommand(_getUsersCommand, _connection);
                 var reader = cmd.ExecuteReader();
                 var t = new DataTable();
                 t.Load(reader);
@@ -40,6 +49,25 @@ namespace Bearlog.Web.Services
                 return users;
             }
         }
+
+        public bool AddUser(AccountModel model) //<-тут чето добавляется
+        {
+            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_addUserCommand, connection);
+
+                cmd.Parameters.AddWithValue("@param1", model.UserName);
+                cmd.Parameters.AddWithValue("@param2", model.Password);
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+        } 
 
         public bool Validate(AccountModel model)
         {
