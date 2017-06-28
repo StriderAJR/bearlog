@@ -1,11 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="UTF-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- SweetAlert -->
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="~/Content/SweetAlert/sweetalert2.min.css">
+
     <title>@ViewBag.Title</title>
 
-    @Html.DevExpress().GetStyleSheets( 
+@*    @Html.DevExpress().GetStyleSheets( 
     new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout }, 
     new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }, 
     new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor }, 
@@ -34,7 +42,7 @@
     new Script { ExtensionSuite = ExtensionSuite.RichEdit },
     new Script { ExtensionSuite = ExtensionSuite.Spreadsheet },
     new Script { ExtensionSuite = ExtensionSuite.SpellChecker }
-)
+)*@
 </head>
 
 <body>
