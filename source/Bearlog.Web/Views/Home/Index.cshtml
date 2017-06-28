@@ -1,9 +1,8 @@
 ﻿@model dynamic
 
-@{
-    ViewBag.Title = "Bearlog";
-}
+<h2>Test</h2>
 
-<h2>@ViewBag.Title</h2>
-
-Soon here will be dragons!
+@Html.DevExpress().Button(x =>
+{
+    x.Name = "btn1";
+}).GetHtml()
