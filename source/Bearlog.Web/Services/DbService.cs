@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Configuration;
 using Bearlog.Web.Models;
+
 
 namespace Bearlog.Web.Services
 {
   
     public class DbService
     {
-        const string UserTableName = "[u0351346_Bearlog].[u0351346_developer].[Users]";
+        const string UserTableName = "[u0351346_Bearlog].[u0351346_developer].[user]";
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
         private readonly string _addUserCommand = string.Format(
             @"
                     insert {0} 
-                    (UserName, Password) 
-                    values (@param1, @param2)", UserTableName);
+                    (user_id, user_name, password, email, is_banned, is_active) 
+                    values 
+                    (@param1,@param2, @param3,@param4,@param5, @param6)", UserTableName);
 
         public List<User> GetUsers()
         {
@@ -50,7 +50,12 @@ namespace Bearlog.Web.Services
             }
         }
 
-        public bool AddUser(AccountModel model) //<-тут чето добавляется
+        /*public string GetHashCode(string password)
+        {
+            
+        }*/
+
+        public bool AddUser(RegisterModel model) //<-тут чето добавляется
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
             {
@@ -59,9 +64,13 @@ namespace Bearlog.Web.Services
                     connection.Open();
                 }
                 var cmd = new SqlCommand(_addUserCommand, connection);
+                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid()); 
+                cmd.Parameters.AddWithValue("@param2", model.UserName);
+                cmd.Parameters.AddWithValue("@param3", Hash.GetHashCode(model.Password));
+                cmd.Parameters.AddWithValue("@param4", model.Email);
+                cmd.Parameters.AddWithValue("@param5", 0);
+                cmd.Parameters.AddWithValue("@param6", 0);
 
-                cmd.Parameters.AddWithValue("@param1", model.UserName);
-                cmd.Parameters.AddWithValue("@param2", model.Password);
 
                 cmd.ExecuteNonQuery();
 

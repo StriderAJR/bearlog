@@ -1,6 +1,18 @@
-﻿@model Bearlog.Web.Models.AccountModel
+﻿@model Bearlog.Web.Models.RegisterModel
 
-    @using (Html.BeginForm("Register", "Account"))
+<script>
+    function btnRegister_Click(s, e) {
+        var password1 = Password.GetValue();
+        var password2 = Password2.GetValue();
+
+        if (password1 === password2)
+            document.forms["registerForm"].submit();
+        else
+            alert('Пароли не совпадают!');
+    }
+</script>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new {id = "registerForm"}))
     {
         <div class="form-field">
             @Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
@@ -20,27 +32,40 @@
            settings.Properties.Caption = "Password";
            settings.Properties.Password = true;
        }).GetHtml()
-        @Html.ValidationMessageFor(m => m.UserName)
+        @Html.ValidationMessageFor(m => m.Password)
 
+        <div>
+            @Html.DevExpress().TextBoxFor(m => m.Password, settings =>
+            {
+                settings.Name = "Password2";
+                settings.Width = Unit.Percentage(30);
+                settings.Properties.Caption = "Password2";
+                settings.Properties.Password = true;
+            }).GetHtml()
+            
+        </div>
+
+        @Html.DevExpress().TextBoxFor(m => m.Email, settings =>
+        {
+            settings.Name = "Email";
+            settings.Width = Unit.Percentage(30);
+            settings.Properties.Caption = "Email";
+        }).GetHtml()
+        @Html.ValidationMessageFor(m => m.Email)
 
 
          <div class="form-field">
              @Html.ValidationMessageFor(m => m.Password)
          </div>
 
-         <div class="form-field">
-             @Html.DevExpress().CheckBox(settings =>
-        {
-            settings.Name = "RememberMe";
-            settings.Text = "Remember me?";
-        }).GetHtml()
-         </div>
+     
 
          @Html.DevExpress().Button(settings =>
     {
         settings.Name = "btnRegister";
         settings.Text = "Registration";
-        settings.UseSubmitBehavior = true;
+        settings.ClientSideEvents.Click = "btnRegister_Click";
+        // settings.UseSubmitBehavior = true;
     }).GetHtml()
 }
 
