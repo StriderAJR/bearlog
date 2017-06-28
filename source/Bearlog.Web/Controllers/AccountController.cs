@@ -27,7 +27,7 @@ namespace Bearlog.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(AccountModel model)
+        public ActionResult Register(RegisterModel model)
         {
             new DbService().AddUser(model);
             return View();
