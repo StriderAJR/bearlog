@@ -9,6 +9,7 @@ namespace Bearlog.Web.Models
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool RememberMe { get; set; }
         
     }
 
@@ -18,8 +19,8 @@ namespace Bearlog.Web.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool Is_Banned { get; set; }
-        public bool Is_Active { get; set; }
+        public bool IsBanned { get; set; }
+        public bool IsActive { get; set; }
 
     }
 

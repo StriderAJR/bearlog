@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Configuration;
 using Bearlog.Web.Models;
 
@@ -78,8 +79,23 @@ namespace Bearlog.Web.Services
             }
         } 
 
-        public bool Validate(AccountModel model)
+        public bool ValidateUser(string userName, string password)
         {
+            var users = GetUsers();
+            foreach (var user in users)
+            {
+                if (user.UserName == userName)
+                {
+                    // проверяем пароль
+                }
+            }
+
+            var user2 = users.FirstOrDefault(x => x.UserName == userName);
+            if (user2 != null)
+            {
+                // проверяем пароль
+            }
+
             return false;
         }
     }
