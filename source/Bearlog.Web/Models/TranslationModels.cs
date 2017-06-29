@@ -30,5 +30,19 @@ namespace Bearlog.Web.Models
     {
         public Guid Id { get; set; }
         public List<FragmentTranslation> Translations { get; set; }
+
+
+    }
+
+    public class FragmentTranslation{
+        public Guid Id { get; set; }
+        public Guid AuthorId { get; set; }
+        public Guid FragmentId { get; set; }
+        public string Text { get; set; }
+        public int Rating { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime CreateAt { get; set; }
+
+
     }
 }
