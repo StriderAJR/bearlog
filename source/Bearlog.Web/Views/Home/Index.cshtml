@@ -2,30 +2,36 @@
 @using Bearlog.Web.Services
 @model Bearlog.Web.Models.AccountModel
 
+
+    <h4>Вход на сайт</h4>
+    <hr/>
+    
 <form class="form-horizontal">
-    <legend>Вход на сайт</legend>
     <div class="form-group">
-        <label for="inputLogin" class="col-sm-2 control-label">Логин</label>
-        <div class="col-sm-10">
-            <input id="inputLogin" placeholder="Введите логин" class="form-control">
+        <label for="inputLogin" class="col-lg-1 control-label">Логин</label>
+        <div class="col-lg-2">
+            <input id="inputLogin" class="form-control">
         </div>
+
     </div>
     <div class="form-group">
-        <label for="inputPassword" class="col-sm-2 control-label">Пароль</label>
-        <div class="col-sm-10">
-            <input type="password" id="inputPassword" placeholder="Введите пароль" class="form-control">
+        <label for="inputPassword" class="col-lg-1 control-label">Пароль</label>
+        <div class="col-lg-2">
+            <input type="password" id="inputPassword" class="form-control">
         </div>
     </div>
+
     <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2 checkbox">
-            <label><input type="checkbox"> Запомнить меня</label>
+        <div class="col-lg-1 col-lg-offset-1">
+            <button type="submit" class="btn btn-success btn-block">Войти</button>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <button type="submit" class="btn btn-default">Войти</button>
+        
+        <div class="col-lg-1">
+            <a href="/Account/Register" class="btn btn-link btn-block" target="_blank">Зарегистрироваться</a>
         </div>
+
     </div>
+
 </form>
 
 
