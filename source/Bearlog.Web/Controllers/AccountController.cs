@@ -17,7 +17,7 @@ namespace Bearlog.Web.Controllers
             return View();
         }
 
-        public ActionResult Login(LoginModel model, string returnUrl)
+       /* public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace Bearlog.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-        }
+        }*/
 
         public ActionResult Register()
         {

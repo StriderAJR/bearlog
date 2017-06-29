@@ -16,22 +16,26 @@ namespace Bearlog.Web.Models
         public string AuthorName { get; set; }
         public string AuthorOriginalName { get; set; }
         public int Year { get; set; }
-        public List<Chapter> Fragments { get; set; }
+        public List<Part> Fragments { get; set; }
 
     }
 
-    public class Chapter
+   
+
+    public class Part
     {
         public Guid Id { get; set; }
-        public List<Fragment> Fragments { get; set; }
+        public List<PartFragment> PartFragments { get; set; }
+        public string Name;
+        public string OriginalName { get; set; }
+
     }
 
-    public class Fragment
+    public class PartFragment
     {
         public Guid Id { get; set; }
+        public string OriginalText;
         public List<FragmentTranslation> Translations { get; set; }
-
-
     }
 
     public class FragmentTranslation{
@@ -42,7 +46,12 @@ namespace Bearlog.Web.Models
         public int Rating { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime CreateAt { get; set; }
+        public List<Comments> Comments { get; set; }
 
+    }
 
+    public class Comments
+    {
+        
     }
 }
