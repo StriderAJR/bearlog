@@ -19,6 +19,9 @@ namespace Bearlog.Web.Controllers
                 var email = user.Email;
             }
 
+            var users = new DbService().GetUsers();
+            ViewData["users"] = users;
+
             return View();
         }
     }

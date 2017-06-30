@@ -78,6 +78,19 @@ namespace Bearlog.Web.Controllers
                 Expires = DateTime.Now.AddDays(5),
             };
             Response.SetCookie(cookie);
+        }    
+
+        public ActionResult Register()
+        {
+            return View();
         }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            new DbService().AddUser(model);
+            return View();
+        }
+    
     }
 }
