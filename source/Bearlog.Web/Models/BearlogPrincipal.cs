@@ -20,6 +20,7 @@ namespace Bearlog.Web.Models
         {
             _roles = model.Roles;
             Id = model.Id;
+            UserName = model.UserName;
             FullName = model.Name;
             Email = model.Email;
             if (_roles != null) Array.Sort(_roles);
