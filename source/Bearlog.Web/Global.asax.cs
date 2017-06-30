@@ -47,7 +47,7 @@ namespace Bearlog.Web
                     if (serializeModel == null)
                         serializeModel = new BearlogPrincipalSerializeModel();
 
-                    if (!authTicket.Expired)
+                    if (authTicket.Expired)
                     {
                         FormsAuthentication.SignOut();
                         HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);

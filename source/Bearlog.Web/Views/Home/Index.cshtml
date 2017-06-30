@@ -2,65 +2,45 @@
 @using Bearlog.Web.Services
 @model Bearlog.Web.Models.AccountModel
 
-<h2>Вход в систему</h2>
 
-@{
-    List<User> users = (List<User>) ViewData["users"];
-}
+    <h4>Вход на сайт</h4>
+    <hr/>
 
-@if (users != null)
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal"}))
 {
-    <div>Registered users</div>
-     foreach (var user in users)
-     {
-         <div>@user.UserName - @user.Email</div>
-     }
+    <div class="form-group">
+        <label for="inputLogin" class="col-lg-1 control-label">Логин</label>
+        <div class="col-lg-2">
+            @Html.TextBoxFor(m => m.UserName, new {@class = "form-control" })
+@*            <input id="inputLogin" class="form-control">*@
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="inputPassword" class="col-lg-1 control-label">Пароль</label>
+        <div class="col-lg-2">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+@*            <input type="password" id="inputPassword" class="form-control">*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-1 col-lg-offset-1">
+            <button type="submit" class="btn btn-success btn-block">Войти</button>
+        </div>
+
+        <div class="col-lg-1">
+            <a href="/Account/Register" class="btn btn-link btn-block" target="_blank">Зарегистрироваться</a>
+        </div>
+
+    </div>
 }
 
-@using(Html.BeginForm("Login", "Account")) {
-    @Html.DevExpress().Label(settings => {
-        settings.Name = "UserNameLabel";
-        settings.Text = "User Name";
-        settings.AssociatedControlName = "UserName";
-    }).GetHtml()
-
-    <div class="form-field">
-        @Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
-        {
-            settings.Name = "UserName";
-            settings.Width = Unit.Percentage(100);
-        }).GetHtml()
-        @Html.ValidationMessageFor(m => m.UserName)
-    </div>
-
-    @Html.DevExpress().Label(settings => {
-        settings.Name = "PasswordLabel";
-        settings.Text = "Password";
-        settings.AssociatedControlName = "Password";
-    }).GetHtml()
-    <div class="form-field">
-        @Html.EditorFor(m => m.Password)
-        @Html.ValidationMessageFor(m => m.Password)
-    </div>
-
-    <div class="form-field">
-        @Html.DevExpress().CheckBox(settings => {
-            settings.Name = "RememberMe";
-            settings.Text = "Remember me?";
-        }).GetHtml()
-    </div>
-
-    @Html.DevExpress().Button(settings => {
-        settings.Name = "Button";
-        settings.Text = "Log On";
-        settings.UseSubmitBehavior = true;
-    }).GetHtml()
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Hello, @(((BearlogPrincipal) User).UserName)</p>
 }
-
-
-    @Html.DevExpress().Button(settings =>
-    {
-        settings.Name = "Button2";
-        settings.Text = "Registration";
-        settings.RouteValues = new {Controller = "Account", Action = "Register"};
-    }).GetHtml()
+else
+{
+    <p>Вход не выполнен</p>
+}
