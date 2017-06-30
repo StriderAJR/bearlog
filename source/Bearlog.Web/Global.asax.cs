@@ -1,42 +1,64 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DevExpress.Web.Mvc;
+using System.Web.Security;
+using Bearlog.Web.Models;
+using Newtonsoft.Json;
 
-namespace Bearlog_Web
+namespace Bearlog.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+	public class RouteConfig
+	{
+		public static void RegisterRoutes(RouteCollection routes)
+		{
+			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+			routes.MapRoute(
+				name: "Default",
+				url: "{controller}/{action}/{id}",
+				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+			);
+		}
+	}
 
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            AuthConfig.RegisterAuth();
-            
-            ModelBinders.Binders.DefaultBinder = new DevExpress.Web.Mvc.DevExpressEditorsBinder();
-
-            DevExpress.Web.ASPxWebControl.CallbackError += Application_Error;
         }
 
-        /*protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            DevExpressHelper.Theme = "Moderno";
-        }*/
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 
-        protected void Application_Error(object sender, EventArgs e) 
-        {
-            Exception exception = System.Web.HttpContext.Current.Server.GetLastError();
-            //TODO: Handle Exception
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                if (authTicket != null)
+                {
+                    BearlogPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<BearlogPrincipalSerializeModel>(authTicket.UserData);
+
+                    if (serializeModel == null)
+                        serializeModel = new BearlogPrincipalSerializeModel();
+
+                    if (!authTicket.Expired)
+                    {
+                        FormsAuthentication.SignOut();
+                        HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+                    }
+                    else
+                    {
+                        BearlogPrincipal newUser = new BearlogPrincipal(User.Identity, serializeModel);
+                        HttpContext.Current.User = newUser;
+                    }
+                }
+            }
         }
     }
 }

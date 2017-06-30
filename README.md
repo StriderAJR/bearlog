@@ -1,8 +1,6 @@
 # Bearlog
 Инструментальная платформа для переводчиков
 
-## Диаграммы
-[Online редактирование диаграмм](https://sketchboard.me)
-
-## Проектирование схемы базы данных
-[Online DB Designer](http://dbdesigner.net/designer/schema/83151)
+## Материалы
+* [MindMap проекта](https://sketchboard.me)
+* [Макет БД](http://dbdesigner.net/designer/schema/83151)

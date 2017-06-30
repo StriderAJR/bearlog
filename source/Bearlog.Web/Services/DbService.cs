@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Configuration;
 using Bearlog.Web.Models;
 
@@ -12,6 +13,8 @@ namespace Bearlog.Web.Services
     public class DbService
     {
         const string UserTableName = "[u0351346_Bearlog].[u0351346_developer].[user]";
+        const string BookTableName = "[u0351346_Bearlog].[u0351346_developer].[book]";
+        const string PartTableName = "[u0351346_Bearlog].[u0351346_developer].[part]";
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
         private readonly string _addUserCommand = string.Format(
@@ -20,6 +23,18 @@ namespace Bearlog.Web.Services
                     (user_id, user_name, password, email, is_banned, is_active) 
                     values 
                     (@param1,@param2, @param3,@param4,@param5, @param6)", UserTableName);
+
+        private readonly string _addBookCommand = string.Format(@"
+                    insert {0} 
+                    (book_id, author_name, author_original_name, year,translation_id) 
+                    values 
+                    (@param1,@param2, @param3,@param4,@param5)", BookTableName);
+
+        private readonly string _addPartFragmentCommand = string.Format(@"
+                    insert {0} 
+                    (part_fragment_id, translation_id, original_text) 
+                    values 
+                    (@param1,@param2, @param3,@param4)", PartTableName);
 
         public List<User> GetUsers()
         {
@@ -76,10 +91,67 @@ namespace Bearlog.Web.Services
 
                 return true;
             }
-        } 
+        }
 
-        public bool Validate(AccountModel model)
+        public bool AddBook(BookModel model)
         {
+            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_addBookCommand, connection);
+                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid());
+                cmd.Parameters.AddWithValue("@param2", model.AuthorName);
+                cmd.Parameters.AddWithValue("@param3", model.AuthorOriginalName);
+                cmd.Parameters.AddWithValue("@param4", model.Year);
+                cmd.Parameters.AddWithValue("@param4", Guid.NewGuid());
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+
+        }
+
+        public bool AddPart(PartFragment model)
+        {
+            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_addPartFragmentCommand, connection);
+                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid());
+                cmd.Parameters.AddWithValue("@param2", Guid.NewGuid());
+                cmd.Parameters.AddWithValue("@param3", model.OriginalText);
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+
+        }
+
+        public bool ValidateUser(string userName, string password)
+        {
+            var users = GetUsers();
+            foreach (var user in users)
+            {
+                if (user.UserName == userName)
+                {
+                    // проверяем пароль
+                }
+            }
+
+            var user2 = users.FirstOrDefault(x => x.UserName == userName);
+            if (user2 != null)
+            {
+                // проверяем пароль
+            }
+
             return false;
         }
     }
