@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bearlog.Web.Models;
+using Bearlog.Web.Services;
 
 namespace Bearlog.Web.Controllers
 {

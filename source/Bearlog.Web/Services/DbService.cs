@@ -17,6 +17,7 @@ namespace Bearlog.Web.Services
         const string PartTableName = "[u0351346_Bearlog].[u0351346_developer].[part]";
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
+        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName);
         private readonly string _addUserCommand = string.Format(
             @"
                     insert {0} 
@@ -65,10 +66,12 @@ namespace Bearlog.Web.Services
             }
         }
 
-        /*public string GetHashCode(string password)
+        public User GetUser(string userName)
         {
-            
-        }*/
+            // TODO Переделать на SqlCommand, чтобы не выгружать всех пользователей ради одного
+            return GetUsers().FirstOrDefault(x => x.UserName == userName);
+        }
+
 
         public bool AddUser(RegisterModel model) //<-тут чето добавляется
         {
@@ -143,6 +146,7 @@ namespace Bearlog.Web.Services
                 if (user.UserName == userName)
                 {
                     // проверяем пароль
+                    return true;
                 }
             }
 

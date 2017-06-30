@@ -23,14 +23,13 @@ namespace Bearlog.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl, string key)
         {
             if (ModelState.IsValid)
             {
                 if (_dbService.ValidateUser(model.UserName, model.Password))
                 {
-                    AccountModel user = _dbService.GetUser(model.UserName);
+                    User user = _dbService.GetUser(model.UserName);
                     if (user == null) throw new NullReferenceException("Membership.GetUser");
 
                     BearlogPrincipalSerializeModel serializeModel = new BearlogPrincipalSerializeModel();
@@ -48,7 +47,7 @@ namespace Bearlog.Web.Controllers
                 ModelState.AddModelError("AuthorizationError", "Логин или пароль введены неверно");
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         private void SaveBearlogPrincipalSerializeModelCookie(string userName, BearlogPrincipalSerializeModel serializeModel)
