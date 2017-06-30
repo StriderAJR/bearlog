@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bearlog.Web.Models;
+using Bearlog.Web.Services;
 
 namespace Bearlog.Web.Controllers
 {
@@ -18,6 +19,9 @@ namespace Bearlog.Web.Controllers
                 var userName = user.UserName;
                 var email = user.Email;
             }
+
+            var users = new DbService().GetUsers();
+            ViewData["users"] = users;
 
             return View();
         }
