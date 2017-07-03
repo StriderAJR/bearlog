@@ -19,7 +19,7 @@ namespace Bearlog.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertPart (PartFragment model) // insertPart - название страницы?
+        public ActionResult InsertPart (Part model) // insertPart - название страницы?
         {
             new DbService().AddPart(model);
             return View();
