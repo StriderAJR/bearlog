@@ -9,7 +9,7 @@ using Bearlog.Web.Models;
 
 namespace Bearlog.Web.Services
 {
-  
+
     public class DbService
     {
         const string UserTableName = "[u0351346_Bearlog].[u0351346_developer].[user]";
@@ -17,11 +17,17 @@ namespace Bearlog.Web.Services
         const string PartTableName = "[u0351346_Bearlog].[u0351346_developer].[part]";
         const string TranslationTableName = "[u0351346_Bearlog].[u0351346_developer].[translation]";
 
-        private readonly  string _getPartsCommand = string.Format("select * from {0}", PartTableName);
-        private readonly  string _getBooksCommand = string.Format("select * from {0}", BookTableName);
-        private readonly string _getBookCommand = string.Format("select * from {0} where user_name = @userName", BookTableName); // <-not work
+        private readonly string _getPartsCommand = string.Format("select * from {0}", PartTableName);
+        private readonly string _getBooksCommand = string.Format("select * from {0}", BookTableName);
+
+        private readonly string _getBookCommand = string.Format("select * from {0} where user_name = @userName",
+            BookTableName); // <-not work
+
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
-        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName); // <-not work
+
+        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName",
+            UserTableName); // <-not work
+
         private readonly string _addUserCommand = string.Format(
             @"
                     insert {0} 
@@ -40,12 +46,19 @@ namespace Bearlog.Web.Services
                     (part_fragment_id, translation_id, original_text) 
                     values 
                     (@param1,@param2, @param3,@param4)", PartTableName);
+
         private readonly string _addTranslationModel = string.Format(
             @"
                     insert {0} 
                     (translation_id, tags, creator_id, name, name_original, from_language_id, to_language_id, cover_link, is_private, is_finished) 
                     values 
-                    (@translation_id_param, @tags_param, @creator_id_param, @name_param, @name_original_param, @from_language_id_param, @to_language_id_param, @cover_link_param, @is_private_param, @is_finished )", TranslationTableName);
+                    (@translation_id_param, @tags_param, @creator_id_param, @name_param, @name_original_param, @from_language_id_param, @to_language_id_param, @cover_link_param, @is_private_param, @is_finished )",
+            TranslationTableName);
+
+        /// <summary>
+        /// WARNING. Получить всех пользователей в системе
+        /// </summary>
+        /// <returns>Список всех пользоваталей</returns>
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
@@ -67,7 +80,10 @@ namespace Bearlog.Web.Services
                     {
                         Id = (Guid) row["user_id"],
                         UserName = (string) row["user_name"],
-                        Email = (string) row["email"]
+                        PasswordHash = (string) row["password"],
+                        Email = (string) row["email"],
+                        IsActive = (bool) row["is_active"],
+                        IsBanned = (bool) row["is_banned"]
                     };
                     users.Add(u);
                 }
@@ -75,7 +91,10 @@ namespace Bearlog.Web.Services
                 return users;
             }
         }
-
+        /// <summary>
+        /// WARNING. Получить все книги в системе
+        /// </summary>
+        /// <returns>Список всех книг</returns>
         public List<BookModel> GetBooks() //after lanch
         {
             List<BookModel> books = new List<BookModel>();
@@ -118,27 +137,22 @@ namespace Bearlog.Web.Services
                         AuthorOriginalName = (string) row["author_original_name"],
                         Year = (int) row["year"],
                         Fragments = fragments1
-                        
+
                     };
-                   
-                books.Add(u);
+
+                    books.Add(u);
                 }
 
                 return books;
             }
         }
-
-
-
-
-
-
+        /// <summary>
+        /// Получить данные пользователя
+        /// </summary>
+        /// <param name="userName">Логин в системе</param>
+        /// <returns>Пользователь</returns>
         public User GetUser(string userName)
         {
-              //TODO Переделать на SqlCommand, чтобы не выгружать всех пользователей ради одного
-             return GetUsers().FirstOrDefault(x => x.UserName == userName);
-
-           /* User user = new User();
             using (SqlConnection connection =
                 new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
             {
@@ -146,29 +160,30 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
-                var cmd = new SqlCommand(_getUsersCommand, connection);
+                var cmd = new SqlCommand(_getUserCommand, connection);
+                cmd.Parameters.AddWithValue("@userName", userName);
                 var reader = cmd.ExecuteReader();
                 var t = new DataTable();
                 t.Load(reader);
 
-                foreach (DataRow row in t.Rows)
+                if (t.Rows.Count == 0)
+                    return null;
+
+                var userRow = t.Rows[0];
+
+                return new User
                 {
-                    if ((string)row["user_name"] == userName)
-                    {
-
-                        user.Id = (Guid) row["user_id"];
-                        user.UserName = (string) row["user_name"];
-                        user.Email = (string) row["email"];
-                        
-                        return user;
-                    }
-                }
-            }*/
+                    Id = (Guid) userRow["user_id"],
+                    UserName = (string) userRow["user_name"],
+                    Email = (string) userRow["email"]
+                };
+            }
         }
-
-       
-
-
+        /// <summary>
+        /// Добавить пользователя
+        /// </summary>
+        /// <param name="model">Модель пользователя</param>
+        /// <returns>Флаг успешности операции</returns>
         public bool AddUser(RegisterModel model) //<-тут чето добавляется
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
@@ -177,8 +192,6 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
-
-
               
                 var cmd = new SqlCommand(_addUserCommand, connection);
                 cmd.Parameters.AddWithValue("@param1", Guid.NewGuid()); 
@@ -195,7 +208,13 @@ namespace Bearlog.Web.Services
                 return true;
             }
         }
-
+        /// <summary>
+        /// Добавить книгу
+        /// </summary>
+        /// <param name="model">Книга</param>
+        /// <param name="userId">Id пользователя, создавшего книгу</param>
+        /// <param name="bookId">Id созданной книги</param>
+        /// <returns>Флаг успешности операции</returns>
         public bool AddBook(BookModel model, Guid userId, out Guid bookId)
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
@@ -244,7 +263,11 @@ namespace Bearlog.Web.Services
             }
 
         }
-
+        /// <summary>
+        /// Добавить фрагмент перевода
+        /// </summary>
+        /// <param name="model">Фрагмент</param>
+        /// <returns>Флаг успешности операции</returns>
         public bool AddPart(Part model)
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
@@ -267,23 +290,19 @@ namespace Bearlog.Web.Services
             }
 
         }
-
+        /// <summary>
+        /// Проверить правильность пары логин и пароль
+        /// </summary>
+        /// <param name="userName">Логин</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>Соответствуюет ли пара логин и пароль имеющимся в системе</returns>
         public bool ValidateUser(string userName, string password)
         {
-            var users = GetUsers();
-            foreach (var user in users)
+            var user = GetUsers().FirstOrDefault(x => x.UserName == userName);
+            if (user != null)
             {
-                if (user.UserName == userName)
-                {
-                    // проверяем пароль
+                if (user.PasswordHash == Hash.GetHashCode(password))
                     return true;
-                }
-            }
-
-            var user2 = users.FirstOrDefault(x => x.UserName == userName);
-            if (user2 != null)
-            {
-                // проверяем пароль
             }
 
             return false;
