@@ -15,6 +15,40 @@ namespace Bearlog.Web.Controllers
         DbService _dbService = new DbService();
         private const string UserNameCookie = "BearlogUserName";
 
+        #region Principal Cookie Methods
+
+        private void SaveBearlogPrincipalSerializeModelCookie(string userName, BearlogPrincipalSerializeModel serializeModel)
+        {
+            string userData = JsonConvert.SerializeObject(serializeModel);
+
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                         1,                          // version
+                         userName,                   // username
+                         DateTime.Now,               // creation
+                         DateTime.Now.AddMinutes(60),// Expiration
+                         false,                      // Persistent
+                         userData);                  // Userdata
+
+            // Now encrypt the ticket.
+            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+
+            // Create a cookie and add the encrypted ticket to the 
+            // cookie as data.
+            HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+
+            // Add the cookie to the outgoing cookies collection. 
+            Response.Cookies.Add(authCookie);
+            var cookie = new HttpCookie(UserNameCookie)
+            {
+                Value = userName,
+                Expires = DateTime.Now.AddDays(5),
+            };
+            Response.SetCookie(cookie);
+        }
+
+
+        #endregion
+
         // GET: Account
         public ActionResult Index()
         {
@@ -50,35 +84,7 @@ namespace Bearlog.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private void SaveBearlogPrincipalSerializeModelCookie(string userName, BearlogPrincipalSerializeModel serializeModel)
-        {
-            string userData = JsonConvert.SerializeObject(serializeModel);
-
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                         1,                          // version
-                         userName,             // username
-                         DateTime.Now,               // creation
-                         DateTime.Now.AddMinutes(60),// Expiration
-                         false,                      // Persistent
-                         userData);        // Userdata
-
-            // Now encrypt the ticket.
-            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-
-            // Create a cookie and add the encrypted ticket to the 
-            // cookie as data.
-            HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-
-            // Add the cookie to the outgoing cookies collection. 
-            Response.Cookies.Add(authCookie);
-            var cookie = new HttpCookie(UserNameCookie)
-            {
-                Value = userName,
-                Expires = DateTime.Now.AddDays(5),
-            };
-            Response.SetCookie(cookie);
-        }    
-
+        
         public ActionResult Register()
         {
             return View();
@@ -90,6 +96,11 @@ namespace Bearlog.Web.Controllers
             new DbService().AddUser(model);
             return View();
         }
-    
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -1,29 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Bearlog.Web.Models;
-using Bearlog.Web.Services;
-
+﻿using System;using System.Collections.Generic;using System.Linq;using System.Web;using System.Web.Mvc;using Bearlog.Web.Models;
+using Bearlog.Web.Services;
 namespace Bearlog.Web.Controllers
 {
     public class BookController : Controller
     {
+        DbService _dbService = new DbService();
         [Authorize]
-       // [HttpPost]
-       
-        public ActionResult Index()
-        {
-            return View();
+        // bearlog.org/Book/bookId
+        public ActionResult Index(Guid id)
+        {            //Передаем
+            //Book book = _dbService.GetBook(model.UserName);
+            //if (user == null) throw new NullReferenceException("Membership.GetUser");
+            // var book = _dbService.GetBook(bookId);
+            BookModel book = new BookModel
+            {
+                Name = "Ведьмак"
+            };
+            return View(book); // Возвращаем в вид МОДЕЛЬ!
         }
-
         [HttpPost]
-        public ActionResult InsertPart (PartFragment model) // insertPart - название страницы?
+        public ActionResult InsertPart (Part model) // insertPart - название страницы?
         {
             new DbService().AddPart(model);
             return View();
         }
+        public ActionResult Add()
+        {
+            List<Language> languages = new List<Language>
+            {
+                new Language { Id = Guid.NewGuid(), Name = "Русский"},
+                new Language { Id = Guid.NewGuid(), Name = "Английский"}
+            };
+            ViewData["Languages"] = languages;
+            return View();
+        }
 
-    }
-}
+        [HttpPost]
+        [Authorize]
+        public ActionResult Add(BookModel model)
+        {
+            List<Language> languages = new List<Language>
+            {
+                new Language { Id = Guid.NewGuid(), Name = "Русский"},
+                new Language { Id = Guid.NewGuid(), Name = "Английский"}
+            };
+            ViewData["Languages"] = languages;
+            Guid bookId;
+            _dbService.AddBook(model, ((BearlogPrincipal)User).Id, out bookId); // Стало
+            return RedirectToAction("Index", new { id = bookId});
+        }
+    }
+}
+
+
+
+
+
+
+
