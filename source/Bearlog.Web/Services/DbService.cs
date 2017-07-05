@@ -90,7 +90,7 @@ namespace Bearlog.Web.Services
                 var t = new DataTable();
                 t.Load(reader);
 
-                List<Part> Fragments1 = new List<Part>();
+                List<Part> fragments1 = new List<Part>();
                 var cmd1 = new SqlCommand(_getPartsCommand, connection);
                 var reader1 = cmd.ExecuteReader();
                 var t1 = new DataTable();
@@ -104,7 +104,7 @@ namespace Bearlog.Web.Services
                         Name = (string) row["name"],
                         OriginalName = (string) row["original_name"]
                     };
-                    Fragments1.Add(u);
+                    fragments1.Add(u);
 
                 }
 
@@ -116,7 +116,7 @@ namespace Bearlog.Web.Services
                         AuthorName = (string) row["author_name"],
                         AuthorOriginalName = (string) row["author_original_name"],
                         Year = (int) row["year"],
-                        Fragments = Fragments1
+                        Fragments = fragments1
                         
                     };
                    
@@ -217,15 +217,14 @@ namespace Bearlog.Web.Services
                 cmd2.Parameters.AddWithValue("@is_private_param", model.IsPrivate);
                 cmd2.Parameters.AddWithValue("@is_finished", 0);
 
-
+                cmd2.ExecuteNonQuery();
 
 
                 var cmd = new SqlCommand(_addBookCommand, connection);
                 cmd.Parameters.AddWithValue("@param1", bookId);
                 cmd.Parameters.AddWithValue("@param2", model.AuthorName);
                 cmd.Parameters.AddWithValue("@param3", model.AuthorOriginalName);
-                cmd.Parameters.AddWithValue("@param4", model.Year);
-                
+                cmd.Parameters.AddWithValue("@param4", model.Year);                
 
                 cmd.ExecuteNonQuery();
 
