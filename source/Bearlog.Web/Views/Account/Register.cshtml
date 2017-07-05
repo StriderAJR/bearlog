@@ -1,6 +1,7 @@
 ﻿@model Bearlog.Web.Models.RegisterModel
 
-@*<script>
+
+<script>
     function btnRegister_Click(s, e) {
         var password1 = Password.GetValue();
         var password2 = Password2.GetValue();
@@ -10,63 +11,13 @@
         else
             alert('Пароли не совпадают!');
     }
-</script>*@
+</script>
+
+
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {id = "registerForm", @class = "form-horizontal", role = "form" }))
-{
-        @*<div class="form-field">
-            @Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
-            {
-                settings.Name = "UserName";
-
-                settings.Properties.Caption = "User Name";
-            }).GetHtml()
-            @Html.ValidationMessageFor(m => m.UserName)
-
-        </div>
-
-      
-        @Html.DevExpress().TextBoxFor(m => m.Password, settings =>
-       {
-           settings.Name = "Password";
-           settings.Width = Unit.Percentage(30);
-           settings.Properties.Caption = "Password";
-           settings.Properties.Password = true;
-       }).GetHtml()
-        @Html.ValidationMessageFor(m => m.Password)
-
-        <div>
-            @Html.DevExpress().TextBoxFor(m => m.Password, settings =>
-            {
-                settings.Name = "Password2";
-                settings.Width = Unit.Percentage(30);
-                settings.Properties.Caption = "Password2";
-                settings.Properties.Password = true;
-            }).GetHtml()
-            
-        </div>
-
-        @Html.DevExpress().TextBoxFor(m => m.Email, settings =>
-        {
-            settings.Name = "Email";
-            settings.Width = Unit.Percentage(30);
-            settings.Properties.Caption = "Email";
-        }).GetHtml()
-        @Html.ValidationMessageFor(m => m.Email)
-
-
-         <div class="form-field">
-             @Html.ValidationMessageFor(m => m.Password)
-         </div>
-
-     
-
-         @Html.DevExpress().Button(settings =>
-    {
-        settings.Name = "btnRegister";
-        settings.Text = "Registration";
-        settings.ClientSideEvents.Click = "btnRegister_Click";
-    }).GetHtml()*@
+{    
+        
     <h4>Регистрация</h4>
 
         @Html.AntiForgeryToken()
@@ -74,21 +25,21 @@
 
         <hr />
         <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "col-lg-1 control-label" })
+            @Html.LabelFor(m => m.UserName, "User name", new { @class = "col-lg-1 control-label" })
             <div class="col-lg-2">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
             </div>
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-lg-1 control-label" })
+            @Html.LabelFor(m => m.Password, "Password", new { @class = "col-lg-1 control-label" })
             <div class="col-lg-2">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-lg-1 control-label" })
+            @Html.LabelFor(m => m.Email, "Email",new { @class = "col-lg-1 control-label" })
             <div class="col-lg-2">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             </div>
@@ -96,7 +47,7 @@
         
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-1">
-                <input type="submit" class="btn btn-default" value="Register" />
+                <input class="btn btn-default" value="Register" onclick="btnRegister_Click" />
             </div>
         </div>
 

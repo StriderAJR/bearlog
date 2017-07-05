@@ -56,11 +56,11 @@ namespace Bearlog.Web.Controllers
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                          1,                          // version
-                         userName,             // username
+                         userName,                   // username
                          DateTime.Now,               // creation
                          DateTime.Now.AddMinutes(60),// Expiration
                          false,                      // Persistent
-                         userData);        // Userdata
+                         userData);                  // Userdata
 
             // Now encrypt the ticket.
             string encryptedTicket = FormsAuthentication.Encrypt(authTicket);

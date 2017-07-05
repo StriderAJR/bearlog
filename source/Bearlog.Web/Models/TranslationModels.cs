@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Security.Principal;
+using System.Web.Security;
 
 namespace Bearlog.Web.Models
 {
@@ -22,11 +24,13 @@ namespace Bearlog.Web.Models
 
     public class BookModel : TranslationModel
     {
+        //public string Title { get; set; }
         public string AuthorName { get; set; }
         public string AuthorOriginalName { get; set; }
+        //public string FromLanguage { get; set; }
+        //public string ToLanguage { get; set; }
         public int Year { get; set; }
         public List<Part> Fragments { get; set; }
-
     }
 
    
@@ -62,5 +66,11 @@ namespace Bearlog.Web.Models
     public class Comments
     {
         
+    }
+
+    public class Language
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

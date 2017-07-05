@@ -207,13 +207,24 @@ namespace Bearlog.Web.Services
                 var cmd2 = new SqlCommand(_addTranslationModel, connection);
                 bookId = Guid.NewGuid();
                 cmd2.Parameters.AddWithValue("@translation_id_param", bookId);
-                cmd2.Parameters.AddWithValue("@tags_param", model.Tags);
+
+                string tags = null;
+                if(model.Tags != null)
+                    tags = string.Join(",", model.Tags);
+                if (string.IsNullOrEmpty(tags))
+                    cmd2.Parameters.AddWithValue("@tags_param",  DBNull.Value); 
+                else
+                    cmd2.Parameters.AddWithValue("@tags_param", tags);
+
                 cmd2.Parameters.AddWithValue("@creator_id_param", userId);
                 cmd2.Parameters.AddWithValue("@name_param",model.Name);
                 cmd2.Parameters.AddWithValue("@name_original_param", model.OriginalName);
                 cmd2.Parameters.AddWithValue("@from_language_id_param", model.FromLanguageId);
                 cmd2.Parameters.AddWithValue("@to_language_id_param", model.ToLanguageId);
-                cmd2.Parameters.AddWithValue("@cover_link_param", model.CoverLink);
+                if(string.IsNullOrEmpty(model.CoverLink))
+                    cmd2.Parameters.AddWithValue("@cover_link_param", DBNull.Value);
+                else
+                    cmd2.Parameters.AddWithValue("@cover_link_param", model.CoverLink);
                 cmd2.Parameters.AddWithValue("@is_private_param", model.IsPrivate);
                 cmd2.Parameters.AddWithValue("@is_finished", 0);
 
