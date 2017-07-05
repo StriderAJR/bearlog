@@ -17,8 +17,11 @@ namespace Bearlog.Web.Services
         const string PartTableName = "[u0351346_Bearlog].[u0351346_developer].[part]";
         const string TranslationTableName = "[u0351346_Bearlog].[u0351346_developer].[translation]";
 
+        private readonly  string _getPartsCommand = string.Format("select * from {0}", PartTableName);
+        private readonly  string _getBooksCommand = string.Format("select * from {0}", BookTableName);
+        private readonly string _getBookCommand = string.Format("select * from {0} where user_name = @userName", BookTableName); // <-not work
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
-        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName);
+        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName); // <-not work
         private readonly string _addUserCommand = string.Format(
             @"
                     insert {0} 
@@ -46,14 +49,14 @@ namespace Bearlog.Web.Services
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
-            using (SqlConnection _connection =
+            using (SqlConnection connection =
                 new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
             {
-                if (_connection.State != ConnectionState.Open)
+                if (connection.State != ConnectionState.Open)
                 {
-                    _connection.Open();
+                    connection.Open();
                 }
-                var cmd = new SqlCommand(_getUsersCommand, _connection);
+                var cmd = new SqlCommand(_getUsersCommand, connection);
                 var reader = cmd.ExecuteReader();
                 var t = new DataTable();
                 t.Load(reader);
@@ -72,11 +75,97 @@ namespace Bearlog.Web.Services
             }
         }
 
+        public List<BookModel> GetBooks() //after lanch
+        {
+            List<BookModel> books = new List<BookModel>();
+            using (SqlConnection connection =
+                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_getBooksCommand, connection);
+                var reader = cmd.ExecuteReader();
+                var t = new DataTable();
+                t.Load(reader);
+
+                List<Part> Fragments1 = new List<Part>();
+                var cmd1 = new SqlCommand(_getPartsCommand, connection);
+                var reader1 = cmd.ExecuteReader();
+                var t1 = new DataTable();
+                t1.Load(reader1);
+
+                foreach (DataRow row in t1.Rows)
+                {
+                    Part u = new Part()
+                    {
+                        Id = (Guid) row["part_id"],
+                        Name = (string) row["name"],
+                        OriginalName = (string) row["original_name"]
+                    };
+                    Fragments1.Add(u);
+
+                }
+
+                foreach (DataRow row in t.Rows)
+                {
+                    BookModel u = new BookModel
+                    {
+                        Id = (Guid) row["book_id"],
+                        AuthorName = (string) row["author_name"],
+                        AuthorOriginalName = (string) row["author_original_name"],
+                        Year = (int) row["year"],
+                        Fragments = Fragments1
+                        
+                    };
+                   
+                books.Add(u);
+                }
+
+                return books;
+            }
+        }
+
+
+
+
+
+
         public User GetUser(string userName)
         {
-            // TODO Переделать на SqlCommand, чтобы не выгружать всех пользователей ради одного
-            return GetUsers().FirstOrDefault(x => x.UserName == userName);
+              //TODO Переделать на SqlCommand, чтобы не выгружать всех пользователей ради одного
+             return GetUsers().FirstOrDefault(x => x.UserName == userName);
+
+           /* User user = new User();
+            using (SqlConnection connection =
+                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_getUsersCommand, connection);
+                var reader = cmd.ExecuteReader();
+                var t = new DataTable();
+                t.Load(reader);
+
+                foreach (DataRow row in t.Rows)
+                {
+                    if ((string)row["user_name"] == userName)
+                    {
+
+                        user.Id = (Guid) row["user_id"];
+                        user.UserName = (string) row["user_name"];
+                        user.Email = (string) row["email"];
+                        
+                        return user;
+                    }
+                }
+            }*/
         }
+
+       
 
 
         public bool AddUser(RegisterModel model) //<-тут чето добавляется
@@ -87,6 +176,7 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
+
 
               
                 var cmd = new SqlCommand(_addUserCommand, connection);
