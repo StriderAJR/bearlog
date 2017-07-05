@@ -65,6 +65,7 @@ namespace Bearlog.Web.Services
                 {
                     User u = new User
                     {
+                        Id = (Guid) row["user_id"],
                         UserName = (string) row["user_name"],
                         Email = (string) row["email"]
                     };
