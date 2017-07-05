@@ -30,6 +30,13 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(m => m.OriginalName, new { @class = "col-lg-1 control-label" })
+        <div class="col-lg-2">
+            @Html.TextBoxFor(m => m.OriginalName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(m => m.AuthorName, "Author name", new { @class = "col-lg-1 control-label" })
         <div class="col-lg-2">
             @Html.TextBoxFor(m => m.AuthorName, new { @class = "form-control" })
