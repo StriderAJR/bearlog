@@ -1,46 +1,102 @@
-﻿@using Bearlog.Web.Models
-@using Bearlog.Web.Services
-@model Bearlog.Web.Models.AccountModel
-
-
-    <h4>Вход на сайт</h4>
-    <hr/>
-
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal"}))
-{
-    <div class="form-group">
-        <label for="inputLogin" class="col-lg-1 control-label">Логин</label>
-        <div class="col-lg-2">
-            @Html.TextBoxFor(m => m.UserName, new {@class = "form-control" })
-@*            <input id="inputLogin" class="form-control">*@
-        </div>
-
-    </div>
-    <div class="form-group">
-        <label for="inputPassword" class="col-lg-1 control-label">Пароль</label>
-        <div class="col-lg-2">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-@*            <input type="password" id="inputPassword" class="form-control">*@
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-lg-1 col-lg-offset-1">
-            <button type="submit" class="btn btn-success btn-block">Войти</button>
-        </div>
-
-        <div class="col-lg-1">
-            <a href="/Account/Register" class="btn btn-link btn-block" target="_blank">Зарегистрироваться</a>
-        </div>
-
-    </div>
-}
-
-@if (User.Identity.IsAuthenticated)
-{
-    <p>Hello, @(((BearlogPrincipal) User).UserName)</p>
-}
-else
-{
-    <p>Вход не выполнен</p>
+﻿@using Bearlog.Web.Models
+@using Bearlog.Web.Services
+@model Bearlog.Web.Models.BookModel
+<link rel="stylesheet" href="../../Content/StyleSheet1.css">
+
+@if (!User.Identity.IsAuthenticated)
+{
+    @Html.Partial("UnauthorizedIndex")
+}
+else
+{
+    <h1>Добро пожаловать, @(((BearlogPrincipal)User).UserName)!</h1>
+    <hr/>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>Список книг</h2>
+            <hr />
+        
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="wp-block property list">
+                    <div class="wp-block-body">
+                        <div class="wp-block-img">
+                            <a href="#">
+                                <img src="http://gipbr.spb.ru/smklxbx/hristianskie_zhurnaly_dlya_molodezhi_chitat_besplatno_41816_100.jpg">
+                            </a>
+                        </div>
+                        <div class="wp-block-content">
+                            <small>
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 11.01.2015</small>
+                            <h4 class="content-title">@(((BookModel)Model).Name)</h4>
+
+                            <div class="description">
+                                <p>Автор: @(((BookModel)Model).AuthorName)</p>
+                                <p>@(((BookModel)Model).AuthorOriginalName)</p>               
+                                <p>Год выпуска: @(((BookModel)Model).Year)</p>
+                            </div>
+                            
+                          
+                        </div>
+                    </div>
+                    <div class="wp-block-footer">
+                        <ul class="aux-info">
+                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 365</li>
+                            <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
+                            <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
+                            <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
+                            <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="wp-block property list">
+                    <div class="wp-block-body">
+                        <div class="wp-block-img">
+                            <a href="#">
+                                <img src="http://kinofly.net/uploads/posts/2014-11/14157525135201411110917492021.jpeg">
+                            </a>
+                        </div>
+                        <div class="wp-block-content">
+                            <small>
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 11.01.2015</small>
+                            <h4 class="content-title">Foundation</h4>
+
+                            <div class="description">
+                                <p>Автор: @(((BookModel)Model).AuthorName)</p>
+                                <p>@(((BookModel)Model).AuthorOriginalName)</p>               
+                                <p>Год выпуска: @(((BookModel)Model).Year)</p>
+                            </div>       
+                                             
+                        </div>
+                    </div>
+                    <div class="wp-block-footer">
+                        <ul class="aux-info">
+                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 365</li>
+                            <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
+                            <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
+                            <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
+                            <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+     
+
+        
+    <div class="row">
+            <div class="col-lg-2">
+                <a href="/Book/Add" class="btn btn-success btn-block">Добавить книгу</a>
+            </div>
+    </div>
 }

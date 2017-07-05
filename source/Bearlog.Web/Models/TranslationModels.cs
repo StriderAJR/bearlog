@@ -2,42 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Security.Principal;
+using System.Web.Security;
 
 namespace Bearlog.Web.Models
 {
     public class TranslationModel
     {
         public Guid Id { get; set; }
+        public string[] Tags { get; set; }
+        public Guid CreatorId { get; set; }
+        public string Name { get; set; }
+        public string OriginalName { get; set; }
+        public Guid FromLanguageId { get; set; }
+        public Guid ToLanguageId { get; set; }
+        public string CoverLink { get; set; }
+        public bool IsPrivate { get; set; }
+        public bool IsFinished { get; set; }
 
     }
 
     public class BookModel : TranslationModel
     {
+        //public string Title { get; set; }
         public string AuthorName { get; set; }
         public string AuthorOriginalName { get; set; }
+        //public string FromLanguage { get; set; }
+        //public string ToLanguage { get; set; }
         public int Year { get; set; }
         public List<Part> Fragments { get; set; }
-
     }
 
    
-
+    
     public class Part
     {
         public Guid Id { get; set; }
-        public List<PartFragment> PartFragments { get; set; }
+        public List<Fragment> Fragments { get; set; } // хранится как нумерованный список О_о
         public string Name;
         public string OriginalName { get; set; }
 
     }
 
-    public class PartFragment
+    public class Fragment
     {
         public Guid Id { get; set; }
         public string OriginalText;
         public List<FragmentTranslation> Translations { get; set; }
     }
-
+    
     public class FragmentTranslation{
         public Guid Id { get; set; }
         public Guid AuthorId { get; set; }
@@ -53,5 +66,11 @@ namespace Bearlog.Web.Models
     public class Comments
     {
         
+    }
+
+    public class Language
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }
