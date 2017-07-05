@@ -22,8 +22,7 @@ namespace Bearlog.Web.Controllers
                 var email = user.Email;
 
 
-                var users = new DbService().GetUsers();
-                ViewData["users"] = users;
+                
 
                 BookModel model = new BookModel
                 {

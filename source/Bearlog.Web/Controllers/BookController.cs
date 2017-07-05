@@ -38,11 +38,13 @@ namespace Bearlog.Web.Controllers
 
         {
             //Передаем
-
+            //Book book = _dbService.GetBook(model.UserName);
+            //if (user == null) throw new NullReferenceException("Membership.GetUser");
             // var book = _dbService.GetBook(bookId);
             BookModel book = new BookModel
             {
-                Name = "Ведьмак"
+                
+            Name = "Ведьмак"
             };
             return View(book); // Возвращаем в вид МОДЕЛЬ!
 
