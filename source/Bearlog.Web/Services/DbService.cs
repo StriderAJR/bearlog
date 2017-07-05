@@ -55,6 +55,21 @@ namespace Bearlog.Web.Services
                     (@translation_id_param, @tags_param, @creator_id_param, @name_param, @name_original_param, @from_language_id_param, @to_language_id_param, @cover_link_param, @is_private_param, @is_finished )",
             TranslationTableName);
 
+        #region User
+
+        private User ConvertRowToUser(DataRow row)
+        {
+            return new User
+            {
+                Id = (Guid) row["user_id"],
+                UserName = (string) row["user_name"],
+                PasswordHash = (string) row["password"],
+                Email = (string) row["email"],
+                IsActive = (bool) row["is_active"],
+                IsBanned = (bool) row["is_banned"]
+            };
+        }
+
         /// <summary>
         /// WARNING. Получить всех пользователей в системе
         /// </summary>
@@ -76,15 +91,7 @@ namespace Bearlog.Web.Services
 
                 foreach (DataRow row in t.Rows)
                 {
-                    User u = new User
-                    {
-                        Id = (Guid) row["user_id"],
-                        UserName = (string) row["user_name"],
-                        PasswordHash = (string) row["password"],
-                        Email = (string) row["email"],
-                        IsActive = (bool) row["is_active"],
-                        IsBanned = (bool) row["is_banned"]
-                    };
+                    User u = ConvertRowToUser(row);
                     users.Add(u);
                 }
 
@@ -92,10 +99,85 @@ namespace Bearlog.Web.Services
             }
         }
         /// <summary>
+        /// Получить данные пользователя
+        /// </summary>
+        /// <param name="userName">Логин в системе</param>
+        /// <returns>Пользователь</returns>
+        public User GetUser(string userName)
+        {
+            using (SqlConnection connection =
+                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                var cmd = new SqlCommand(_getUserCommand, connection);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                var reader = cmd.ExecuteReader();
+                var t = new DataTable();
+                t.Load(reader);
+
+                if (t.Rows.Count == 0)
+                    return null;
+
+                var userRow = t.Rows[0];
+                return ConvertRowToUser(userRow);
+            }
+        }
+        /// <summary>
+        /// Добавить пользователя
+        /// </summary>
+        /// <param name="model">Модель пользователя</param>
+        /// <returns>Флаг успешности операции</returns>
+        public bool AddUser(RegisterModel model)
+        {
+            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                var cmd = new SqlCommand(_addUserCommand, connection);
+                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid());
+                cmd.Parameters.AddWithValue("@param2", model.UserName);
+                cmd.Parameters.AddWithValue("@param3", Hash.GetHashCode(model.Password));
+                cmd.Parameters.AddWithValue("@param4", model.Email);
+                cmd.Parameters.AddWithValue("@param5", 0);
+                cmd.Parameters.AddWithValue("@param6", 0);
+
+
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+        }
+        /// <summary>
+        /// Проверить правильность пары логин и пароль
+        /// </summary>
+        /// <param name="userName">Логин</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>Соответствуюет ли пара логин и пароль имеющимся в системе</returns>
+        public bool ValidateUser(string userName, string password)
+        {
+            var user = GetUser(userName);
+            if (user != null)
+            {
+                if (user.PasswordHash == Hash.GetHashCode(password))
+                    return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        /// <summary>
         /// WARNING. Получить все книги в системе
         /// </summary>
         /// <returns>Список всех книг</returns>
-        public List<BookModel> GetBooks() //after lanch
+        public List<BookModel> GetBooks() 
         {
             List<BookModel> books = new List<BookModel>();
             using (SqlConnection connection =
@@ -146,68 +228,7 @@ namespace Bearlog.Web.Services
                 return books;
             }
         }
-        /// <summary>
-        /// Получить данные пользователя
-        /// </summary>
-        /// <param name="userName">Логин в системе</param>
-        /// <returns>Пользователь</returns>
-        public User GetUser(string userName)
-        {
-            using (SqlConnection connection =
-                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
-            {
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
-                var cmd = new SqlCommand(_getUserCommand, connection);
-                cmd.Parameters.AddWithValue("@userName", userName);
-                var reader = cmd.ExecuteReader();
-                var t = new DataTable();
-                t.Load(reader);
-
-                if (t.Rows.Count == 0)
-                    return null;
-
-                var userRow = t.Rows[0];
-
-                return new User
-                {
-                    Id = (Guid) userRow["user_id"],
-                    UserName = (string) userRow["user_name"],
-                    Email = (string) userRow["email"]
-                };
-            }
-        }
-        /// <summary>
-        /// Добавить пользователя
-        /// </summary>
-        /// <param name="model">Модель пользователя</param>
-        /// <returns>Флаг успешности операции</returns>
-        public bool AddUser(RegisterModel model) //<-тут чето добавляется
-        {
-            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
-            {
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
-              
-                var cmd = new SqlCommand(_addUserCommand, connection);
-                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid()); 
-                cmd.Parameters.AddWithValue("@param2", model.UserName);
-                cmd.Parameters.AddWithValue("@param3", Hash.GetHashCode(model.Password));
-                cmd.Parameters.AddWithValue("@param4", model.Email);
-                cmd.Parameters.AddWithValue("@param5", 0);
-                cmd.Parameters.AddWithValue("@param6", 0);
-                
-              
-
-                cmd.ExecuteNonQuery();
-
-                return true;
-            }
-        }
+        
         /// <summary>
         /// Добавить книгу
         /// </summary>
@@ -289,23 +310,6 @@ namespace Bearlog.Web.Services
                 return true;
             }
 
-        }
-        /// <summary>
-        /// Проверить правильность пары логин и пароль
-        /// </summary>
-        /// <param name="userName">Логин</param>
-        /// <param name="password">Пароль</param>
-        /// <returns>Соответствуюет ли пара логин и пароль имеющимся в системе</returns>
-        public bool ValidateUser(string userName, string password)
-        {
-            var user = GetUsers().FirstOrDefault(x => x.UserName == userName);
-            if (user != null)
-            {
-                if (user.PasswordHash == Hash.GetHashCode(password))
-                    return true;
-            }
-
-            return false;
         }
     }
 }
