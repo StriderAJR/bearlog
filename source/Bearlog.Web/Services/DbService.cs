@@ -105,7 +105,7 @@ namespace Bearlog.Web.Services
             }
         }
 
-        public bool AddBook(BookModel model, Guid userId)
+        public bool AddBook(BookModel model, Guid userId, out Guid bookId)
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
             {
@@ -115,7 +115,7 @@ namespace Bearlog.Web.Services
                 }
 
                 var cmd2 = new SqlCommand(_addTranslationModel, connection);
-                Guid bookId = Guid.NewGuid();
+                bookId = Guid.NewGuid();
                 cmd2.Parameters.AddWithValue("@translation_id_param", bookId);
                 cmd2.Parameters.AddWithValue("@tags_param", model.Tags);
                 cmd2.Parameters.AddWithValue("@creator_id_param", userId);
@@ -126,10 +126,6 @@ namespace Bearlog.Web.Services
                 cmd2.Parameters.AddWithValue("@cover_link_param", model.CoverLink);
                 cmd2.Parameters.AddWithValue("@is_private_param", model.IsPrivate);
                 cmd2.Parameters.AddWithValue("@is_finished", 0);
-
-
-
-
 
 
 
