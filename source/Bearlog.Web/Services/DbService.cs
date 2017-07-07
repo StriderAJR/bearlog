@@ -22,7 +22,7 @@ namespace Bearlog.Web.Services
         private readonly string _getTranslationsCommand = string.Format("select * from {0}", TranslationTableName);
 
         private readonly string _getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @creator_id", TranslationTableName);
-        private readonly string _getUserBooksCommand = string.Format("select * from {0} where book_id in (@book_ids)", BookTableName);
+        private readonly string _getUserBooksCommand = string.Format("select * from {0} where id in (@book_ids)", BookTableName);
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
 
@@ -31,26 +31,26 @@ namespace Bearlog.Web.Services
         private readonly string _addUserCommand = string.Format(
             @"
                     insert {0} 
-                    (user_id, user_name, password, email, is_banned, is_active) 
+                    (id, user_name, password, email, is_banned, is_active) 
                     values 
                     (@param1,@param2, @param3,@param4,@param5, @param6)", UserTableName);
 
         private readonly string _addBookCommand = string.Format(@"
                     insert {0} 
-                    (book_id, author_name, author_original_name, year) 
+                    (id, author_name, author_original_name, year) 
                     values 
                     (@param1,@param2, @param3,@param4)", BookTableName);
 
         private readonly string _addPartFragmentCommand = string.Format(@"
                     insert {0} 
-                    (part_fragment_id, translation_id, original_text) 
+                    (id, translation_id, original_text) 
                     values 
                     (@param1,@param2, @param3,@param4)", PartTableName);
 
         private readonly string _addTranslationModel = string.Format(
             @"
                     insert {0} 
-                    (translation_id, tags, creator_id, name, name_original, from_language_id, to_language_id, cover_link, is_private, is_finished) 
+                    (id, tags, creator_id, name, name_original, from_language_id, to_language_id, cover_link, is_private, is_finished) 
                     values 
                     (@translation_id_param, @tags_param, @creator_id_param, @name_param, @name_original_param, @from_language_id_param, @to_language_id_param, @cover_link_param, @is_private_param, @is_finished )",
             TranslationTableName);
@@ -61,7 +61,7 @@ namespace Bearlog.Web.Services
         {
             return new User
             {
-                Id = (Guid) row["user_id"],
+                Id = (Guid) row["id"],
                 UserName = (string) row["user_name"],
                 PasswordHash = (string) row["password"],
                 Email = (string) row["email"],
@@ -74,7 +74,7 @@ namespace Bearlog.Web.Services
         {
             return new BookModel
             {
-                Id = (Guid)translationRow["translation_id"],
+                Id = (Guid)translationRow["id"],
                 Tags = (string[])translationRow["tags"],
                 CreatorId = (Guid)translationRow["creator_id"],
                 Name = (string)translationRow["name"],
@@ -230,7 +230,7 @@ namespace Bearlog.Web.Services
                 {
                     BookModel u = new BookModel
                     {
-                        Id = (Guid)row["book_id"],
+                        Id = (Guid)row["id"],
                         AuthorName = (string)row["author_name"],
                         AuthorOriginalName = (string)row["author_original_name"],
                         Year = (int)row["year"]
@@ -240,7 +240,7 @@ namespace Bearlog.Web.Services
                     var thisBookParts = partsTableAsEnumerble.Where(x => x.Field<Guid>("translation_id") == u.Id);
                     u.Parts = thisBookParts.Select(x => new Part
                         {
-                            Id = (Guid)x["part_id"],
+                            Id = (Guid)x["id"],
                             Name = (string)x["name"],
                             OriginalName = (string)x["original_name"]
                         }).ToList();
@@ -271,7 +271,7 @@ namespace Bearlog.Web.Services
                 var translationRawTable = new DataTable();
                 translationRawTable.Load(reader);
                 var translationTable = translationRawTable.AsEnumerable();
-                var bookIds = translationTable.Select(x => x.Field<Guid>("translation_id")).ToList();
+                var bookIds = translationTable.Select(x => x.Field<Guid>("id")).ToList();
 
                 cmd = new SqlCommand(_getUserBooksCommand, connection);
                 cmd.Parameters.AddWithValue("@book_ids", string.Join(",", bookIds.Select(x => x.ToString())));
@@ -282,7 +282,7 @@ namespace Bearlog.Web.Services
 
                 foreach (DataRow translationRow in translationTable)
                 {
-                    var bookRow = booksTable.FirstOrDefault(x => x.Field<Guid>("book_id") == translationRow.Field<Guid>("translation_id"));
+                    var bookRow = booksTable.FirstOrDefault(x => x.Field<Guid>("id") == translationRow.Field<Guid>("id"));
                     if(bookRow == null)
                         throw new Exception();
 
