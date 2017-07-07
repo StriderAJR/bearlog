@@ -21,8 +21,8 @@ namespace Bearlog.Web.Services
         private readonly string _getBooksCommand = string.Format("select * from {0}", BookTableName);
         private readonly string _getTranslationsCommand = string.Format("select * from {0}", TranslationTableName);
 
-        private readonly string _getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @userId", TranslationTableName);
-        private readonly string _getUserBooksCommand = string.Format("select * from {0} where book_id = @translationId", BookTableName);
+        private readonly string _getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @creator_id", TranslationTableName);
+        private readonly string _getUserBooksCommand = string.Format("select * from {0} where book_id in (@book_ids)", BookTableName);
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
 
@@ -69,6 +69,30 @@ namespace Bearlog.Web.Services
                 IsBanned = (bool) row["is_banned"]
             };
         }
+
+        private BookModel ConvertRowToBook(DataRow translationRow, DataRow bookRow)
+        {
+            return new BookModel
+            {
+                Id = (Guid)translationRow["translation_id"],
+                Tags = (string[])translationRow["tags"],
+                CreatorId = (Guid)translationRow["creator_id"],
+                Name = (string)translationRow["name"],
+                OriginalName = (string)translationRow["name_original"],
+                FromLanguageId = (Guid)translationRow["from_language_id"],
+                ToLanguageId = (Guid)translationRow["to_language_id"],
+                CoverLink = (string)translationRow["cover_link"],
+                IsPrivate = (bool)translationRow["is_private"],
+                IsFinished = (bool)translationRow["is_finished"],
+
+                AuthorName = (string)bookRow["author_name"],
+                AuthorOriginalName = (string)bookRow["author_original_name"],
+                Year = (int)bookRow["year"]
+
+            };
+        }
+
+
 
         /// <summary>
         /// WARNING. Получить всех пользователей в системе
@@ -228,17 +252,61 @@ namespace Bearlog.Web.Services
             }
         }
 
-        
-    
+        public List<BookModel> GetUserBooks(Guid userId)
+        {
+            List<BookModel> books = new List<BookModel>();
+            using (SqlConnection connection =
+                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+
+
+                var cmd = new SqlCommand(_getUserTranslationsCommand, connection);
+                cmd.Parameters.AddWithValue("@creator_id", userId );
+                var reader = cmd.ExecuteReader();
+                var translationRawTable = new DataTable();
+                translationRawTable.Load(reader);
+                var translationTable = translationRawTable.AsEnumerable();
+                var bookIds = translationTable.Select(x => x.Field<Guid>("translation_id")).ToList();
+
+                cmd = new SqlCommand(_getUserBooksCommand, connection);
+                cmd.Parameters.AddWithValue("@book_ids", string.Join(",", bookIds.Select(x => x.ToString())));
+                reader = cmd.ExecuteReader();
+                var booksRawTable = new DataTable();
+                booksRawTable.Load(reader);
+                var booksTable = booksRawTable.AsEnumerable();
+
+                foreach (DataRow translationRow in translationTable)
+                {
+                    var bookRow = booksTable.FirstOrDefault(x => x.Field<Guid>("book_id") == translationRow.Field<Guid>("translation_id"));
+                    if(bookRow == null)
+                        throw new Exception();
+
+                    books.Add(ConvertRowToBook(translationRow, bookRow));
+                }
+
+
+
+                return books;
+            }
+            
+        }
+
+
+
 
 
     /// <summary>
-        /// Добавить книгу
-        /// </summary>
-        /// <param name="model">Книга</param>
-        /// <param name="userId">Id пользователя, создавшего книгу</param>
-        /// <param name="bookId">Id созданной книги</param>
-        /// <returns>Флаг успешности операции</returns>
+    /// Добавить книгу
+    /// </summary>
+    /// <param name="model">Книга</param>
+    /// <param name="userId">Id пользователя, создавшего книгу</param>
+    /// <param name="bookId">Id созданной книги</param>
+    /// <returns>Флаг успешности операции</returns>
         public bool AddBook(BookModel model, Guid userId, out Guid bookId)
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
