@@ -46,5 +46,8 @@ namespace Bearlog.Web.Services
             return ParseText(s, _endSentence);
         }
 
+
+
     }
+
 }
