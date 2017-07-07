@@ -1,5 +1,5 @@
 ﻿@model Bearlog.Web.Models.RegisterModel
-<script>    function btnRegister_Click(s, e) {        var password1 = Password.GetValue();        var password2 = Password2.GetValue();        if (password1 === password2)            document.forms["registerForm"].submit();        else            alert('Пароли не совпадают!');    }</script>
+<script>    function btnRegister_Click(s, e) {        var password1 = document.getElementById("Password1").value;        var password2 = document.getElementById("Password2").value;        if (password1 === password2)            document.forms["registerForm"].submit();        else            alert('Пароли не совпадают!');    }</script>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {id = "registerForm", @class = "form-horizontal", role = "form" }))
 {            
     <h4>Регистрация</h4>
@@ -17,7 +17,12 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Password, "Password", new { @class = "col-lg-1 control-label" })
             <div class="col-lg-2">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.Password, new { @id="Password1", @class = "form-control" })
+            </div>
+        </div>        <div class="form-group">
+            @Html.Label("Password2", new { @class = "col-lg-1 control-label" })
+            <div class="col-lg-2">
+                @Html.PasswordFor(m => m.Password, new { @id="Password2", @class = "form-control" })
             </div>
         </div>
         <div class="form-group">

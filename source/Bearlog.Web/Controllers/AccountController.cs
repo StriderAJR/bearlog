@@ -94,7 +94,7 @@ namespace Bearlog.Web.Controllers
         public ActionResult Register(RegisterModel model)
         {
             new DbService().AddUser(model);
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()
