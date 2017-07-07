@@ -23,11 +23,8 @@ namespace Bearlog.Web.Models
 
     public class BookModel : TranslationModel
     {
-        //public string Title { get; set; }
         public string AuthorName { get; set; }
         public string AuthorOriginalName { get; set; }
-        //public string FromLanguage { get; set; }
-        //public string ToLanguage { get; set; }
         public int Year { get; set; }
         public List<Part> Parts { get; set; }
     }

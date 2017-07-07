@@ -22,18 +22,11 @@ namespace Bearlog.Web.Controllers
                 var email = user.Email;
 
 
-                
-
-                BookModel model = new BookModel
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Lord of the Rings",
-                    AuthorName = "Джон Рональд Руэл Толкин",
-                    AuthorOriginalName = "John Ronald Reuel Tolkien",
-                    Year = 1955
-                };
-
+                //var books = _dbService.GetBooks();
+                // ViewData["Books"] = books;
                 // var books = _dbService.GetUserBooks(((BearlogPrincipal) User).Id);
+
+                var model = _dbService.GetBooks();
 
                 return View(model);
             }
