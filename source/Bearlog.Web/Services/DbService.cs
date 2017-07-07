@@ -19,14 +19,14 @@ namespace Bearlog.Web.Services
 
         private readonly string _getPartsCommand = string.Format("select * from {0}", PartTableName);
         private readonly string _getBooksCommand = string.Format("select * from {0}", BookTableName);
+        private readonly string _getTranslationsCommand = string.Format("select * from {0}", TranslationTableName);
 
-        private readonly string _getBookCommand = string.Format("select * from {0} where user_name = @userName",
-            BookTableName); // <-not work
+        private readonly string _getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @userId", TranslationTableName);
+        private readonly string _getUserBooksCommand = string.Format("select * from {0} where book_id = @translationId", BookTableName);
 
         private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
 
-        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName",
-            UserTableName); // <-not work
+        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName);
 
         private readonly string _addUserCommand = string.Format(
             @"
@@ -98,6 +98,7 @@ namespace Bearlog.Web.Services
                 return users;
             }
         }
+
         /// <summary>
         /// Получить данные пользователя
         /// </summary>
@@ -125,6 +126,7 @@ namespace Bearlog.Web.Services
                 return ConvertRowToUser(userRow);
             }
         }
+
         /// <summary>
         /// Добавить пользователя
         /// </summary>
@@ -132,7 +134,8 @@ namespace Bearlog.Web.Services
         /// <returns>Флаг успешности операции</returns>
         public bool AddUser(RegisterModel model)
         {
-            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            using (SqlConnection connection =
+                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -154,6 +157,7 @@ namespace Bearlog.Web.Services
                 return true;
             }
         }
+
         /// <summary>
         /// Проверить правильность пары логин и пароль
         /// </summary>
@@ -171,13 +175,14 @@ namespace Bearlog.Web.Services
 
             return false;
         }
+
         #endregion
 
         /// <summary>
         /// WARNING. Получить все книги в системе
         /// </summary>
         /// <returns>Список всех книг</returns>
-        public List<BookModel> GetBooks() 
+        public List<BookModel> GetBooks()
         {
             List<BookModel> books = new List<BookModel>();
             using (SqlConnection connection =
@@ -187,40 +192,34 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
-                var cmd = new SqlCommand(_getBooksCommand, connection);
-                var reader = cmd.ExecuteReader();
-                var t = new DataTable();
-                t.Load(reader);
+                var getBooksCmd = new SqlCommand(_getBooksCommand, connection);
+                var reader = getBooksCmd.ExecuteReader();
+                var booksTable = new DataTable();
+                booksTable.Load(reader);
 
-                List<Part> fragments1 = new List<Part>();
-                var cmd1 = new SqlCommand(_getPartsCommand, connection);
-                var reader1 = cmd.ExecuteReader();
-                var t1 = new DataTable();
-                t1.Load(reader1);
+                var getPartsCmd = new SqlCommand(_getPartsCommand, connection);
+                reader = getPartsCmd.ExecuteReader();
+                var partsTable = new DataTable();
+                partsTable.Load(reader);
 
-                foreach (DataRow row in t1.Rows)
-                {
-                    Part u = new Part()
-                    {
-                        Id = (Guid) row["part_id"],
-                        Name = (string) row["name"],
-                        OriginalName = (string) row["original_name"]
-                    };
-                    fragments1.Add(u);
-
-                }
-
-                foreach (DataRow row in t.Rows)
+                foreach (DataRow row in booksTable.Rows)
                 {
                     BookModel u = new BookModel
                     {
-                        Id = (Guid) row["book_id"],
-                        AuthorName = (string) row["author_name"],
-                        AuthorOriginalName = (string) row["author_original_name"],
-                        Year = (int) row["year"],
-                        Fragments = fragments1
-
+                        Id = (Guid)row["book_id"],
+                        AuthorName = (string)row["author_name"],
+                        AuthorOriginalName = (string)row["author_original_name"],
+                        Year = (int)row["year"]
                     };
+
+                    var partsTableAsEnumerble = partsTable.AsEnumerable();
+                    var thisBookParts = partsTableAsEnumerble.Where(x => x.Field<Guid>("translation_id") == u.Id);
+                    u.Parts = thisBookParts.Select(x => new Part
+                        {
+                            Id = (Guid)x["part_id"],
+                            Name = (string)x["name"],
+                            OriginalName = (string)x["original_name"]
+                        }).ToList();
 
                     books.Add(u);
                 }
@@ -228,8 +227,12 @@ namespace Bearlog.Web.Services
                 return books;
             }
         }
+
         
-        /// <summary>
+    
+
+
+    /// <summary>
         /// Добавить книгу
         /// </summary>
         /// <param name="model">Книга</param>

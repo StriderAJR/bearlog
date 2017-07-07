@@ -19,7 +19,6 @@ namespace Bearlog.Web.Models
         public string CoverLink { get; set; }
         public bool IsPrivate { get; set; }
         public bool IsFinished { get; set; }
-
     }
 
     public class BookModel : TranslationModel
@@ -30,7 +29,7 @@ namespace Bearlog.Web.Models
         //public string FromLanguage { get; set; }
         //public string ToLanguage { get; set; }
         public int Year { get; set; }
-        public List<Part> Fragments { get; set; }
+        public List<Part> Parts { get; set; }
     }
 
    
