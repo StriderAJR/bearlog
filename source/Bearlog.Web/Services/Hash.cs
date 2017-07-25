@@ -24,6 +24,8 @@ namespace Bearlog.Web.Services
                     Sb.Append(b.ToString("x2"));
                     Sb.Append(b.ToString("E2"));
                 }
+
+
             }
 
             return Sb.ToString();

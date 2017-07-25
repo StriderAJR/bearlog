@@ -1,3 +1,6 @@
+﻿@using Bearlog.Web.Models
+@using Bearlog.Web.Services
+
 <!DOCTYPE html>
 
 <html>
@@ -15,6 +18,32 @@
 </head>
 
 <body>
-    @RenderBody()
+  
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../Home/Index">Bearlog</a>          
+        </div>
+
+        
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="navbar-form navbar-right">
+                <div class="form-group">
+                    Добро пожаловать, @(((BearlogPrincipal)User).UserName)!
+                </div>
+                <div class="btn btn-danger">@Html.RouteLink("Выход", new { action = "Logout", controller = "Account" })</div>
+            </div>
+        }
+        else
+        {
+            @Html.Partial("_LoginPanel", new LoginModel())
+        }
+    </div>
+</nav>  
+
+@RenderBody()
 </body>
 </html>

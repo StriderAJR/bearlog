@@ -9,9 +9,6 @@ namespace Bearlog.Web.Controllers
         // bearlog.org/Book/bookId
         public ActionResult Index(Guid id)
         {            //Передаем
-            //Book book = _dbService.GetBook(model.UserName);
-            //if (user == null) throw new NullReferenceException("Membership.GetUser");
-            // var book = _dbService.GetBook(bookId);
             BookModel book = new BookModel
             {
                 Name = "Ведьмак"
