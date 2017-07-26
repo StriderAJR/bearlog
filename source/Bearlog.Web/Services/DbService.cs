@@ -17,43 +17,7 @@ namespace Bearlog.Web.Services
         const string PartTableName = "[u0351346_Bearlog].[u0351346_developer].[part]";
         const string TranslationTableName = "[u0351346_Bearlog].[u0351346_developer].[translation]";
 
-        private readonly string _getPartsCommand = string.Format("select * from {0}", PartTableName);
-        private readonly string _getBooksCommand = string.Format("select * from {0}", BookTableName);
         private readonly string _getTranslationsCommand = string.Format("select * from {0}", TranslationTableName);
-
-        private readonly string _getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @creator_id", TranslationTableName);
-        private readonly string _getUserBooksCommand = string.Format("select * from {0} where id in (@book_ids)", BookTableName);
-
-        private readonly string _getUsersCommand = string.Format("select * from {0}", UserTableName);
-
-        private readonly string _getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName);
-
-        private readonly string _addUserCommand = string.Format(
-            @"
-                    insert {0} 
-                    (id, user_name, password, email, is_banned, is_active) 
-                    values 
-                    (@param1,@param2, @param3,@param4,@param5, @param6)", UserTableName);
-
-        private readonly string _addBookCommand = string.Format(@"
-                    insert {0} 
-                    (id, author_name, author_original_name, year) 
-                    values 
-                    (@param1,@param2, @param3,@param4)", BookTableName);
-
-        private readonly string _addPartFragmentCommand = string.Format(@"
-                    insert {0} 
-                    (id, translation_id, original_text) 
-                    values 
-                    (@param1,@param2, @param3,@param4)", PartTableName);
-
-        private readonly string _addTranslationModel = string.Format(
-            @"
-                    insert {0} 
-                    (id, tags, creator_id, name, name_original, from_language_id, to_language_id, cover_link, is_private, is_finished) 
-                    values 
-                    (@translation_id_param, @tags_param, @creator_id_param, @name_param, @name_original_param, @from_language_id_param, @to_language_id_param, @cover_link_param, @is_private_param, @is_finished )",
-            TranslationTableName);
 
         #region User
 
@@ -61,38 +25,14 @@ namespace Bearlog.Web.Services
         {
             return new User
             {
-                Id = (Guid) row["id"],
-                UserName = (string) row["user_name"],
-                PasswordHash = (string) row["password"],
-                Email = (string) row["email"],
-                IsActive = (bool) row["is_active"],
-                IsBanned = (bool) row["is_banned"]
+                Id = (Guid)row["id"],
+                UserName = (string)row["user_name"],
+                PasswordHash = (string)row["password"],
+                Email = (string)row["email"],
+                IsActive = (bool)row["is_active"],
+                IsBanned = (bool)row["is_banned"]
             };
         }
-
-        private BookModel ConvertRowToBook(DataRow translationRow, DataRow bookRow)
-        {
-            return new BookModel
-            {
-                Id = (Guid)translationRow["id"],
-                Tags = (string[])translationRow["tags"],
-                CreatorId = (Guid)translationRow["creator_id"],
-                Name = (string)translationRow["name"],
-                OriginalName = (string)translationRow["name_original"],
-                FromLanguageId = (Guid)translationRow["from_language_id"],
-                ToLanguageId = (Guid)translationRow["to_language_id"],
-                CoverLink = (string)translationRow["cover_link"],
-                IsPrivate = (bool)translationRow["is_private"],
-                IsFinished = (bool)translationRow["is_finished"],
-
-                AuthorName = (string)bookRow["author_name"],
-                AuthorOriginalName = (string)bookRow["author_original_name"],
-                Year = (int)bookRow["year"]
-
-            };
-        }
-
-
 
         /// <summary>
         /// WARNING. Получить всех пользователей в системе
@@ -108,7 +48,10 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
-                var cmd = new SqlCommand(_getUsersCommand, connection);
+
+                string getUsersCommand = string.Format("select * from {0}", UserTableName);
+
+                var cmd = new SqlCommand(getUsersCommand, connection);
                 var reader = cmd.ExecuteReader();
                 var t = new DataTable();
                 t.Load(reader);
@@ -137,7 +80,10 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
-                var cmd = new SqlCommand(_getUserCommand, connection);
+
+                string getUserCommand = string.Format("select * from {0} where user_name = @userName", UserTableName);
+
+                var cmd = new SqlCommand(getUserCommand, connection);
                 cmd.Parameters.AddWithValue("@userName", userName);
                 var reader = cmd.ExecuteReader();
                 var t = new DataTable();
@@ -166,15 +112,21 @@ namespace Bearlog.Web.Services
                     connection.Open();
                 }
 
-                var cmd = new SqlCommand(_addUserCommand, connection);
-                cmd.Parameters.AddWithValue("@param1", Guid.NewGuid());
-                cmd.Parameters.AddWithValue("@param2", model.UserName);
-                cmd.Parameters.AddWithValue("@param3", Hash.GetHashCode(model.Password));
-                cmd.Parameters.AddWithValue("@param4", model.Email);
-                cmd.Parameters.AddWithValue("@param5", 0);
-                cmd.Parameters.AddWithValue("@param6", 0);
+                string addUserCommand = string.Format(
+                    @"
+                        insert {0} 
+                        (id, user_name, password, email, is_banned, is_active) 
+                        values 
+                        (@id, @user_name, @password, @email, @is_banned, @is_active)
+                    ", UserTableName);
 
-
+                var cmd = new SqlCommand(addUserCommand, connection);
+                cmd.Parameters.AddWithValue("@id", Guid.NewGuid());
+                cmd.Parameters.AddWithValue("@user_name", model.UserName);
+                cmd.Parameters.AddWithValue("@password", Hash.GetHashCode(model.Password));
+                cmd.Parameters.AddWithValue("@email", model.Email);
+                cmd.Parameters.AddWithValue("@is_banned", 0);
+                cmd.Parameters.AddWithValue("@is_active", 0);
 
                 cmd.ExecuteNonQuery();
 
@@ -216,12 +168,17 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
+
+                string _getBooksCommand = string.Format("select * from {0}", BookTableName);
+
                 var getBooksCmd = new SqlCommand(_getBooksCommand, connection);
                 var reader = getBooksCmd.ExecuteReader();
                 var booksTable = new DataTable();
                 booksTable.Load(reader);
 
-                var getPartsCmd = new SqlCommand(_getPartsCommand, connection);
+                string getPartsCommand = string.Format("select * from {0}", PartTableName);
+
+                var getPartsCmd = new SqlCommand(getPartsCommand, connection);
                 reader = getPartsCmd.ExecuteReader();
                 var partsTable = new DataTable();
                 partsTable.Load(reader);
@@ -239,17 +196,39 @@ namespace Bearlog.Web.Services
                     var partsTableAsEnumerble = partsTable.AsEnumerable();
                     var thisBookParts = partsTableAsEnumerble.Where(x => x.Field<Guid>("translation_id") == u.Id);
                     u.Parts = thisBookParts.Select(x => new Part
-                        {
-                            Id = (Guid)x["id"],
-                            Name = (string)x["name"],
-                            OriginalName = (string)x["original_name"]
-                        }).ToList();
+                    {
+                        Id = (Guid)x["id"],
+                        Name = (string)x["name"],
+                        OriginalName = (string)x["original_name"]
+                    }).ToList();
 
                     books.Add(u);
                 }
 
                 return books;
             }
+        }
+
+        private BookModel ConvertRowToBook(DataRow translationRow, DataRow bookRow)
+        {
+            return new BookModel
+            {
+                Id = (Guid)translationRow["id"],
+                Tags = (string[])translationRow["tags"],
+                CreatorId = (Guid)translationRow["creator_id"],
+                Name = (string)translationRow["name"],
+                OriginalName = (string)translationRow["name_original"],
+                FromLanguageId = (Guid)translationRow["from_language_id"],
+                ToLanguageId = (Guid)translationRow["to_language_id"],
+                CoverLink = (string)translationRow["cover_link"],
+                IsPrivate = (bool)translationRow["is_private"],
+                IsFinished = (bool)translationRow["is_finished"],
+
+                AuthorName = (string)bookRow["author_name"],
+                AuthorOriginalName = (string)bookRow["author_original_name"],
+                Year = (int)bookRow["year"]
+
+            };
         }
 
         public List<BookModel> GetUserBooks(Guid userId)
@@ -263,17 +242,19 @@ namespace Bearlog.Web.Services
                     connection.Open();
                 }
 
+                string getUserTranslationsCommand = string.Format("select * from {0} where creator_id = @creator_id", TranslationTableName);
 
-
-                var cmd = new SqlCommand(_getUserTranslationsCommand, connection);
-                cmd.Parameters.AddWithValue("@creator_id", userId );
+                var cmd = new SqlCommand(getUserTranslationsCommand, connection);
+                cmd.Parameters.AddWithValue("@creator_id", userId);
                 var reader = cmd.ExecuteReader();
                 var translationRawTable = new DataTable();
                 translationRawTable.Load(reader);
                 var translationTable = translationRawTable.AsEnumerable();
                 var bookIds = translationTable.Select(x => x.Field<Guid>("id")).ToList();
 
-                cmd = new SqlCommand(_getUserBooksCommand, connection);
+                string getUserBooksCommand = string.Format("select * from {0} where id in (@book_ids)", BookTableName);
+
+                cmd = new SqlCommand(getUserBooksCommand, connection);
                 cmd.Parameters.AddWithValue("@book_ids", string.Join(",", bookIds.Select(x => x.ToString())));
                 reader = cmd.ExecuteReader();
                 var booksRawTable = new DataTable();
@@ -283,30 +264,24 @@ namespace Bearlog.Web.Services
                 foreach (DataRow translationRow in translationTable)
                 {
                     var bookRow = booksTable.FirstOrDefault(x => x.Field<Guid>("id") == translationRow.Field<Guid>("id"));
-                    if(bookRow == null)
+                    if (bookRow == null)
                         throw new Exception();
 
                     books.Add(ConvertRowToBook(translationRow, bookRow));
                 }
 
-
-
                 return books;
             }
-            
+
         }
 
-
-
-
-
-    /// <summary>
-    /// Добавить книгу
-    /// </summary>
-    /// <param name="model">Книга</param>
-    /// <param name="userId">Id пользователя, создавшего книгу</param>
-    /// <param name="bookId">Id созданной книги</param>
-    /// <returns>Флаг успешности операции</returns>
+        /// <summary>
+        /// Добавить книгу
+        /// </summary>
+        /// <param name="model">Книга</param>
+        /// <param name="userId">Id пользователя, создавшего книгу</param>
+        /// <param name="bookId">Id созданной книги</param>
+        /// <returns>Флаг успешности операции</returns>
         public bool AddBook(BookModel model, Guid userId, out Guid bookId)
         {
             using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
@@ -316,38 +291,53 @@ namespace Bearlog.Web.Services
                     connection.Open();
                 }
 
-                var cmd2 = new SqlCommand(_addTranslationModel, connection);
+                string addTranslationModel = string.Format(
+                    @"
+                        INSERT {0} 
+                        (id, tags, creator_id, name, name_original, from_language_id, to_language_id, cover_link, is_private, is_finished) 
+                        VALUES 
+                        (@translation_id, @tags, @creator_id, @name, @name_original, @from_language_id, @to_language_id, @cover_link, @is_private, @is_finished )
+                    ", TranslationTableName);
+
+                var cmd2 = new SqlCommand(addTranslationModel, connection);
                 bookId = Guid.NewGuid();
-                cmd2.Parameters.AddWithValue("@translation_id_param", bookId);
+                cmd2.Parameters.AddWithValue("@translation_id", bookId);
 
                 string tags = null;
-                if(model.Tags != null)
+                if (model.Tags != null)
                     tags = string.Join(",", model.Tags);
                 if (string.IsNullOrEmpty(tags))
-                    cmd2.Parameters.AddWithValue("@tags_param",  DBNull.Value); 
+                    cmd2.Parameters.AddWithValue("@tags", DBNull.Value);
                 else
-                    cmd2.Parameters.AddWithValue("@tags_param", tags);
+                    cmd2.Parameters.AddWithValue("@tags", tags);
 
-                cmd2.Parameters.AddWithValue("@creator_id_param", userId);
-                cmd2.Parameters.AddWithValue("@name_param",model.Name);
-                cmd2.Parameters.AddWithValue("@name_original_param", model.OriginalName);
-                cmd2.Parameters.AddWithValue("@from_language_id_param", model.FromLanguageId);
-                cmd2.Parameters.AddWithValue("@to_language_id_param", model.ToLanguageId);
-                if(string.IsNullOrEmpty(model.CoverLink))
-                    cmd2.Parameters.AddWithValue("@cover_link_param", DBNull.Value);
+                cmd2.Parameters.AddWithValue("@creator_id", userId);
+                cmd2.Parameters.AddWithValue("@name", model.Name);
+                cmd2.Parameters.AddWithValue("@name_original", model.OriginalName);
+                cmd2.Parameters.AddWithValue("@from_language_id", model.FromLanguageId);
+                cmd2.Parameters.AddWithValue("@to_language_id", model.ToLanguageId);
+                if (string.IsNullOrEmpty(model.CoverLink))
+                    cmd2.Parameters.AddWithValue("@cover_link", DBNull.Value);
                 else
-                    cmd2.Parameters.AddWithValue("@cover_link_param", model.CoverLink);
-                cmd2.Parameters.AddWithValue("@is_private_param", model.IsPrivate);
+                    cmd2.Parameters.AddWithValue("@cover_link", model.CoverLink);
+                cmd2.Parameters.AddWithValue("@is_private", model.IsPrivate);
                 cmd2.Parameters.AddWithValue("@is_finished", 0);
 
                 cmd2.ExecuteNonQuery();
 
+                string addBookCommand = string.Format(
+                    @"
+                        INSERT {0} 
+                        (id, author_name, author_original_name, year) 
+                        VALUES 
+                        (@id,@author_name, @author_original_name,@year)
+                    ", BookTableName);
 
-                var cmd = new SqlCommand(_addBookCommand, connection);
-                cmd.Parameters.AddWithValue("@param1", bookId);
-                cmd.Parameters.AddWithValue("@param2", model.AuthorName);
-                cmd.Parameters.AddWithValue("@param3", model.AuthorOriginalName);
-                cmd.Parameters.AddWithValue("@param4", model.Year);                
+                var cmd = new SqlCommand(addBookCommand, connection);
+                cmd.Parameters.AddWithValue("@id", bookId);
+                cmd.Parameters.AddWithValue("@author_name", model.AuthorName);
+                cmd.Parameters.AddWithValue("@author_original_name", model.AuthorOriginalName);
+                cmd.Parameters.AddWithValue("@year", model.Year);
 
                 cmd.ExecuteNonQuery();
 
@@ -368,12 +358,21 @@ namespace Bearlog.Web.Services
                 {
                     connection.Open();
                 }
+
+                string addPartFragmentCommand = string.Format
+                    (@"
+                        INSERT {0} 
+                        (id, translation_id, original_text) 
+                        VALUES 
+                        (@id,@translation_id, @original_text)
+                    ", PartTableName);
+
                 foreach (var fragment in model.Fragments)
                 {
-                    var cmd = new SqlCommand(_addPartFragmentCommand, connection);
-                    cmd.Parameters.AddWithValue("@param1", Guid.NewGuid());
-                    cmd.Parameters.AddWithValue("@param2", Guid.NewGuid());
-                    cmd.Parameters.AddWithValue("@param3", fragment.OriginalText);
+                    var cmd = new SqlCommand(addPartFragmentCommand, connection);
+                    cmd.Parameters.AddWithValue("@id", Guid.NewGuid());
+                    cmd.Parameters.AddWithValue("@translation_id", Guid.NewGuid());
+                    cmd.Parameters.AddWithValue("@original_text", fragment.OriginalText);
 
                     cmd.ExecuteNonQuery();
                 }
