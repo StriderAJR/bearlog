@@ -1,5 +1,11 @@
-﻿using System;using System.Collections.Generic;using System.Linq;using System.Web;using System.Web.Mvc;using Bearlog.Web.Models;
-using Bearlog.Web.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Bearlog.Web.Models;
+using Bearlog.Web.Services;
+
 namespace Bearlog.Web.Controllers
 {
     public class BookController : Controller
@@ -8,7 +14,8 @@ namespace Bearlog.Web.Controllers
         [Authorize]
         // bearlog.org/Book/bookId
         public ActionResult Index(Guid id)
-        {            //Передаем
+        {
+            //Передаем
             BookModel book = new BookModel
             {
                 Name = "Ведьмак"
@@ -27,7 +34,8 @@ namespace Bearlog.Web.Controllers
             {
                 new Language { Id = Guid.NewGuid(), Name = "Русский"},
                 new Language { Id = Guid.NewGuid(), Name = "Английский"}
-            };
+            };
+
             ViewData["Languages"] = languages;
             return View();
         }
@@ -40,18 +48,31 @@ namespace Bearlog.Web.Controllers
             {
                 new Language { Id = Guid.NewGuid(), Name = "Русский"},
                 new Language { Id = Guid.NewGuid(), Name = "Английский"}
-            };
-            ViewData["Languages"] = languages;
+            };
+
+            ViewData["Languages"] = languages;
+
             Guid bookId;
-            _dbService.AddBook(model, ((BearlogPrincipal)User).Id, out bookId); // Стало
+            _dbService.AddBook(model, ((BearlogPrincipal)User).Id, out bookId); // Стало
+
             return RedirectToAction("Index", new { id = bookId});
-        }
-    }
-}
-
-
-
-
-
-
-
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

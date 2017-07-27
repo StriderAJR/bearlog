@@ -130,6 +130,8 @@ namespace Bearlog.Web.Services
 
                 cmd.ExecuteNonQuery();
 
+                LogService.WriteInfoMessage("User created");
+
                 return true;
             }
         }
@@ -148,6 +150,8 @@ namespace Bearlog.Web.Services
                 if (user.PasswordHash == Hash.GetHashCode(password))
                     return true;
             }
+
+            LogService.WriteErrorMessage(string.Format("Wrong login data. Login({0}), password({1})", userName, password));
 
             return false;
         }

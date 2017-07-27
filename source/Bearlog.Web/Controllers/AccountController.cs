@@ -73,6 +73,8 @@ namespace Bearlog.Web.Controllers
 
                     SaveBearlogPrincipalSerializeModelCookie(model.UserName, serializeModel);
 
+                    LogService.WriteInfoMessage("Logged in");
+
                     if (String.IsNullOrEmpty(returnUrl))
                         return RedirectToAction("Index", "Home");
 
@@ -93,13 +95,15 @@ namespace Bearlog.Web.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            new DbService().AddUser(model);
+            _dbService.AddUser(model);
+
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            LogService.WriteInfoMessage("Logged out");
             return RedirectToAction("Index", "Home");
         }
     }

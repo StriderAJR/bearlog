@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Bearlog.Web.Models;
+using Bearlog.Web.Services;
 using Newtonsoft.Json;
 
 namespace Bearlog.Web
@@ -25,7 +24,7 @@ namespace Bearlog.Web
 		}
 	}
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -59,6 +58,12 @@ namespace Bearlog.Web
                     }
                 }
             }
+        }
+
+        protected void Application_Error()
+        {
+            var ex = Server.GetLastError();
+            LogService.WriteErrorMessage(ex);
         }
     }
 }
