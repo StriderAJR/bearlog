@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
+using Bearlog.Web.Controllers;
 using Bearlog.Web.Models;
 
 
@@ -78,7 +79,7 @@ namespace Bearlog.Web.Services
         {
             List<User> users = new List<User>();
             using (SqlConnection connection =
-                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+                new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -106,7 +107,7 @@ namespace Bearlog.Web.Services
         public User GetUser(string userName)
         {
             using (SqlConnection connection =
-                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+                new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -132,7 +133,7 @@ namespace Bearlog.Web.Services
         /// <returns>Флаг успешности операции</returns>
         public bool AddUser(RegisterModel model)
         {
-            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            using (SqlConnection connection = new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -181,7 +182,7 @@ namespace Bearlog.Web.Services
         {
             List<BookModel> books = new List<BookModel>();
             using (SqlConnection connection =
-                new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+                new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -238,7 +239,7 @@ namespace Bearlog.Web.Services
         /// <returns>Флаг успешности операции</returns>
         public bool AddBook(BookModel model, Guid userId, out Guid bookId)
         {
-            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            using (SqlConnection connection = new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
@@ -291,7 +292,7 @@ namespace Bearlog.Web.Services
         /// <returns>Флаг успешности операции</returns>
         public bool AddPart(Part model)
         {
-            using (SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["BearlogDb"].ToString()))
+            using (SqlConnection connection = new SqlConnection(Tools.GetConnectionString("BearlogDb")))
             {
                 if (connection.State != ConnectionState.Open)
                 {
