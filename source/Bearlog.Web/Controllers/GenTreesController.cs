@@ -93,5 +93,45 @@ namespace Bearlog.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult Authenticate(string userName, string password)
+        {
+            try
+            {
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
+                {
+                    if (db.Users.Any(x => x.UserName == userName))
+                    {
+                        var user = db.Users.First(x => x.UserName == userName);
+                        if (user.Password == Hash.GetHashCode(password))
+                        {
+                            return Json(new { isSuccess = true }, JsonRequestBehavior.AllowGet);
+                        }
+
+                        return Json(new
+                        {
+                            isSuccess = false,
+                            message = "Wrong password"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    return Json(new
+                    {
+                        isSuccess = false,
+                        message = $"User {userName} not found"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    isSuccess = false,
+                    message = "Error in authentication procedure",
+                    details = e.Message,
+                    stackTrace = e.StackTrace
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
