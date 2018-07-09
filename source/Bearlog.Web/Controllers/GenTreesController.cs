@@ -94,6 +94,21 @@ namespace Bearlog.Web.Controllers
             }
         }
 
+        public bool UserExists(string userName)
+        {
+            try
+            {
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
+                {
+                    return db.Users.Any(x => x.UserName == userName);
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public JsonResult Authenticate(string userName, string password)
         {
             try
@@ -105,7 +120,12 @@ namespace Bearlog.Web.Controllers
                         var user = db.Users.First(x => x.UserName == userName);
                         if (user.Password == Hash.GetHashCode(password))
                         {
-                            return Json(new { isSuccess = true }, JsonRequestBehavior.AllowGet);
+                            return Json(new
+                            {
+                                isSuccess = true,
+                                // this token will be required for all actions
+                                token = Hash.GetHashCode(userName+Hash.GetHashCode(password)) 
+                            }, JsonRequestBehavior.AllowGet);
                         }
 
                         return Json(new
