@@ -2,8 +2,8 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using Bearlog.Web.Models;
 using Bearlog.Web.Services;
-using GenTrees;
 
 namespace Bearlog.Web.Controllers
 {
@@ -75,7 +75,7 @@ namespace Bearlog.Web.Controllers
                         Email = email,
                         Password = Hash.GetHashCode(password),
                         RegistrationDate = DateTime.Now,
-                        LasActivityDate = null
+                        LastActivityDate = null
                     });
                     db.SaveChanges();
 

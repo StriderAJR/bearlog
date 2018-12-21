@@ -7,20 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenTrees
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bearlog.Web.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class User
     {
+        [Column("id")]
         public int Id { get; set; }
+        [Column("user_name")]
         public string UserName { get; set; }
+        [Column("password")]
         public string Password { get; set; }
+        [Column("email")]
         public string Email { get; set; }
+        [Column("registration_date")]
         public System.DateTime RegistrationDate { get; set; }
-        public Nullable<System.DateTime> LasActivityDate { get; set; }
+        [Column("last_activity_date")]
+        public Nullable<System.DateTime> LastActivityDate { get; set; }
     
-        public virtual GenTree GenTrees { get; set; }
+        public virtual GenTree GenTree { get; set; }
     }
 }

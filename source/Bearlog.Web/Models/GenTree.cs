@@ -7,18 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenTrees
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bearlog.Web.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class GenTree
     {
+        [Column("id")]
         public int Id { get; set; }
+        [Column("user_id")]
         public int UserId { get; set; }
+        [Column("gentree_name")]
         public string GenTreeName { get; set; }
+        [Column("gentree_json")]
         public string GenTreeJson { get; set; }
     
-        public virtual User Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

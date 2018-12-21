@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GenTrees.GenTreesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GenTreesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GenTrees">
           <Key>
             <PropertyRef Name="id" />
@@ -39,7 +39,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GenTreesGenTreesModelStoreContainer">
+        <EntityContainer Name="GenTreesModelStoreContainer">
           <EntitySet Name="GenTrees" EntityType="Self.GenTrees" Schema="u0351346_striderajr" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="u0351346_striderajr" store:Type="Tables" />
           <AssociationSet Name="FK_GenTrees_Users1" Association="Self.FK_GenTrees_Users1">
@@ -51,46 +51,46 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GenTrees.GenTreesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="GenTreesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="GenTree">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="GenTreeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GenTreeJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_GenTrees_Users1" FromRole="GenTrees" ToRole="Users" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="gentree_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gentree_json" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_GenTrees_Users1" FromRole="GenTrees" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LasActivityDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="GenTrees" Relationship="Self.FK_GenTrees_Users1" FromRole="Users" ToRole="GenTrees" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="registration_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_activity_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="GenTree" Relationship="Self.FK_GenTrees_Users1" FromRole="Users" ToRole="GenTrees" />
         </EntityType>
         <Association Name="FK_GenTrees_Users1">
-          <End Role="Users" Type="GenTrees.GenTreesModel.User" Multiplicity="1">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="GenTrees" Type="GenTrees.GenTreesModel.GenTree" Multiplicity="0..1" />
+          <End Role="GenTrees" Type="Self.GenTree" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="GenTrees">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GenTreesContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="GenTrees" EntityType="GenTrees.GenTreesModel.GenTree" />
-          <EntitySet Name="Users" EntityType="GenTrees.GenTreesModel.User" />
+          <EntitySet Name="GenTrees" EntityType="Self.GenTree" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_GenTrees_Users1" Association="Self.FK_GenTrees_Users1">
             <End Role="Users" EntitySet="Users" />
             <End Role="GenTrees" EntitySet="GenTrees" />
@@ -101,26 +101,26 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GenTreesGenTreesModelStoreContainer" CdmEntityContainer="GenTreesContext">
+        <EntityContainerMapping StorageEntityContainer="GenTreesModelStoreContainer" CdmEntityContainer="GenTreesContext">
           <EntitySetMapping Name="GenTrees">
-            <EntityTypeMapping TypeName="GenTrees.GenTreesModel.GenTree">
+            <EntityTypeMapping TypeName="GenTreesModel.GenTree">
               <MappingFragment StoreEntitySet="GenTrees">
-                <ScalarProperty Name="Id" ColumnName="id" />
-                <ScalarProperty Name="UserId" ColumnName="user_id" />
-                <ScalarProperty Name="GenTreeName" ColumnName="gentree_name" />
-                <ScalarProperty Name="GenTreeJson" ColumnName="gentree_json" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="gentree_name" ColumnName="gentree_name" />
+                <ScalarProperty Name="gentree_json" ColumnName="gentree_json" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GenTrees.GenTreesModel.User">
+            <EntityTypeMapping TypeName="GenTreesModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="id" />
-                <ScalarProperty Name="UserName" ColumnName="user_name" />
-                <ScalarProperty Name="Password" ColumnName="password" />
-                <ScalarProperty Name="Email" ColumnName="email" />
-                <ScalarProperty Name="RegistrationDate" ColumnName="registration_date" />
-                <ScalarProperty Name="LasActivityDate" ColumnName="last_activity_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+                <ScalarProperty Name="last_activity_date" ColumnName="last_activity_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -138,7 +138,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

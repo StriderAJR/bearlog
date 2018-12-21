@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenTrees
+namespace Bearlog.Web.Models
 {
     using System;
     using System.Data.Entity;
@@ -19,7 +19,7 @@ namespace GenTrees
         {
             this.Database.Connection.ConnectionString = connectionString;
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
