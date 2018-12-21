@@ -9,22 +9,26 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Bearlog.Web.Models
+namespace StridingSoft.Services
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class GenTree
+    public partial class User
     {
         [Column("id")]
         public int Id { get; set; }
-        [Column("user_id")]
-        public int UserId { get; set; }
-        [Column("gentree_name")]
-        public string GenTreeName { get; set; }
-        [Column("gentree_json")]
-        public string GenTreeJson { get; set; }
+        [Column("user_name")]
+        public string UserName { get; set; }
+        [Column("password")]
+        public string Password { get; set; }
+        [Column("email")]
+        public string Email { get; set; }
+        [Column("registration_date")]
+        public DateTime RegistrationDate { get; set; }
+        [Column("last_activity_date")]
+        public DateTime? LastActivityDate { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual GenTree GenTree { get; set; }
     }
 }

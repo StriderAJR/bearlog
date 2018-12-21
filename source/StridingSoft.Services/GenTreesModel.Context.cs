@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Bearlog.Web.Models
+namespace StridingSoft.Services
 {
     using System;
     using System.Data.Entity;
@@ -15,11 +15,10 @@ namespace Bearlog.Web.Models
     
     public partial class GenTreesContext : DbContext
     {
-        public GenTreesContext(string connectionString)
-        {
+        public GenTreesContext(string connectionString) {
             this.Database.Connection.ConnectionString = connectionString;
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web.Mvc;
-using Bearlog.Web.Models;
 using Bearlog.Web.Services;
+using System.Linq;
 
-namespace Bearlog.Web.Controllers
+namespace StridingSoft.Services.Controllers
 {
     public class Tools
     {
