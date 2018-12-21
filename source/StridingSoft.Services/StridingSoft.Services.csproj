@@ -150,16 +150,6 @@
     <Content Include="Content\SweetAlert\sweetalert2.min.css" />
     <Content Include="Content\SweetAlert\sweetalert2.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Models\GenTreesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GenTreesModel.edmx</DependentUpon>
-      <LastGenOutput>GenTreesModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\GenTreesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GenTreesModel.edmx</DependentUpon>
-      <LastGenOutput>GenTreesModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -169,14 +159,41 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Models\Collectioner\CollectionerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CollectionerModel.edmx</DependentUpon>
+      <LastGenOutput>CollectionerModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Collectioner\CollectionerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CollectionerModel.edmx</DependentUpon>
+      <LastGenOutput>CollectionerModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\GenTrees\GenTreesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GenTreesModel.edmx</DependentUpon>
+      <LastGenOutput>GenTreesModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\GenTrees\GenTreesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GenTreesModel.edmx</DependentUpon>
+      <LastGenOutput>GenTreesModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\GenTreesModel.edmx">
+    <EntityDeploy Include="Models\GenTrees\GenTreesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GenTreesModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\GenTreesModel.edmx.diagram">
+    <Content Include="Models\GenTrees\GenTreesModel.edmx.diagram">
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Collectioner\CollectionerModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CollectionerModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Collectioner\CollectionerModel.edmx.diagram">
+      <DependentUpon>CollectionerModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\hosting.pubxml" />
     <None Include="Properties\PublishProfiles\server.pubxml" />
@@ -188,28 +205,61 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CollectionerController.cs" />
     <Compile Include="Controllers\GenTreesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\GenTree.cs">
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\collection.cs">
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+      <Compile Include="Models\Collectioner\CollectionerEntities.cs" />
+    <Compile Include="Models\Collectioner\CollectionerModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionerModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\CollectionerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\CollectionerModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\item.cs">
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\section.cs">
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\user.cs">
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GenTrees\GenTreesEntities.cs" />
+    <Compile Include="Models\GenTrees\GenTree.cs">
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GenTreesModel.Context.cs">
+    <Compile Include="Models\GenTrees\GenTreesModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GenTreesModel.cs">
+    <Compile Include="Models\GenTrees\GenTreesModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GenTreesModel.Designer.cs">
+    <Compile Include="Models\GenTrees\GenTreesModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="Models\GenTrees\User.cs">
+      <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Secret.Designer.cs">
@@ -218,9 +268,7 @@
       <DependentUpon>Secret.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Hash.cs" />
-    <Compile Include="Models\User.cs">
-      <DependentUpon>GenTreesModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Services\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -237,7 +285,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Collectioner\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Secret.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -270,11 +320,17 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+
+       Other similar extension points exist, see Microsoft.Common.targets.
+
+  <Target Name="BeforeBuild">
+
+  </Target>
+
+  <Target Name="AfterBuild">
+
+  </Target>
+
   -->
 </Project>

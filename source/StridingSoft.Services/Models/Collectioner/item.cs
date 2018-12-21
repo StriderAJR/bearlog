@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services.Models
+namespace StridingSoft.Services.Models.Collectioner
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class item
     {
         public int id { get; set; }
-        public string user_name { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-        public System.DateTime registration_date { get; set; }
-        public Nullable<System.DateTime> last_activity_date { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string image { get; set; }
+        public int section_id { get; set; }
     
-        public virtual GenTree GenTree { get; set; }
+        public virtual section section { get; set; }
     }
 }

@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services.Models
+namespace StridingSoft.Services.Models.GenTrees
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class GenTree
+    public partial class User
     {
         public int id { get; set; }
-        public int user_id { get; set; }
-        public string gentree_name { get; set; }
-        public string gentree_json { get; set; }
+        public string user_name { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public System.DateTime registration_date { get; set; }
+        public Nullable<System.DateTime> last_activity_date { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual GenTree GenTree { get; set; }
     }
 }
