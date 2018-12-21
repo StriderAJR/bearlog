@@ -6,7 +6,6 @@ namespace StridingSoft.Services.Services
 {
     public class Hash
     {
-
         public static string GetHashCode(string password)
         {
             StringBuilder Sb = new StringBuilder();
