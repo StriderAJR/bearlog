@@ -17,13 +17,13 @@ namespace StridingSoft.Services
     public partial class GenTree
     {
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("user_id")]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
         [Column("gentree_name")]
-        public string GenTreeName { get; set; }
+        public string gentree_name { get; set; }
         [Column("gentree_json")]
-        public string GenTreeJson { get; set; }
+        public string gentree_json { get; set; }
     
         public virtual User User { get; set; }
     }

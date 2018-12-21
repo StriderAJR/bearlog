@@ -17,17 +17,17 @@ namespace StridingSoft.Services
     public partial class User
     {
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("user_name")]
-        public string UserName { get; set; }
+        public string user_name { get; set; }
         [Column("password")]
-        public string Password { get; set; }
+        public string password { get; set; }
         [Column("email")]
-        public string Email { get; set; }
+        public string email { get; set; }
         [Column("registration_date")]
-        public DateTime RegistrationDate { get; set; }
+        public DateTime registration_date { get; set; }
         [Column("last_activity_date")]
-        public DateTime? LastActivityDate { get; set; }
+        public DateTime? last_activity_date { get; set; }
     
         public virtual GenTree GenTree { get; set; }
     }
