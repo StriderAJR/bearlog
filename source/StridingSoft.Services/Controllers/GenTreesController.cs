@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Linq;
 using System.Resources;
+using StridingSoft.Services.Models;
 using StridingSoft.Services.Services;
 
 namespace StridingSoft.Services.Controllers
