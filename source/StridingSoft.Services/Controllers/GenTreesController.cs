@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.Mvc;
+using Bearlog.Web.Services;
+using System.Linq;
 
-namespace Bearlog.Web.Controllers
+namespace StridingSoft.Services.Controllers
 {
     public class Tools
     {
@@ -46,6 +48,108 @@ namespace Bearlog.Web.Controllers
             catch (Exception)
             {
                 return Json(new {Message = connectionString + "      =>     " + "Fail :("}, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult Register(string userName, string password, string email)
+        {
+            try
+            {
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
+                {
+                    if (db.Users.Any(x => x.UserName == userName))
+                    {
+                        return Json(new
+                        {
+                            isSuccess = false,
+                            message = $"UserName {userName} is already taken"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    // TODO validate correct email
+
+                    db.Users.Add(new User
+                    {
+                        UserName = userName,
+                        Email = email,
+                        Password = Hash.GetHashCode(password),
+                        RegistrationDate = DateTime.Now,
+                        LastActivityDate = null
+                    });
+                    db.SaveChanges();
+
+                    return Json(new {isSuccess = true}, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    isSuccess = false,
+                    message = "Error in registration procedure",
+                    details = e.Message,
+                    stackTrace = e.StackTrace
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public bool UserExists(string userName)
+        {
+            try
+            {
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
+                {
+                    return db.Users.Any(x => x.UserName == userName);
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public JsonResult Authenticate(string userName, string password)
+        {
+            try
+            {
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
+                {
+                    if (db.Users.Any(x => x.UserName == userName))
+                    {
+                        var user = db.Users.First(x => x.UserName == userName);
+                        if (user.Password == Hash.GetHashCode(password))
+                        {
+                            return Json(new
+                            {
+                                isSuccess = true,
+                                // this token will be required for all actions
+                                token = Hash.GetHashCode(userName+Hash.GetHashCode(password)) 
+                            }, JsonRequestBehavior.AllowGet);
+                        }
+
+                        return Json(new
+                        {
+                            isSuccess = false,
+                            message = "Wrong password"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    return Json(new
+                    {
+                        isSuccess = false,
+                        message = $"User {userName} not found"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    isSuccess = false,
+                    message = "Error in authentication procedure",
+                    details = e.Message,
+                    stackTrace = e.StackTrace
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }
