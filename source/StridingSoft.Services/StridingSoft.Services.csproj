@@ -214,6 +214,7 @@
     <Compile Include="Models\Collectioner\collection.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
+      <Compile Include="Models\Collectioner\CollectionerEntities.cs" />
     <Compile Include="Models\Collectioner\CollectionerModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -238,6 +239,7 @@
     <Compile Include="Models\Collectioner\user.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GenTrees\GenTreesEntities.cs" />
     <Compile Include="Models\GenTrees\GenTree.cs">
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
@@ -318,11 +320,17 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+
+       Other similar extension points exist, see Microsoft.Common.targets.
+
+  <Target Name="BeforeBuild">
+
+  </Target>
+
+  <Target Name="AfterBuild">
+
+  </Target>
+
   -->
 </Project>
