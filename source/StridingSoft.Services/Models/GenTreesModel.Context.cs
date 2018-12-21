@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services
+namespace StridingSoft.Services.Models
 {
     using System;
     using System.Data.Entity;
