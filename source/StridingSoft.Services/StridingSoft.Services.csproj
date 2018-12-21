@@ -150,12 +150,12 @@
     <Content Include="Content\SweetAlert\sweetalert2.min.css" />
     <Content Include="Content\SweetAlert\sweetalert2.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="GenTreesModel.Context.tt">
+    <Content Include="Models\GenTreesModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
       <LastGenOutput>GenTreesModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="GenTreesModel.tt">
+    <Content Include="Models\GenTreesModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
       <LastGenOutput>GenTreesModel.cs</LastGenOutput>
@@ -171,11 +171,11 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="GenTreesModel.edmx">
+    <EntityDeploy Include="Models\GenTreesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GenTreesModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="GenTreesModel.edmx.diagram">
+    <Content Include="Models\GenTreesModel.edmx.diagram">
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\hosting.pubxml" />
@@ -190,20 +190,20 @@
   <ItemGroup>
     <Compile Include="Controllers\GenTreesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="GenTree.cs">
+    <Compile Include="Models\GenTree.cs">
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenTreesModel.Context.cs">
+    <Compile Include="Models\GenTreesModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenTreesModel.cs">
+    <Compile Include="Models\GenTreesModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenTreesModel.Designer.cs">
+    <Compile Include="Models\GenTreesModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenTreesModel.edmx</DependentUpon>
@@ -218,7 +218,7 @@
       <DependentUpon>Secret.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Hash.cs" />
-    <Compile Include="User.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>GenTreesModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -237,9 +237,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Secret.resx">
       <Generator>ResXFileCodeGenerator</Generator>
