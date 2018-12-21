@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
-namespace Bearlog.Web.Services
+namespace StridingSoft.Services.Services
 {
     public class Hash
     {

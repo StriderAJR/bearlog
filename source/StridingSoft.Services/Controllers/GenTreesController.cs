@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Web.Mvc;
-using Bearlog.Web.Services;
 using System.Linq;
+using System.Resources;
+using StridingSoft.Services.Services;
 
 namespace StridingSoft.Services.Controllers
 {
@@ -10,9 +12,12 @@ namespace StridingSoft.Services.Controllers
     {
         public static string GetConnectionString(string name)
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[name]
-                .ConnectionString;
-            connectionString += "User ID=u0351346_striderajr;Password=ps^9wL31";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[name].ConnectionString;
+
+            string dbUser = Resources.Secret.ResourceManager.GetString($"{name}_User");
+            string dbPassword = Resources.Secret.ResourceManager.GetString($"{name}_Password");
+
+            connectionString += $"User ID={dbUser};Password={dbPassword}";
             return connectionString;
         }
     }
@@ -57,7 +62,7 @@ namespace StridingSoft.Services.Controllers
             {
                 using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
                 {
-                    if (db.Users.Any(x => x.UserName == userName))
+                    if (db.Users.Any(x => x.user_name == userName))
                     {
                         return Json(new
                         {
@@ -70,11 +75,11 @@ namespace StridingSoft.Services.Controllers
 
                     db.Users.Add(new User
                     {
-                        UserName = userName,
-                        Email = email,
-                        Password = Hash.GetHashCode(password),
-                        RegistrationDate = DateTime.Now,
-                        LastActivityDate = null
+                        user_name = userName,
+                        email = email,
+                        password = Hash.GetHashCode(password),
+                        registration_date = DateTime.Now,
+                        last_activity_date = null
                     });
                     db.SaveChanges();
 
@@ -97,9 +102,9 @@ namespace StridingSoft.Services.Controllers
         {
             try
             {
-                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
-                {
-                    return db.Users.Any(x => x.UserName == userName);
+                using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb"))) {
+                    var users = db.Users.ToList();
+                    return db.Users.Any(x => x.user_name == userName);
                 }
             }
             catch (Exception e)
@@ -114,10 +119,10 @@ namespace StridingSoft.Services.Controllers
             {
                 using (var db = new GenTreesContext(Tools.GetConnectionString("GenTreesDb")))
                 {
-                    if (db.Users.Any(x => x.UserName == userName))
+                    if (db.Users.Any(x => x.user_name == userName))
                     {
-                        var user = db.Users.First(x => x.UserName == userName);
-                        if (user.Password == Hash.GetHashCode(password))
+                        var user = db.Users.First(x => x.user_name == userName);
+                        if (user.password == Hash.GetHashCode(password))
                         {
                             return Json(new
                             {

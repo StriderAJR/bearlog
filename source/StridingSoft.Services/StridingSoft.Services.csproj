@@ -212,6 +212,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Secret.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Secret.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\Hash.cs" />
     <Compile Include="User.cs">
       <DependentUpon>GenTreesModel.tt</DependentUpon>
@@ -234,6 +239,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Secret.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Secret.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
