@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services.Models
+namespace StridingSoft.Services.Models.GenTrees
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GenTreesContext : DbContext
+    public partial class GenTreesEntities : DbContext
     {
-        public GenTreesContext(string connectionString) {
-            this.Database.Connection.ConnectionString = connectionString;
+        public GenTreesEntities()
+            : base("name=GenTreesEntities")
+        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
