@@ -65,7 +65,7 @@ namespace StridingSoft.Services.Controllers {
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        
         public JsonResult UserExists(string userName) {
             try {
                 using (var db = new CollectionerEntities(Tools.GetConnectionString(DbName))) {
