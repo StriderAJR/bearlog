@@ -12,22 +12,22 @@ namespace StridingSoft.Services.Models.Collectioner
     using System;
     using System.Collections.Generic;
     
-    public partial class collection
+    public partial class Collection
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public collection()
+        public Collection()
         {
-            this.sections = new HashSet<section>();
+            this.Sections = new HashSet<Section>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public System.DateTime create_date { get; set; }
-        public int creator_id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public int CreatorId { get; set; }
     
-        public virtual user user { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<section> sections { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

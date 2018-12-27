@@ -12,24 +12,27 @@ namespace StridingSoft.Services.Models.Collectioner
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public User()
         {
-            this.collections = new HashSet<collection>();
-            this.sections = new HashSet<section>();
+            this.Collections = new HashSet<Collection>();
+            this.Sections = new HashSet<Section>();
         }
     
-        public int id { get; set; }
-        public string user_name { get; set; }
-        public string password { get; set; }
-        public System.DateTime reg_date { get; set; }
-        public string role { get; set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public System.DateTime RegDate { get; set; }
+        public int RoleId { get; set; }
+        public string Email { get; set; }
+        public Nullable<System.DateTime> LastActivityDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<collection> collections { get; set; }
+        public virtual ICollection<Collection> Collections { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<section> sections { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

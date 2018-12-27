@@ -17,6 +17,8 @@ namespace StridingSoft.Services.Controllers
     /// </summary>
     public class GenTreesController : Controller
     {
+        private const string DbName = "GenTreesDb";
+
         public JsonResult Index()
         {
             return Json(new {Message = "GenTrees service v0.0.2"}, JsonRequestBehavior.AllowGet);
@@ -29,10 +31,10 @@ namespace StridingSoft.Services.Controllers
 
         public JsonResult TestDb()
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["GenTreesDb"].ConnectionString;
+            string connectionString = Tools.GetConnectionString(DbName);
             try
             {
-                using (SqlConnection conn = new SqlConnection(Tools.GetConnectionString("GenTreesDb")))
+                using (SqlConnection conn = new SqlConnection(Tools.GetConnectionString(DbName)))
                 {
                     conn.Open();
                     return Json(new { Message = connectionString + "      =>     " + "Ok!" }, JsonRequestBehavior.AllowGet);
@@ -48,7 +50,7 @@ namespace StridingSoft.Services.Controllers
         {
             try
             {
-                using (var db = new GenTreesEntities(Tools.GetConnectionString("GenTreesDb")))
+                using (var db = new GenTreesEntities(Tools.GetConnectionString(DbName)))
                 {
                     if (db.Users.Any(x => x.user_name == userName))
                     {
@@ -90,7 +92,7 @@ namespace StridingSoft.Services.Controllers
         {
             try
             {
-                using (var db = new GenTreesEntities(Tools.GetConnectionString("GenTreesDb"))) {
+                using (var db = new GenTreesEntities(Tools.GetConnectionString(DbName))) {
                     return db.Users.Any(x => x.user_name == userName);
                 }
             }
@@ -104,7 +106,7 @@ namespace StridingSoft.Services.Controllers
         {
             try
             {
-                using (var db = new GenTreesEntities(Tools.GetConnectionString("GenTreesDb")))
+                using (var db = new GenTreesEntities(Tools.GetConnectionString(DbName)))
                 {
                     if (db.Users.Any(x => x.user_name == userName))
                     {
