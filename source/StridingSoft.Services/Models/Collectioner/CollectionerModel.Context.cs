@@ -25,9 +25,10 @@ namespace StridingSoft.Services.Models.Collectioner
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<collection> collections { get; set; }
-        public virtual DbSet<item> items { get; set; }
-        public virtual DbSet<section> sections { get; set; }
-        public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<Collection> Collections { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

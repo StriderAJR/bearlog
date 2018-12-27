@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -211,10 +212,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Collectioner\collection.cs">
+    <Compile Include="Models\Collectioner\Collection.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
-      <Compile Include="Models\Collectioner\CollectionerEntities.cs" />
+    <Compile Include="Models\Collectioner\CollectionerEntities.cs" />
     <Compile Include="Models\Collectioner\CollectionerModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,13 +231,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CollectionerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Collectioner\item.cs">
+    <Compile Include="Models\Collectioner\Item.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Collectioner\section.cs">
+    <Compile Include="Models\Collectioner\Role.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Collectioner\user.cs">
+    <Compile Include="Models\Collectioner\Section.cs">
+      <DependentUpon>CollectionerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Collectioner\User.cs">
       <DependentUpon>CollectionerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GenTrees\GenTreesEntities.cs" />
