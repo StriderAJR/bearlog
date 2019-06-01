@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using StridingSoft.Services.Models.Collectioner;
-using StridingSoft.Services.Services;
+using StridingSoft.Models.Collectioner;
+using StridingSoft.Services;
 
-namespace StridingSoft.Services.Controllers {
+namespace StridingSoft.Controllers {
     public class CollectionerController : Controller {
         private const string DbName = "CollectionerDb";
 

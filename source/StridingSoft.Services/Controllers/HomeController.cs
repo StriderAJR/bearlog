@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace StridingSoft.Services.Controllers
+namespace StridingSoft.Controllers
 {
     public class HomeController : Controller
     {

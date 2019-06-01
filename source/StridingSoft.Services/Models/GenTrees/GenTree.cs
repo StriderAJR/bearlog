@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services.Models.GenTrees
+namespace StridingSoft.Models.GenTrees
 {
     using System;
     using System.Collections.Generic;
