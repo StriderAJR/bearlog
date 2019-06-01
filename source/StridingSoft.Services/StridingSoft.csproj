@@ -304,6 +304,7 @@
     <Content Include="Content\lib\ionicons\fonts\ionicons.woff" />
     <Content Include="Content\lib\owlcarousel\LICENSE" />
     <Content Include="Content\lib\owlcarousel\README.md" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\hosting.pubxml" />
     <None Include="Properties\PublishProfiles\server.pubxml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
