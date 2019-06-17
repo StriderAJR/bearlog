@@ -128,14 +128,18 @@ namespace StridingSoft.Controllers {
             }
         }
 
-        public JsonResult GetGenTrees(string token, string treeId) {
+        public JsonResult GetGenTrees(string token, int treeId) {
             if(!CheckHash(token)) return Json(new {
                 isSuccess = false,
                 message = "User token is wrong. Security access check failed."
-            });
+            }, JsonRequestBehavior.AllowGet);
 
             using (var db = new GenTreesEntities(Tools.GetConnectionString(DbName))) {
-
+                GenTree tree = db.GenTrees.First(x => x.id == treeId);
+                return Json(new {
+                    isSuccess = true,
+                    treeJson = tree.gentree_json
+                }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new
