@@ -290,3 +290,7 @@ __pycache__/
 # Secret resource file
 /source/StridingSoft.Services/Resources/Secret.resx
 source/StridingSoft\.Services/Resources/Secret\.Designer\.cs
+
+source/StridingSoft/Resources/Secret\.Designer\.cs
+
+source/StridingSoft/Resources/Secret\.resx
