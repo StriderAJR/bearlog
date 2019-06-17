@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Web.Mvc;
 using System.Linq;
-using System.Resources;
-using StridingSoft.Services.Models;
-using StridingSoft.Services.Models.GenTrees;
-using StridingSoft.Services.Services;
+using System.Web.Mvc;
+using StridingSoft.Models.GenTrees;
+using StridingSoft.Services;
 
-namespace StridingSoft.Services.Controllers
+namespace StridingSoft.Controllers
 {
     /// <summary>
     /// Контроллер для другого моего проекта GenTrees
@@ -145,6 +142,12 @@ namespace StridingSoft.Services.Controllers
                     stackTrace = e.StackTrace
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetGenTrees(string token) {
+            return Json(new
+            {
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

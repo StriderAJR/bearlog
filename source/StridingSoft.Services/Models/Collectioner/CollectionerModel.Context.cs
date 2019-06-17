@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StridingSoft.Services.Models.Collectioner
+namespace StridingSoft.Models.Collectioner
 {
     using System;
     using System.Data.Entity;

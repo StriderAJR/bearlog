@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace StridingSoft.Services.Services
+namespace StridingSoft.Services
 {
     public class Hash
     {

@@ -1,12 +1,12 @@
 ﻿using System.Web.Mvc;
 
-namespace StridingSoft.Services.Controllers
+namespace StridingSoft.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        public ActionResult Index()
         {
-            return "Bearlog project currently freezed";
+            return View();
         }
     }
 }
