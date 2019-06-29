@@ -576,6 +576,11 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
 
 #services .box h4 a { color: #444; }
 
+#services .box a {
+    color: #000000;
+    height: 20px;
+}
+
 #services .box p {
     font-size: 14px;
     margin-left: 100px;
@@ -810,12 +815,25 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
     color: #fff;
     padding: 15px;
     border-radius: 0 0 3px 3px;
+    height: 200px;
+}
+
+#team .member .details span {
+    height: 40px;
 }
 
 #team .member h4 {
     font-weight: 700;
     margin-bottom: 2px;
     font-size: 18px;
+    height: 50px;
+}
+
+#team .member h5 {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 26px;
+    font-style: italic;
 }
 
 #team .member span {
@@ -831,6 +849,12 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
 #team .member .social i {
     font-size: 16px;
     margin: 0 2px;
+}
+
+.logo-hh {
+    width: 18px;
+    height: 18px;
+    margin-top: -2px;
 }
 
 /* Contact Section

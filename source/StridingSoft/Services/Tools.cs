@@ -1,4 +1,4 @@
-﻿using StridingSoft.Resources;
+﻿using StridingSoft.Services.Resources;
 
 namespace StridingSoft.Services {
     public class Tools {
