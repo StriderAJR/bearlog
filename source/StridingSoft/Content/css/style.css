@@ -313,7 +313,7 @@ h6 {
 
 #nav-menu-container {
     float: right;
-    margin: 0;
+    margin-top: -40px;
 }
 
 /* Nav Meu Styling */
@@ -561,7 +561,7 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
 
 #services .box .icon i:before {
     background: #0c2e8a;
-    background: linear-gradient(45deg, #50d8af 0%, #a3ebd5 100%);
+    background: #50d8af;
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
