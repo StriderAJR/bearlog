@@ -588,6 +588,45 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
     line-height: 24px;
 }
 
+#services .box .status,
+#services .box .team,
+#services .box .description {
+    font-size: 14px;
+    margin-left: 100px;
+    margin-bottom: 0;
+    line-height: 24px;
+}
+
+#services .box .status {
+    font-style: italic;
+    margin-top: -10px;
+}
+
+#services .box .team .team-prev {
+    display: inline-block;
+    color: #dddddd;
+}
+
+#services .box .team .team-prev a { color: #dddddd; }
+
+#services .team { }
+
+#services .description {
+    text-align: justify
+}
+
+#services .big {
+    height: 667px;
+}
+
+#services .medium {
+    height: 500px;
+}
+
+#services .small {
+    height: 350px;
+}
+
 /* Clients Section
 --------------------------------*/
 
@@ -818,9 +857,7 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
     height: 200px;
 }
 
-#team .member .details span {
-    height: 40px;
-}
+#team .member .details span { height: 40px; }
 
 #team .member h4 {
     font-weight: 700;
@@ -834,6 +871,15 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
     font-size: 18px;
     line-height: 26px;
     font-style: italic;
+}
+
+#team h6 {
+    color: #999999;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 18px;
+    /* height: 25px; */
 }
 
 #team .member span {
