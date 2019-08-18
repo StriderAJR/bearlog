@@ -858,13 +858,14 @@ body.mobile-nav-active #mobile-nav-toggle { color: #fff; }
 }
 
 #team .member .details span { height: 40px; }
+#team .member .details span a { color: white; }
 
-#team .member h4 {
-    font-weight: 700;
-    margin-bottom: 2px;
-    font-size: 18px;
-    height: 50px;
-}
+    #team .member h4 {
+        font-weight: 700;
+        margin-bottom: 2px;
+        font-size: 18px;
+        height: 50px;
+    }
 
 #team .member h5 {
     font-weight: 300;
